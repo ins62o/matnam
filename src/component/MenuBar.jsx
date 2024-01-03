@@ -5,30 +5,38 @@ import { RiShoppingBagLine, RiShoppingBagFill } from "react-icons/ri";
 import {
   FaArrowUp,
   FaRegUser,
+  FaUser,
   FaUserCircle,
   FaRegUserCircle,
+  FaPlus,
+  FaAngleDown,
 } from "react-icons/fa";
-import { FaPlus, FaAngleDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { MenuState } from "../atom";
 export default function MenuBar() {
-  const [menu, setMenu] = useState({
-    home: true,
-    shop: false,
-    login: false,
-  });
-
   const [toggle, setToggle] = useState(false);
-
+  const menuState = useRecoilValue(MenuState);
   return (
     <MenuBox toggle={toggle.toString()}>
-      <div className="iconBox">
-        <IoHomeSharp className="menuBar-icon" />
+      <Link to="/" className="iconBox">
+        {menuState.home ? (
+          <IoHomeSharp className="menuBar-icon" />
+        ) : (
+          <IoHomeOutline className="menuBar-icon" />
+        )}
         <div>홈</div>
-      </div>
-      <div className="iconBox">
-        <RiShoppingBagLine className="menuBar-icon" />
+      </Link>
+
+      <Link to="/Shop" className="iconBox">
+        {menuState.shop ? (
+          <RiShoppingBagFill className="menuBar-icon" />
+        ) : (
+          <RiShoppingBagLine className="menuBar-icon" />
+        )}
+
         <div>쿡 쇼핑</div>
-      </div>
+      </Link>
       <div className="iconBox">
         <div className="icon-circle" onClick={() => setToggle(!toggle)}>
           {toggle ? (
@@ -42,18 +50,25 @@ export default function MenuBar() {
         <FaArrowUp className="menuBar-icon" />
         TOP
       </div>
-      <div className="iconBox">
-        <FaRegUser className="menuBar-icon" />
+      <Link to="/Login" className="iconBox">
+        {menuState.Login ? (
+          <FaUser className="menuBar-icon" />
+        ) : (
+          <FaRegUser className="menuBar-icon" />
+        )}
         로그인
-      </div>
-      <div className="sub-menuBox">
-        <div className="sub-menu sub-menu-one">
-          <div className="write-icon">📝</div>
-          <div>레시피쓰기</div>
-        </div>
-        <div className="sub-menu">
-          <div className="write-icon">📝</div>
-          <div>쿡쇼핑쓰기</div>
+      </Link>
+
+      <div className="subBox">
+        <div className="sub-menuBox">
+          <div className="sub-menu sub-menu-one">
+            <div className="write-icon">📝</div>
+            <div>레시피쓰기</div>
+          </div>
+          <div className="sub-menu">
+            <div className="write-icon">📝</div>
+            <div>쿡쇼핑쓰기</div>
+          </div>
         </div>
       </div>
     </MenuBox>
@@ -98,16 +113,13 @@ const MenuBox = styled.div`
   }
 
   .sub-menuBox {
-    position: absolute;
-    bottom: 65px;
-    right: 96px;
-    border: 1px solid black;
     border: 1px solid var(--dark-gray);
     display: flex;
     opacity: ${({ toggle }) => (toggle === "true" ? "1" : "0")};
     visibility: ${({ toggle }) => (toggle === "true" ? "visible" : "hidden")};
     border-radius: 10px;
     transition: all 0.5s ease 0s;
+    background-color: #fff;
   }
 
   .sub-menu {
@@ -125,5 +137,13 @@ const MenuBox = styled.div`
 
   .write-icon {
     margin-bottom: 3px;
+  }
+
+  .subBox {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 `;
