@@ -16,7 +16,6 @@ const LogoBox = styled.div`
   height: 60px;
   text-align: center;
   padding: 10px 0px;
-  border-bottom: 1px solid var(--hover-gray);
 
   img {
     height: 100%;

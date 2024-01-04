@@ -159,6 +159,10 @@ const Container = styled.div`
     margin-bottom: 10px;
   }
 
+  .inputStyle::placeholder {
+    font-weight: 400;
+  }
+
   .btn-box {
     display: flex;
     justify-content: center;
