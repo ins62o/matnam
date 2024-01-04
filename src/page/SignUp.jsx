@@ -6,12 +6,13 @@ import { Toast } from "../sweetalert";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
+  // 선언
+  const navigate = useNavigate();
+  // 회원가입 데이터 Ref
   const nicknameRef = useRef();
   const idRef = useRef();
   const pwRef = useRef();
   const pwcheckRef = useRef();
-  const navigate = useNavigate();
-
   // 회원가입 체크
   const checkSignUp = () => {
     if (
@@ -71,16 +72,36 @@ export default function SignUp() {
         </div>
 
         <div className="inputBox">
-          <p>닉네임</p>
-          <input type="text" className="inputStyle" ref={nicknameRef} />
-          <p>아이디</p>
-          <input type="text" className="inputStyle" ref={idRef} />
+          <div className="inputTitle">닉네임</div>
+          <input
+            type="text"
+            className="inputStyle"
+            ref={nicknameRef}
+            placeholder="사용하실 닉네임을 입력해주세요."
+          />
+          <div className="inputTitle">아이디</div>
+          <input
+            type="text"
+            className="inputStyle"
+            ref={idRef}
+            placeholder="이메일을 적어주세요."
+          />
 
-          <p>패스워드</p>
-          <input type="password" className="inputStyle" ref={pwRef} />
+          <div className="inputTitle">패스워드</div>
+          <input
+            type="password"
+            className="inputStyle"
+            ref={pwRef}
+            placeholder="패스워드를 적어주세요."
+          />
 
-          <p>패스워드 확인</p>
-          <input type="password" className="inputStyle" ref={pwcheckRef} />
+          <div className="inputTitle">패스워드 확인</div>
+          <input
+            type="password"
+            className="inputStyle"
+            ref={pwcheckRef}
+            placeholder="한번 더 입력해주세요."
+          />
         </div>
         <div className="btn-box">
           <button className="OKBtn" onClick={checkSignUp}>
@@ -115,14 +136,15 @@ const Container = styled.div`
     color: var(--main-color);
   }
 
+  .inputTitle {
+    width: 310px;
+  }
+
   .inputBox {
     display: flex;
     flex-direction: column;
-  }
-
-  .inputBox p {
+    align-items: center;
     padding: 10px 10px 0px 0px;
-    margin-left: 30px;
     font-weight: 700;
   }
 
@@ -135,7 +157,6 @@ const Container = styled.div`
     outline: none;
     transition: all 0.4s ease 0s;
     margin-bottom: 10px;
-    margin-left: 30px;
   }
 
   .btn-box {
