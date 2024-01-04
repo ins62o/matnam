@@ -145,6 +145,10 @@ button {
   color: black;
 }
 
+input::placeholder {
+  font-family: "Pretendard-Regular";
+}
+
 a {
   color: black;
   text-decoration: none;
