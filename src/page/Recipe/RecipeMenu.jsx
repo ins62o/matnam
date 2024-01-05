@@ -57,38 +57,38 @@ export default function RecipeMenu() {
           <div className="menu-Container">
             <div className="menu-list">
               <div className="menu-box">
-                <div className="menu-icon">🍚</div>
-                <div className="menu-name">밥·죽</div>
+                <div className="menu-icon">🥘</div>
+                <div className="menu-name">메인반찬</div>
+              </div>
+              <div className="menu-box">
+                <div className="menu-icon">🍳</div>
+                <div className="menu-name">밑반찬</div>
               </div>
               <div className="menu-box">
                 <div className="menu-icon">🍲</div>
-                <div className="menu-name">국·찌개</div>
+                <div className="menu-name">국·탕</div>
+              </div>
+              <div className="menu-box">
+                <div className="menu-icon">🍚</div>
+                <div className="menu-name">밥·죽</div>
+              </div>
+            </div>
+            <div className="menu-list">
+              <div className="menu-box">
+                <div className="menu-icon">🍤</div>
+                <div className="menu-name">튀김</div>
               </div>
               <div className="menu-box">
                 <div className="menu-icon">🍜</div>
                 <div className="menu-name">면요리</div>
               </div>
               <div className="menu-box">
-                <div className="menu-icon">🍱</div>
-                <div className="menu-name">도시락</div>
-              </div>
-            </div>
-            <div className="menu-list">
-              <div className="menu-box">
-                <div className="menu-icon">🌶️</div>
-                <div className="menu-name">김치·젓갈</div>
-              </div>
-              <div className="menu-box">
                 <div className="menu-icon">🧉</div>
                 <div className="menu-name">양념·소스</div>
               </div>
               <div className="menu-box">
-                <div className="menu-icon">🍤</div>
-                <div className="menu-name">튀김</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🥗</div>
-                <div className="menu-name">셀러드</div>
+                <div className="menu-icon">🌶️</div>
+                <div className="menu-name">김치·젓갈</div>
               </div>
             </div>
           </div>
@@ -97,34 +97,34 @@ export default function RecipeMenu() {
           <div className="menu-Container">
             <div className="menu-list">
               <div className="menu-box">
-                <div className="menu-icon">🍙</div>
-                <div className="menu-name">편의점요리</div>
+                <div className="menu-icon">🥗</div>
+                <div className="menu-name">셀러드</div>
               </div>
               <div className="menu-box">
-                <div className="menu-icon">🍸</div>
-                <div className="menu-name">칵테일</div>
+                <div className="menu-icon">🥖</div>
+                <div className="menu-name">빵</div>
               </div>
               <div className="menu-box">
-                <div className="menu-icon">🍭</div>
-                <div className="menu-name">간식</div>
+                <div className="menu-icon">🍨</div>
+                <div className="menu-name">디저트</div>
               </div>
               <div className="menu-box">
                 <div className="menu-icon">🍵</div>
-                <div className="menu-name">차</div>
+                <div className="menu-name">차·음료</div>
               </div>
             </div>
             <div className="menu-list">
               <div className="menu-box">
-                <div className="menu-icon">🥖</div>
-                <div className="menu-name">빵</div>
+                <div className="menu-icon">🍙</div>
+                <div className="menu-name">편의점요리</div>
               </div>
               <div className="menu-box">
                 <div className="menu-icon">🍺</div>
                 <div className="menu-name">술</div>
               </div>
               <div className="menu-box">
-                <div className="menu-icon">🍧</div>
-                <div className="menu-name">아이스크림</div>
+                <div className="menu-icon">🍱</div>
+                <div className="menu-name">도시락</div>
               </div>
               <div className="menu-box">
                 <div className="menu-icon">🍽️</div>
@@ -263,7 +263,7 @@ const MenuBox = styled.div`
       url(${event});
     background-position: center;
     background-size: cover;
-    height: 80px;
+    height: 100px;
     border-radius: 10px;
     margin-top: 15px;
   }
@@ -289,7 +289,7 @@ const MenuBox = styled.div`
   }
 
   .event-info {
-    font-size: 0.8rem;
+    font-size: 1rem;
     line-height: 1.5;
     color: #fff;
   }

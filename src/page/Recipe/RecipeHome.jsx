@@ -3,6 +3,11 @@ import LogoBar from "./../../component/LogoBar";
 import MenuBar from "../../component/MenuBar";
 import { MenuState } from "../../atom";
 import { useRecoilState } from "recoil";
+import RecipeMenu from "./RecipeMenu";
+import RecipeBest from "./RecipeBest";
+import styled from "styled-components";
+import RecipeNew from "./RecipeNew";
+import Footer from "../../component/Footer";
 
 export default function RecipeHome() {
   const [menu, setMenu] = useRecoilState(MenuState);
@@ -22,10 +27,18 @@ export default function RecipeHome() {
   }, [menu.home]);
 
   return (
-    <>
+    <Container>
       <LogoBar />
       <MenuBar />
-      <div>레시피홈</div>
-    </>
+      <RecipeMenu />
+      <RecipeBest />
+      <RecipeNew />
+      <Footer />
+    </Container>
   );
 }
+
+const Container = styled.div`
+  overflow: auto;
+  padding-bottom: 80px;
+`;
