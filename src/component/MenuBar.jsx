@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { IoHomeOutline, IoHomeSharp } from "react-icons/io5";
 import { RiShoppingBagLine, RiShoppingBagFill } from "react-icons/ri";
+import { animateScroll as scroll } from "react-scroll";
 import {
   FaArrowUp,
   FaRegUser,
@@ -17,6 +18,9 @@ import { MenuState } from "../atom";
 export default function MenuBar() {
   const [toggle, setToggle] = useState(false);
   const menuState = useRecoilValue(MenuState);
+  const scrollToTop = () => {
+    scroll.scrollToTop();
+  };
   return (
     <MenuBox toggle={toggle.toString()}>
       <Link to="/" className="iconBox">
@@ -47,7 +51,7 @@ export default function MenuBar() {
         </div>
       </div>
       <div className="iconBox">
-        <FaArrowUp className="menuBar-icon" />
+        <FaArrowUp className="menuBar-icon" onClick={scrollToTop} />
         TOP
       </div>
       <Link to="/Login" className="iconBox">
@@ -145,5 +149,7 @@ const MenuBox = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
+    opacity: ${({ toggle }) => (toggle === "true" ? "1" : "0")};
+    visibility: ${({ toggle }) => (toggle === "true" ? "visible" : "hidden")};
   }
 `;

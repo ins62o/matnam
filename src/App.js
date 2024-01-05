@@ -5,12 +5,14 @@ import SignUp from "./page/SignUp";
 import { RecoilRoot } from "recoil";
 import RecipeHome from "./page/Recipe/RecipeHome";
 import ShopHome from "./page/Shop/ShopHome";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   return (
     <>
       <RecoilRoot>
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<RecipeHome />}></Route>
             <Route path="/Login" element={<Login />}></Route>
