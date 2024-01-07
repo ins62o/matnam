@@ -7,6 +7,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
 import event from "../../asset/event.jpg";
+import { Link } from "react-router-dom";
 export default function RecipeMenu() {
   return (
     <MenuBox>
@@ -56,80 +57,116 @@ export default function RecipeMenu() {
         <SwiperSlide>
           <div className="menu-Container">
             <div className="menu-list">
-              <div className="menu-box">
-                <div className="menu-icon">🥘</div>
-                <div className="menu-name">메인반찬</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🍳</div>
-                <div className="menu-name">밑반찬</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🍲</div>
-                <div className="menu-name">국·탕</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🍚</div>
-                <div className="menu-name">밥·죽</div>
-              </div>
+              <Link to="/recipeFeed/2" className="menu-box">
+                <div>
+                  <div className="menu-icon">🥘</div>
+                  <div className="menu-name">메인반찬</div>
+                </div>
+              </Link>
+              <Link to="/recipeFeed/3" className="menu-box">
+                <div>
+                  <div className="menu-icon">🍳</div>
+                  <div className="menu-name">밑반찬</div>
+                </div>
+              </Link>
+              <Link to="/recipeFeed/4" className="menu-box">
+                <div>
+                  <div className="menu-icon">🍲</div>
+                  <div className="menu-name">국·탕</div>
+                </div>
+              </Link>
+              <Link to="/recipeFeed/5" className="menu-box">
+                <div>
+                  <div className="menu-icon">🍚</div>
+                  <div className="menu-name">밥·죽</div>
+                </div>
+              </Link>
             </div>
             <div className="menu-list">
-              <div className="menu-box">
-                <div className="menu-icon">🍤</div>
-                <div className="menu-name">튀김</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🍜</div>
-                <div className="menu-name">면요리</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🧉</div>
-                <div className="menu-name">양념·소스</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🌶️</div>
-                <div className="menu-name">김치·젓갈</div>
-              </div>
+              <Link to="/recipeFeed/6" className="menu-box">
+                <div>
+                  <div className="menu-icon">🍤</div>
+                  <div className="menu-name">튀김</div>
+                </div>
+              </Link>
+              <Link to="/recipeFeed/7" className="menu-box">
+                <div>
+                  <div className="menu-icon">🍜</div>
+                  <div className="menu-name">면요리</div>
+                </div>
+              </Link>
+              <Link to="/recipeFeed/8" className="menu-box">
+                <div>
+                  <div className="menu-icon">🧉</div>
+                  <div className="menu-name">양념·소스</div>
+                </div>
+              </Link>
+              <Link to="/recipeFeed/9" className="menu-box">
+                <div>
+                  <div className="menu-icon">🌶️</div>
+                  <div className="menu-name">김치·젓갈</div>
+                </div>
+              </Link>
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="menu-Container">
             <div className="menu-list">
-              <div className="menu-box">
-                <div className="menu-icon">🥗</div>
-                <div className="menu-name">셀러드</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🥖</div>
-                <div className="menu-name">빵</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🍨</div>
-                <div className="menu-name">디저트</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🍵</div>
-                <div className="menu-name">차·음료</div>
-              </div>
+              <Link to="/recipeFeed/10" className="menu-box">
+                <div>
+                  <div className="menu-icon">🥗</div>
+                  <div className="menu-name">셀러드</div>
+                </div>
+              </Link>
+              <Link to="/recipeFeed/11" className="menu-box">
+                <div>
+                  <div className="menu-icon">🥖</div>
+                  <div className="menu-name">빵</div>
+                </div>
+              </Link>
+              <Link to="/recipeFeed/12" className="menu-box">
+                <div>
+                  <div className="menu-icon">🍨</div>
+                  <div className="menu-name">디저트</div>
+                </div>
+              </Link>
+
+              <Link to="/recipeFeed/13" className="menu-box">
+                <div>
+                  <div className="menu-icon">🍵</div>
+                  <div className="menu-name">차·음료</div>
+                </div>
+              </Link>
             </div>
             <div className="menu-list">
-              <div className="menu-box">
-                <div className="menu-icon">🍙</div>
-                <div className="menu-name">편의점요리</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🍺</div>
-                <div className="menu-name">술</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🍱</div>
-                <div className="menu-name">도시락</div>
-              </div>
-              <div className="menu-box">
-                <div className="menu-icon">🍽️</div>
-                <div className="menu-name">기타</div>
-              </div>
+              <Link to="/recipeFeed/14" className="menu-box">
+                <div>
+                  <div className="menu-icon">🍙</div>
+                  <div className="menu-name">편의점요리</div>
+                </div>
+              </Link>
+
+              <Link to="/recipeFeed/15" className="menu-box">
+                <div>
+                  <div className="menu-icon">🍺</div>
+                  <div className="menu-name">술</div>
+                </div>
+              </Link>
+
+              <Link to="/recipeFeed/16" className="menu-box">
+                <div>
+                  <div className="menu-icon">🍱</div>
+                  <div className="menu-name">도시락</div>
+                </div>
+              </Link>
+
+              <Link to="/recipeFeed/17" className="menu-box">
+                <div>
+                  <div className="menu-icon">🍽️</div>
+                  <div className="menu-name">기타</div>
+                </div>
+              </Link>
             </div>
           </div>
         </SwiperSlide>
@@ -251,11 +288,13 @@ const MenuBox = styled.div`
 
   .menu-icon {
     font-size: 1.5rem;
+    text-align: center;
   }
 
   .menu-name {
     margin-top: 5px;
     font-weight: 700;
+    text-align: center;
   }
 
   .event-banner {

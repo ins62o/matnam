@@ -2,15 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { FaAngleRight } from "react-icons/fa6";
 import RecipeBox from "../../component/RecipeBox";
+import { Link } from "react-router-dom";
 export default function RecipeNew() {
   return (
     <Container>
       <div className="new-title">
         <div className="title">방금 나온 신상 레시피🎉</div>
-        <div className="all">
-          전체 보기
-          <FaAngleRight />
-        </div>
+        <Link to="/recipeFeed/1">
+          <div className="all">
+            전체 보기
+            <FaAngleRight />
+          </div>
+        </Link>
       </div>
       <div className="Box">
         <RecipeBox />
