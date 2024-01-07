@@ -143,9 +143,14 @@ button {
   cursor: pointer;
   font-weight: 700;
   color: black;
+  background-color: #fff;
 }
 
 input::placeholder {
+  font-family: "Pretendard-Regular";
+}
+
+textarea::placeholder {
   font-family: "Pretendard-Regular";
 }
 
