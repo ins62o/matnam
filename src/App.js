@@ -6,6 +6,10 @@ import { RecoilRoot } from "recoil";
 import RecipeHome from "./page/Recipe/RecipeHome";
 import ShopHome from "./page/Shop/ShopHome";
 import ScrollToTop from "./ScrollToTop";
+import RecipeWriteOne from "./page/Recipe/RecipeWriteOne";
+import RecipeWriteTwo from "./page/Recipe/RecipeWriteTwo";
+import RecipeWriteThree from "./page/Recipe/RecipeWriteThree";
+import RecipeFeed from "./page/Recipe/RecipeFeed";
 
 function App() {
   return (
@@ -15,6 +19,16 @@ function App() {
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<RecipeHome />}></Route>
+            <Route
+              path="/recipeFeed/:category"
+              element={<RecipeFeed />}
+            ></Route>
+            <Route path="/RecipeWrite" element={<RecipeWriteOne />}></Route>
+            <Route path="/RecipeWriteTwo" element={<RecipeWriteTwo />}></Route>
+            <Route
+              path="/RecipeWriteThree"
+              element={<RecipeWriteThree />}
+            ></Route>
             <Route path="/Login" element={<Login />}></Route>
             <Route path="/SignUP" element={<SignUp />}></Route>
             <Route path="/Shop" element={<ShopHome />}></Route>

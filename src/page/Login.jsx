@@ -6,12 +6,12 @@ import Logo from "../asset/Logo.png";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { MenuState } from "../atom";
+import { MenuStateAtom } from "../atom";
 import { useRecoilState } from "recoil";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [menu, setMenu] = useRecoilState(MenuState);
+  const [menu, setMenu] = useRecoilState(MenuStateAtom);
 
   useEffect(() => {
     setMenu((prev) => ({

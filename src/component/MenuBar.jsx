@@ -14,10 +14,10 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { MenuState } from "../atom";
+import { MenuStateAtom } from "../atom";
 export default function MenuBar() {
   const [toggle, setToggle] = useState(false);
-  const menuState = useRecoilValue(MenuState);
+  const menuState = useRecoilValue(MenuStateAtom);
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
@@ -65,10 +65,13 @@ export default function MenuBar() {
 
       <div className="subBox">
         <div className="sub-menuBox">
-          <div className="sub-menu sub-menu-one">
-            <div className="write-icon">📝</div>
-            <div>레시피쓰기</div>
-          </div>
+          <Link to="/RecipeWrite">
+            <div className="sub-menu sub-menu-one">
+              <div className="write-icon">📝</div>
+              <div>레시피쓰기</div>
+            </div>
+          </Link>
+
           <div className="sub-menu">
             <div className="write-icon">📝</div>
             <div>쿡쇼핑쓰기</div>
