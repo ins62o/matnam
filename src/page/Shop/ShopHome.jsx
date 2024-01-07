@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import LogoBar from "../../component/LogoBar";
 import MenuBar from "../../component/MenuBar";
-import { MenuState } from "../../atom";
+import { MenuStateAtom } from "../../atom";
 import { useRecoilState } from "recoil";
 
 export default function ShopHome() {
-  const [menu, setMenu] = useRecoilState(MenuState);
+  const [menu, setMenu] = useRecoilState(MenuStateAtom);
 
   useEffect(() => {
     setMenu((prev) => ({

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LogoBar from "./../../component/LogoBar";
 import MenuBar from "../../component/MenuBar";
-import { MenuState } from "../../atom";
+import { MenuStateAtom } from "../../atom";
 import { useRecoilState } from "recoil";
 import RecipeMenu from "./RecipeMenu";
 import RecipeBest from "./RecipeBest";
@@ -10,7 +10,7 @@ import RecipeNew from "./RecipeNew";
 import Footer from "../../component/Footer";
 
 export default function RecipeHome() {
-  const [menu, setMenu] = useRecoilState(MenuState);
+  const [menu, setMenu] = useRecoilState(MenuStateAtom);
 
   useEffect(() => {
     setMenu((prev) => ({
