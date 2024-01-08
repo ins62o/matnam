@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 export default function FeedCard() {
   return (
@@ -11,22 +12,24 @@ export default function FeedCard() {
         <div className="user-name">닉네임</div>
       </div>
       <div className="image-box">
-        <div className="how-many">1 / 3</div>
+        <div className="how-many">1/3</div>
       </div>
       <div className="icon-box">
         <div className="heart-icon">
           <FaHeart className="icon" />
-          <div className="count">12</div>
+          <div className="count">12명이 좋아해요</div>
         </div>
       </div>
-      <div className="recipe-title">
-        <div>
-          <b className="bold">[레시피]</b> 맛좋은 된장국
+      <Link to="/RecipeDetail/1">
+        <div className="recipe-title">
+          <div>
+            <b className="bold">[ 국·탕 ]</b> 맛좋은 된장국 레시피 보러가기
+          </div>
+          <div>
+            <FaAngleRight className="icon-right" />
+          </div>
         </div>
-        <div>
-          <FaAngleRight className="icon-right" />
-        </div>
-      </div>
+      </Link>
     </Container>
   );
 }
@@ -62,7 +65,7 @@ const Container = styled.div`
 
   .icon-box {
     display: flex;
-    margin-top: 5px;
+    margin-top: 10px;
     font-size: 1.1rem;
     margin-left: 10px;
   }
@@ -75,6 +78,8 @@ const Container = styled.div`
   .icon {
     margin-right: 5px;
     color: red;
+    width: 20px;
+    height: 20px;
   }
 
   .icon-right {
@@ -84,9 +89,9 @@ const Container = styled.div`
   .recipe-title {
     border: 1px solid var(--dark-gray);
     padding: 10px 0px 10px 10px;
-    margin-top: 10px;
     display: flex;
     justify-content: space-between;
+    margin: 10px;
   }
 
   .count {
@@ -102,10 +107,13 @@ const Container = styled.div`
     position: absolute;
     top: 0;
     right: 0;
-    padding: 7px;
     margin: 7px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
+    border-radius: 10px;
+    background-color: var(--point-color);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
   }
 `;
