@@ -6,21 +6,19 @@ import { GiCook } from "react-icons/gi";
 export default function RecipeBox() {
   return (
     <Container>
-      <div className="image-box">
-        <FaRegHeart className="heart-icon" />
-      </div>
+      <div className="image-box"></div>
       <div className="info-box">
+        <div className="heart-box">
+          <FaHeart className="icon" />
+          <div className="heart-count">12명이 좋아해요</div>
+        </div>
         <div className="info-title">
           <b className="bold">[국·탕]</b> 맛좋은 된장국
         </div>
         <div className="info-heart">
-          <div>
-            <GiCook />
-            요리고수
-          </div>
-          <div className="heart-box">
-            <FaHeart className="icon" />
-            <div className="heart-count">12</div>
+          <div className="user">
+            <div className="profile-image"></div>
+            <div>닉네임</div>
           </div>
         </div>
       </div>
@@ -35,22 +33,27 @@ const Container = styled.div`
   flex-direction: column;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
   padding: 10px;
+  margin-right: 10px;
+  width: 50%;
 
   .image-box {
-    width: 100%;
-    height: 150px;
     border-radius: 10px;
     border: 1px solid var(--dark-gray);
     position: relative;
+    height: 150px;
   }
 
-  .heart-icon {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 5px;
-    font-size: 1.3rem;
-    color: var(--dark-gray);
+  .profile-image {
+    border: 1px solid var(--dark-gray);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 3px;
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
   }
 
   .info-box {
@@ -64,20 +67,24 @@ const Container = styled.div`
   .info-heart {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   .icon {
-    margin-right: 3px;
-    color: pink;
+    margin-right: 5px;
+    color: red;
+    width: 20px;
+    height: 20px;
   }
 
   .heart-box {
     display: flex;
+    margin-bottom: 10px;
   }
 
   .heart-count {
     display: flex;
     align-items: center;
-    color: red;
+    font-weight: 700;
     font-size: 0.8rem;
   }
 

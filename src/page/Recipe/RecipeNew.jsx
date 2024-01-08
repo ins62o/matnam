@@ -18,8 +18,6 @@ export default function RecipeNew() {
       <div className="Box">
         <RecipeBox />
         <RecipeBox />
-        <RecipeBox />
-        <RecipeBox />
       </div>
     </Container>
   );
@@ -48,9 +46,8 @@ const Container = styled.div`
   }
 
   .Box {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    display: flex;
+    justify-content: center;
   }
 
   .more-card {

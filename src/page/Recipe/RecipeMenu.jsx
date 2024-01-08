@@ -174,10 +174,10 @@ export default function RecipeMenu() {
       <div className="event-banner">
         <div className="event-titleBox">
           <div className="event-title">
-            #나만 아는 편의점 <b className="big">꿀</b> 조합
+            나만의 편의점 <b className="big">꿀</b> 조합
           </div>
           <div className="event-info">
-            편의점 꿀조합 업로드하고 기프티콘 받아가세요!
+            레시피 업로드하고 기프티콘 받아가세요!
           </div>
         </div>
       </div>

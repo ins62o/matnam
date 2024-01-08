@@ -12,16 +12,13 @@ export default function RecipeCard({ color }) {
             <b className="tag">[ 국·탕 ]</b> 맛좋은 된장국
           </div>
           <div className="write">
-            <GiCook className="write-icon" />
-            요리고수
+            <div className="profile-image"></div>
+            <div>닉네임</div>
           </div>
           <div className="heart-box">
-            <FaHeart className="heart-icon" />
-            <div className="heart-count">16</div>
+            <FaRegHeart className="heart-icon" />
+            <div className="heart-count">16명이 좋아해요</div>
           </div>
-        </div>
-        <div className="check-heart">
-          <FaRegHeart />
         </div>
       </div>
     </Container>
@@ -34,6 +31,14 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  .profile-image {
+    border: 1px solid var(--dark-gray);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 3px;
   }
   .cardBox {
     border: 1px solid ${({ color }) => color || "pink"};
@@ -58,6 +63,7 @@ const Container = styled.div`
 
   .write {
     display: flex;
+    align-items: center;
   }
 
   .heart-box {
@@ -70,20 +76,16 @@ const Container = styled.div`
   }
 
   .heart-icon {
-    margin-right: 3px;
-    color: pink;
-  }
-
-  .check-heart {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 10px;
-    font-size: 1.3rem;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    color: red;
   }
 
   .heart-count {
-    color: red;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
     font-size: 0.8rem;
   }
 `;
