@@ -10,6 +10,7 @@ import RecipeWriteOne from "./page/Recipe/RecipeWriteOne";
 import RecipeWriteTwo from "./page/Recipe/RecipeWriteTwo";
 import RecipeWriteThree from "./page/Recipe/RecipeWriteThree";
 import RecipeFeed from "./page/Recipe/RecipeFeed";
+import RecipeDetail from "./page/Recipe/RecipeDetail";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               path="/RecipeWriteThree"
               element={<RecipeWriteThree />}
             ></Route>
+            <Route path="/RecipeDetail/:id" element={<RecipeDetail />}></Route>
             <Route path="/Login" element={<Login />}></Route>
             <Route path="/SignUP" element={<SignUp />}></Route>
             <Route path="/Shop" element={<ShopHome />}></Route>
