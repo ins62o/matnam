@@ -26,6 +26,7 @@ export default function RecipeCard({ color }) {
 }
 
 const Container = styled.div`
+  margin-bottom: 10px;
   .info-box {
     width: 60%;
     display: flex;
@@ -41,7 +42,7 @@ const Container = styled.div`
     margin-right: 3px;
   }
   .cardBox {
-    border: 1px solid ${({ color }) => color || "pink"};
+    border: 1px solid ${({ color }) => color || "var(--dark-gray)"};
     height: 80px;
     border-radius: 10px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);

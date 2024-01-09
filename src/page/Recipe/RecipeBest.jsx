@@ -43,7 +43,6 @@ const Container = styled.div`
 
   .card-container {
     display: flex;
-    margin-bottom: 10px;
     position: relative;
   }
 
