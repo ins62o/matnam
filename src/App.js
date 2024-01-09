@@ -11,6 +11,8 @@ import RecipeWriteTwo from "./page/Recipe/RecipeWriteTwo";
 import RecipeWriteThree from "./page/Recipe/RecipeWriteThree";
 import RecipeFeed from "./page/Recipe/RecipeFeed";
 import RecipeDetail from "./page/Recipe/RecipeDetail";
+import MyPage from "./page/Mypage/MyPage";
+import ChatList from "./page/ChatList";
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
             <Route path="/Login" element={<Login />}></Route>
             <Route path="/SignUP" element={<SignUp />}></Route>
             <Route path="/Shop" element={<ShopHome />}></Route>
+            <Route path="/Mypage" element={<MyPage />}></Route>
+            <Route path="/chatList" element={<ChatList />}></Route>
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
