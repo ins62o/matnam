@@ -13,6 +13,7 @@ import RecipeFeed from "./page/Recipe/RecipeFeed";
 import RecipeDetail from "./page/Recipe/RecipeDetail";
 import MyPage from "./page/Mypage/MyPage";
 import ChatList from "./page/ChatList";
+import ChatRoom from "./page/ChatRoom";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/Shop" element={<ShopHome />}></Route>
             <Route path="/Mypage" element={<MyPage />}></Route>
             <Route path="/chatList" element={<ChatList />}></Route>
+            <Route path="/chatroom" element={<ChatRoom />}></Route>
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
