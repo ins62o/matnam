@@ -6,7 +6,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import FeedCard from "../../component/FeedCard";
 import { useParams } from "react-router-dom";
 import categorylist from "../../category";
-import RecipeBox from "../../component/RecipeBox";
+import RecipeBox from "./../../component/RecipeBox";
 export default function RecipeFeed() {
   const { category } = useParams();
   const [name, setName] = useState("");
@@ -33,24 +33,24 @@ export default function RecipeFeed() {
           맛남의 <b className="point">{name}</b> 레시피를 살펴보세요 !
         </div>
         <div className="card-box">
-          <FeedCard />
-          <FeedCard />
-          <FeedCard />
-          <FeedCard />
+          <RecipeBox />
+          <RecipeBox />
+          <RecipeBox />
         </div>
+        <MenuBar />
       </Container>
-
-      <MenuBar />
     </>
   );
 }
 
 const Container = styled.div`
+  max-width: 480px;
+  margin: 0 auto;
   .search-box {
     display: flex;
     align-items: center;
     height: 40px;
-    background-color: var(--hover-gray);
+    background-color: var(--gray-200);
     border-radius: 10px;
     margin: 0px 10px;
   }
@@ -58,7 +58,6 @@ const Container = styled.div`
   .search-input {
     width: 80%;
     height: 100%;
-    background-color: var(--hover-gray);
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0);
     outline: none;
@@ -83,5 +82,6 @@ const Container = styled.div`
 
   .card-box {
     padding-bottom: 80px;
+    margin: 0 10px;
   }
 `;

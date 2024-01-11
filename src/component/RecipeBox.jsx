@@ -2,11 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { GiCook } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 export default function RecipeBox() {
   return (
     <Container>
-      <div className="image-box"></div>
+      <Link to="RecipeDetail/1">
+        <div className="image-box"></div>
+      </Link>
       <div className="recipe-info">
         <div className="profile-box">
           <div className="user-profile"></div>
@@ -31,12 +34,14 @@ const Container = styled.div`
   height: 300px;
   box-shadow: var(--box-shadow);
   margin-bottom: 20px;
+  padding-bottom: 10px;
 
   .image-box {
     width: 100%;
     height: 70%;
     background-color: beige;
     border-radius: 10px 10px 0px 0px;
+    cursor: pointer;
   }
 
   .recipe-info {

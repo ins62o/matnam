@@ -26,8 +26,8 @@ export default function RecipeWriteTwo() {
 
   return (
     <>
-      <RecipeBar level={50} />
       <Container>
+        <RecipeBar level={50} />
         <div className="title">재료 등록</div>
         <div className="box-container">
           {ingredients.map((ingredient) => (
@@ -62,22 +62,24 @@ export default function RecipeWriteTwo() {
             </button>
           </div>
         </div>
+        <RecipeBtnBar next={"RecipeWriteThree"} />
       </Container>
-      <RecipeBtnBar next={"RecipeWriteThree"} />
     </>
   );
 }
 
 const Container = styled.div`
+  max-width: 480px;
+  margin: 0 auto;
   .box-container {
     overflow: auto;
     height: 60vh;
   }
   .title {
-    margin-top: 30px;
     padding: 10px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 700;
+    margin: 90px 10px 0px 10px;
   }
 
   .box {
@@ -112,7 +114,7 @@ const Container = styled.div`
     margin-left: 10px;
     border-radius: 10px;
     padding-left: 10px;
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-400);
     outline: none;
   }
 

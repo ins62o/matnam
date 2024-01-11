@@ -17,7 +17,6 @@ export default function RecipeNew() {
       </div>
       <div className="Box">
         <RecipeBox />
-        <RecipeBox />
       </div>
     </Container>
   );

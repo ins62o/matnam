@@ -169,3 +169,21 @@ a {
   --gray-900: #333333;
   --box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
 }
+
+::-webkit-scrollbar {
+  background-color: var(--gray-200);
+  border-radius: 10px;
+  width: 10px;
+}
+
+/* 스크롤바 막대 꾸미기 */
+::-webkit-scrollbar-thumb {
+  background-color: var(--gray-400);
+  border-radius: 10px;
+}
+
+/* 스크롤바 트랙 꾸미기 */
+::-webkit-scrollbar-track {
+  background-color: var(--gray-200);
+  border-radius: 10px;
+}

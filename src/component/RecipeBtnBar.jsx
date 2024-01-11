@@ -32,6 +32,7 @@ export default function RecipeBtnBar({ next }) {
 }
 
 const Container = styled.div`
+  max-width: 480px;
   text-align: center;
   position: fixed;
   bottom: 0;
@@ -45,7 +46,7 @@ const Container = styled.div`
   }
 
   .goBack {
-    background-color: var(--dark-gray);
+    background-color: var(--gray-300);
     margin-right: 10px;
   }
 

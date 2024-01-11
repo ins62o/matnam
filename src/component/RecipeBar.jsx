@@ -10,17 +10,16 @@ export default function RecipeBar({ level }) {
   const navigate = useNavigate();
   return (
     <Container>
-      <div className="title">
+      <div className="titleBar">
         <Link to="/">
           <img src={Logo} alt="로고" className="logo" />
         </Link>
-
         <div>레시피작성</div>
         <div>
           <FaTimes className="icon-fa" onClick={() => navigate(-1)} />
         </div>
       </div>
-      <div className="level-box">
+      <div className="level-boxes">
         <div>레시피 정보</div>
         <div>재료 등록</div>
         <div>조리 방법</div>
@@ -31,7 +30,8 @@ export default function RecipeBar({ level }) {
 }
 
 const Container = styled.div`
-  .title {
+  height: 60px;
+  .titleBar {
     padding: 10px;
     font-size: 1.3rem;
     display: flex;
@@ -48,9 +48,10 @@ const Container = styled.div`
   .icon-fa {
     margin-right: 10px;
     font-size: 1.5rem;
+    cursor: pointer;
   }
 
-  .level-box {
+  .level-boxes {
     display: flex;
     justify-content: space-between;
     margin: 0px 10px;

@@ -21,8 +21,8 @@ export default function RecipeWriteOne() {
   };
   return (
     <>
-      <RecipeBar level={10} />
       <Container>
+        <RecipeBar level={10} />
         <div className="recipe-nameBox">
           <div className="title"> 레시피 이름</div>
           <div className="input-box">
@@ -173,24 +173,27 @@ export default function RecipeWriteOne() {
             </SwiperSlide>
           </Swiper>
         </div>
+        <RecipeBtnBar next={"RecipeWriteTwo"} />
       </Container>
-      <RecipeBtnBar next={"RecipeWriteTwo"} />
     </>
   );
 }
 
 const Container = styled.div`
-  margin: 30px 10px 0px 10px;
-
+  max-width: 480px;
+  margin: 0 auto;
   .title {
-    margin-top: 30px;
     padding: 10px 0px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 700;
   }
 
+  .recipe-nameBox {
+    margin: 90px 10px 0px 10px;
+  }
+
   .recipeInput {
-    border-bottom: 1px solid var(--dark-gray);
+    border-bottom: 1px solid var(--gray-400);
     padding: 10px 0px 10px 5px;
     outline: none;
     margin-top: 10px;
@@ -198,7 +201,7 @@ const Container = styled.div`
   }
 
   .recipe-catagroy {
-    margin: 30px 0px;
+    margin: 30px 10px;
   }
 
   .swiper {
@@ -224,9 +227,10 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     width: 25%;
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-400);
     margin: 5px;
     border-radius: 10px;
+    cursor: pointer;
   }
 
   .Onmenu-box {
@@ -235,10 +239,10 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     width: 25%;
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-400);
     margin: 5px;
     border-radius: 10px;
-    background-color: var(--dark-gray);
+    background-color: var(--gray-400);
   }
 
   .menu-list {

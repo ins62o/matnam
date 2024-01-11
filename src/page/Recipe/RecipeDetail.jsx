@@ -45,7 +45,7 @@ export default function RecipeDetail() {
           modules={[Pagination]}
         >
           <SwiperSlide>
-            <div className="image-box">사진1번</div>
+            <div className="image-box"></div>
             <div className="recipe">
               <div className="number">
                 <div className="rank">1</div>
@@ -54,7 +54,7 @@ export default function RecipeDetail() {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div className="image-box">사진2번</div>
+            <div className="image-box"></div>
             <div className="recipe">
               <div className="number">
                 <div className="rank">2</div>
@@ -63,7 +63,7 @@ export default function RecipeDetail() {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div className="image-box">사진3번</div>
+            <div className="image-box"></div>
             <div className="recipe">
               <div className="number">
                 <div className="rank">3</div>
@@ -85,14 +85,16 @@ export default function RecipeDetail() {
             </div>
           </div>
         </div>
+        <MenuBar />
       </Container>
-      <MenuBar />
     </>
   );
 }
 
 const Container = styled.div`
   overflow: auto;
+  max-width: 480px;
+  margin: 0 auto;
   .top-menu {
     height: 50px;
     display: flex;
@@ -117,6 +119,7 @@ const Container = styled.div`
     margin-left: 10px;
     font-size: 1.2rem;
     width: 30px;
+    cursor: pointer;
   }
 
   .titleBox {
@@ -137,7 +140,7 @@ const Container = styled.div`
   }
 
   .profile-image {
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-400);
     width: 25px;
     height: 25px;
     border-radius: 50%;
@@ -164,24 +167,21 @@ const Container = styled.div`
   .swiper {
     margin: 10px 10px 0px 10px;
     height: 320px;
-    border: 1px solid var(--hover-gray);
     border-radius: 10px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--box-shadow);
   }
 
   .image-box {
-    border: 1px solid var(--hover-gray);
     border-radius: 10px;
     height: 70%;
   }
 
   .recipe {
-    border: 1px solid var(--dark-gray);
     border-radius: 10px;
     height: 20%;
     display: flex;
-    background-color: var(--hover-gray);
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
+    background-color: var(--gray-200);
+    box-shadow: var(--box-shadow);
   }
 
   .number {
@@ -203,7 +203,7 @@ const Container = styled.div`
   }
 
   .ing-rank {
-    background-color: var(--main-color);
+    background-color: var(--sub-color);
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -259,6 +259,7 @@ const Container = styled.div`
   .insdel {
     margin-right: 20px;
     font-weight: 700;
+    cursor: pointer;
   }
 
   .ingredient {
@@ -271,7 +272,7 @@ const Container = styled.div`
     margin: 0px 10px;
     margin-bottom: 80px;
     border-radius: 10px;
-    background-color: var(--hover-gray);
+    background-color: var(--gray-200);
     padding: 10px;
     display: flex;
     flex-direction: column;

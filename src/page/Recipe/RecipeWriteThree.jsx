@@ -38,8 +38,8 @@ export default function RecipeWriteThree() {
 
   return (
     <>
-      <RecipeBar level={100} />
       <Container>
+        <RecipeBar level={100} />
         <div className="title-box">
           <div className="title">조리 방법</div>
           <button onClick={handleAdd} className="add">
@@ -103,22 +103,23 @@ export default function RecipeWriteThree() {
           </div>
           <div className="last"></div>
         </div>
+        <RecipeBtnBar next={""} />
       </Container>
-      <RecipeBtnBar next={""} />
     </>
   );
 }
 
 const Container = styled.div`
+  max-width: 480px;
+  margin: 0 auto;
   .swiper {
     height: 360px;
   }
 
   .add {
-    margin-top: 30px;
     padding: 10px;
     font-weight: 700;
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-300);
     border-radius: 10px;
   }
 
@@ -137,13 +138,12 @@ const Container = styled.div`
     top: 0;
     left: 0;
     padding: 10px;
-    margin: 5px;
+    margin: 10px;
     border-radius: 10px;
     font-weight: 700;
     background-color: var(--main-color);
   }
   .title {
-    margin-top: 30px;
     padding: 10px;
     font-size: 1.1rem;
     font-weight: 700;
@@ -151,6 +151,7 @@ const Container = styled.div`
 
   .title-box {
     display: flex;
+    margin: 90px 10px 0px 10px;
   }
 
   .tip {
@@ -166,7 +167,7 @@ const Container = styled.div`
   }
 
   .image {
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-300);
     border-radius: 10px;
     height: 200px;
     display: flex;
@@ -187,7 +188,7 @@ const Container = styled.div`
     height: 90px;
     border-radius: 10px;
     padding: 10px;
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-300);
   }
 
   .level-text {
@@ -218,7 +219,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--dark-gray);
+    color: var(--gray-700);
   }
 
   .image input[type="file"] {
