@@ -155,7 +155,7 @@ const Container = styled.div`
 
   .cook-tip {
     margin: 0px 10px;
-    border: 1px solid var(--point-color);
+    border: 1px solid var(--main-color);
     padding: 10px;
     border-radius: 10px;
     font-weight: 700;
@@ -192,7 +192,7 @@ const Container = styled.div`
   }
 
   .rank {
-    background-color: var(--point-color);
+    background-color: var(--main-color);
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -203,7 +203,7 @@ const Container = styled.div`
   }
 
   .ing-rank {
-    background-color: var(--point-color);
+    background-color: var(--main-color);
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -240,7 +240,7 @@ const Container = styled.div`
   }
 
   .swiper-pagination-bullet-active {
-    background-color: var(--point-color);
+    background-color: var(--main-color);
   }
 
   .icon-box {

@@ -31,8 +31,6 @@ export default function Footer() {
 }
 
 const Container = styled.div`
-  background-color: var(--hover-gray);
-  width: 100%;
   .Footer-box {
     width: 100%;
     margin: 0 auto;
@@ -40,12 +38,11 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 20px;
     padding: 10px 0px;
   }
 
   .made-by {
-    color: gray;
+    color: var(--gray-700);
     line-height: 2.5;
     margin: 5px 0;
   }
@@ -55,7 +52,7 @@ const Container = styled.div`
   }
 
   .box {
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-400);
     border-radius: 100%;
     width: 50px;
     height: 50px;

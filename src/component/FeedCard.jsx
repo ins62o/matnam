@@ -109,7 +109,7 @@ const Container = styled.div`
     right: 0;
     margin: 7px;
     border-radius: 10px;
-    background-color: var(--point-color);
+    background-color: var(--main-color);
     padding: 10px;
     display: flex;
     justify-content: center;

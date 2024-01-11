@@ -40,21 +40,8 @@ const Container = styled.div`
   }
 
   .all {
-    color: gray;
+    color: var(--gray-700);
     display: flex;
     align-items: center;
-  }
-
-  .Box {
-    display: flex;
-    justify-content: center;
-  }
-
-  .more-card {
-    padding: 20px 0px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    color: gray;
   }
 `;

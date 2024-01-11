@@ -55,7 +55,6 @@ export default function SignUp() {
 
   return (
     <>
-      <MenuBar />
       <Container>
         <div className="HeaderBar">
           <FaChevronLeft
@@ -108,12 +107,15 @@ export default function SignUp() {
             확인
           </button>
         </div>
+        <MenuBar />
       </Container>
     </>
   );
 }
 
 const Container = styled.div`
+  max-width: 500px;
+  margin: 0 auto;
   .HeaderBar {
     height: 50px;
     display: flex;
@@ -124,6 +126,7 @@ const Container = styled.div`
     margin-left: 10px;
     font-size: 1.2rem;
     width: 30px;
+    cursor: pointer;
   }
   .title {
     padding: 40px;
@@ -133,11 +136,11 @@ const Container = styled.div`
 
   .bold {
     font-weight: 700;
-    color: var(--main-color);
   }
 
   .inputTitle {
     width: 310px;
+    padding-left: 5px;
   }
 
   .inputBox {
@@ -151,12 +154,12 @@ const Container = styled.div`
   .inputStyle {
     width: 300px;
     height: 10px;
-    padding: 15px 10px 10px 10px;
+    padding: 15px 10px 10px 5px;
     border: none;
-    border-bottom: 1px solid var(--dark-gray);
+    border-bottom: 1px solid var(--gray-400);
     outline: none;
     transition: all 0.4s ease 0s;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   .inputStyle::placeholder {

@@ -10,7 +10,7 @@ export default function RecipeBest() {
         <div className="card-container">
           <div className="rank-one rank">1</div>
           <div className="card-box">
-            <RecipeCard color={"var(--point-color)"} />
+            <RecipeCard color={"var(--main-color)"} />
           </div>
         </div>
 
@@ -38,7 +38,7 @@ const Container = styled.div`
   .best-title {
     font-size: 1.2rem;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin: 20px 0px;
   }
 
   .card-container {
@@ -57,7 +57,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: var(--point-color);
+    background-color: var(--main-color);
     font-weight: 700;
     position: absolute;
     top: -7px;
@@ -65,7 +65,7 @@ const Container = styled.div`
   }
 
   .rank-one {
-    background-color: var(--point-color);
+    background-color: var(--main-color);
   }
 
   .rank-two {

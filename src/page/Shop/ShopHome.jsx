@@ -90,7 +90,7 @@ const Container = styled.div`
   }
 
   .swiper-pagination-bullet-active {
-    background-color: var(--point-color);
+    background-color: var(--main-color);
   }
 
   .s-box {

@@ -129,7 +129,7 @@ const Container = styled.div`
     margin: 5px;
     border-radius: 10px;
     font-weight: 700;
-    background-color: var(--point-color);
+    background-color: var(--main-color);
   }
 
   .step-no {
@@ -140,7 +140,7 @@ const Container = styled.div`
     margin: 5px;
     border-radius: 10px;
     font-weight: 700;
-    background-color: var(--point-color);
+    background-color: var(--main-color);
   }
   .title {
     margin-top: 30px;
@@ -179,7 +179,7 @@ const Container = styled.div`
     height: 90px;
     border-radius: 10px;
     padding: 10px;
-    border: 1px solid var(--point-color);
+    border: 1px solid var(--main-color);
   }
 
   .level-box {
@@ -234,7 +234,7 @@ const Container = styled.div`
   }
 
   .swiper-pagination-bullet-active {
-    background-color: var(--point-color);
+    background-color: var(--main-color);
   }
 
   .recipe-image {

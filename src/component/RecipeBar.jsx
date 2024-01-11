@@ -72,7 +72,7 @@ const Container = styled.div`
   }
 
   ::-webkit-progress-value {
-    background-color: var(--point-color);
+    background-color: var(--main-color);
     border-radius: 10px;
     transition: all 0.4s ease 0s;
   }

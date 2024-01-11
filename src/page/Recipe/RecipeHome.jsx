@@ -41,4 +41,6 @@ export default function RecipeHome() {
 const Container = styled.div`
   overflow: auto;
   padding-bottom: 80px;
+  max-width: 500px;
+  margin: 0 auto;
 `;

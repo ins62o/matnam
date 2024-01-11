@@ -8,16 +8,16 @@ export default function RecipeCard({ color }) {
       <div className="cardBox">
         <div className="image-box"></div>
         <div className="info-box">
+          <div className="heart-box">
+            <FaRegHeart className="heart-icon" />
+            <div className="heart-count">16명이 좋아해요</div>
+          </div>
           <div>
             <b className="tag">[ 국·탕 ]</b> 맛좋은 된장국
           </div>
           <div className="write">
             <div className="profile-image"></div>
             <div>닉네임</div>
-          </div>
-          <div className="heart-box">
-            <FaRegHeart className="heart-icon" />
-            <div className="heart-count">16명이 좋아해요</div>
           </div>
         </div>
       </div>
@@ -27,6 +27,7 @@ export default function RecipeCard({ color }) {
 
 const Container = styled.div`
   margin-bottom: 10px;
+
   .info-box {
     width: 60%;
     display: flex;
@@ -35,7 +36,7 @@ const Container = styled.div`
   }
 
   .profile-image {
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-400);
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -51,7 +52,7 @@ const Container = styled.div`
   }
 
   .image-box {
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-400);
     width: 80px;
     height: 80px;
     border-radius: 50%;

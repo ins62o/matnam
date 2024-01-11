@@ -187,20 +187,18 @@ export default function RecipeMenu() {
 
 const MenuBox = styled.div`
   margin: 0 10px;
-
   .search-box {
     display: flex;
     align-items: center;
     width: 100%;
     height: 40px;
-    background-color: var(--hover-gray);
+    background-color: var(--gray-200);
     border-radius: 10px;
   }
 
   .search-input {
     width: 80%;
     height: 100%;
-    background-color: var(--hover-gray);
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0);
     outline: none;
@@ -261,7 +259,7 @@ const MenuBox = styled.div`
   }
 
   .swiper-pagination-bullet-active {
-    background-color: var(--point-color);
+    background-color: var(--main-color);
   }
 
   .menu-Container {
@@ -319,17 +317,17 @@ const MenuBox = styled.div`
   .event-title {
     font-size: 1.3rem;
     line-height: 1.5;
-    color: var(--point-color);
+    color: var(--main-color);
   }
 
   .big {
     font-size: 1.7rem;
-    color: var(--point-color);
+    color: var(--main-color);
   }
 
   .event-info {
     font-size: 1rem;
     line-height: 1.5;
-    color: #fff;
+    color: var(--sub-color);
   }
 `;

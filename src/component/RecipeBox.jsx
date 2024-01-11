@@ -7,19 +7,19 @@ export default function RecipeBox() {
   return (
     <Container>
       <div className="image-box"></div>
-      <div className="info-box">
-        <div className="heart-box">
-          <FaHeart className="icon" />
-          <div className="heart-count">12명이 좋아해요</div>
+      <div className="recipe-info">
+        <div className="profile-box">
+          <div className="user-profile"></div>
         </div>
-        <div className="info-title">
-          <b className="bold">[국·탕]</b> 맛좋은 된장국
-        </div>
-        <div className="info-heart">
-          <div className="user">
-            <div className="profile-image"></div>
-            <div>닉네임</div>
+        <div className="info-box">
+          <div className="heart-box">
+            <FaRegHeart className="heart-icon" />
+            <div className="heart-count">12명이 좋아해요</div>
           </div>
+          <div className="recipe-name">
+            <b className="bold">[ 국·탕 ]</b> 맛좋은 된장국
+          </div>
+          <div>요리제왕</div>
         </div>
       </div>
     </Container>
@@ -27,58 +27,55 @@ export default function RecipeBox() {
 }
 
 const Container = styled.div`
-  border: 1px solid var(--dark-gray);
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
-  padding: 10px;
-  margin-right: 10px;
-  width: 50%;
+  height: 300px;
+  box-shadow: var(--box-shadow);
+  margin-bottom: 20px;
 
   .image-box {
-    border-radius: 10px;
-    border: 1px solid var(--dark-gray);
-    position: relative;
-    height: 150px;
+    width: 100%;
+    height: 70%;
+    background-color: beige;
+    border-radius: 10px 10px 0px 0px;
   }
 
-  .profile-image {
-    border: 1px solid var(--dark-gray);
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin-right: 3px;
+  .recipe-info {
+    display: flex;
+    height: 30%;
   }
 
-  .user {
+  .profile-box {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 20%;
   }
 
   .info-box {
-    margin-top: 10px;
-  }
-
-  .info-title {
-    margin-bottom: 10px;
-  }
-
-  .info-heart {
+    width: 80%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
   }
-  .icon {
-    margin-right: 5px;
-    color: red;
-    width: 20px;
-    height: 20px;
+
+  .user-profile {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--gray-400);
+    border-radius: 50%;
   }
 
   .heart-box {
     display: flex;
+    align-items: center;
     margin-bottom: 10px;
+  }
+
+  .heart-icon {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    color: red;
   }
 
   .heart-count {
@@ -90,5 +87,9 @@ const Container = styled.div`
 
   .bold {
     font-weight: 700;
+  }
+
+  .recipe-name {
+    margin-bottom: 10px;
   }
 `;

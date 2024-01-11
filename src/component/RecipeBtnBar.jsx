@@ -50,6 +50,6 @@ const Container = styled.div`
   }
 
   .next {
-    background-color: var(--point-color);
+    background-color: var(--main-color);
   }
 `;

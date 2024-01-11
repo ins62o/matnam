@@ -108,7 +108,7 @@ const Container = styled.div`
   .search-icon {
     font-size: 1.3rem;
     margin-left: 7px;
-    color: var(--point-color);
+    color: var(--main-color);
   }
 
   .one-box {
@@ -158,7 +158,7 @@ const Container = styled.div`
   .my-chatmessage {
     padding: 20px;
     border-radius: 30px 0px 30px 30px;
-    background-color: var(--point-color);
+    background-color: var(--main-color);
     font-weight: 700;
     display: inline-block;
     line-height: 1.2;

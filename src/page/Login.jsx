@@ -28,7 +28,6 @@ export default function Login() {
   }, [menu.Login]);
   return (
     <>
-      <MenuBar />
       <Container>
         <div className="HeaderBar">
           <FaX
@@ -59,12 +58,15 @@ export default function Login() {
             </Link>
           </div>
         </div>
+        <MenuBar />
       </Container>
     </>
   );
 }
 
 const Container = styled.div`
+  max-width: 500px;
+  margin: 0 auto;
   .HeaderBar {
     height: 50px;
     display: flex;
@@ -74,6 +76,7 @@ const Container = styled.div`
   .OutIcon {
     font-size: 1.2rem;
     margin-left: 15px;
+    cursor: pointer;
   }
 
   .LoginMainBox {
@@ -97,7 +100,7 @@ const Container = styled.div`
     width: 300px;
     height: 20px;
     padding: 10px;
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-400);
     border-radius: 10px;
     outline: none;
     transition: all 0.4s ease 0s;
@@ -130,6 +133,6 @@ const Container = styled.div`
   .signUpInfo {
     margin: 15px;
     font-weight: 700;
-    color: var(--main-color);
+    color: var(--gray-900);
   }
 `;

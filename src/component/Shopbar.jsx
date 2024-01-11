@@ -68,6 +68,6 @@ const Container = styled.div`
   }
 
   .one {
-    background-color: var(--point-color);
+    background-color: var(--main-color);
   }
 `;

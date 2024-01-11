@@ -173,7 +173,7 @@ const ChatBox = styled.div`
     margin: 10px;
     bottom: 0;
     font-weight: 700;
-    background-color: var(--point-color);
+    background-color: var(--main-color);
     padding: 5px;
     width: 20px;
     height: 20px;

@@ -83,6 +83,7 @@ export default function MenuBar() {
 }
 
 const MenuBox = styled.div`
+  max-width: 500px;
   position: fixed;
   bottom: 0;
   height: 60px;
@@ -111,7 +112,7 @@ const MenuBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--point-color);
+    background-color: var(--main-color);
   }
 
   .white-icon {
@@ -120,13 +121,13 @@ const MenuBox = styled.div`
   }
 
   .sub-menuBox {
-    border: 1px solid var(--dark-gray);
     display: flex;
     opacity: ${({ toggle }) => (toggle === "true" ? "1" : "0")};
     visibility: ${({ toggle }) => (toggle === "true" ? "visible" : "hidden")};
     border-radius: 10px;
     transition: all 0.5s ease 0s;
     background-color: #fff;
+    box-shadow: var(--box-shadow);
   }
 
   .sub-menu {
@@ -139,7 +140,7 @@ const MenuBox = styled.div`
   }
 
   .sub-menu-one {
-    border-right: 1px solid var(--dark-gray);
+    border-right: 1px solid var(--gray-300);
   }
 
   .write-icon {

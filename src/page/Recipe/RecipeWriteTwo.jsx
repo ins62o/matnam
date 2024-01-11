@@ -125,7 +125,7 @@ const Container = styled.div`
   }
 
   .inputStyle:focus {
-    border: 1px solid var(--point-color);
+    border: 1px solid var(--main-color);
   }
 
   .plus {
