@@ -160,10 +160,12 @@ a {
 }
 
 :root {
-  --hover-gray: rgba(139, 149, 161, 0.1);
-  --dark-gray: #c6c6c6;
-  --white-color: #fff;
-  --main-color: #333333;
+  --main-color: #fec91f;
   --sub-color: #ff9852;
-  --point-color: #fec91f;
+  --gray-200: #f2f2f2;
+  --gray-300: #d7d7d7;
+  --gray-400: #bebebe;
+  --gray-700: #606060;
+  --gray-900: #333333;
+  --box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
 }
