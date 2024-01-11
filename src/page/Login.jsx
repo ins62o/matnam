@@ -65,7 +65,7 @@ export default function Login() {
 }
 
 const Container = styled.div`
-  max-width: 500px;
+  max-width: 480px;
   margin: 0 auto;
   .HeaderBar {
     height: 50px;

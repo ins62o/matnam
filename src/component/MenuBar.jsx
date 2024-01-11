@@ -83,7 +83,7 @@ export default function MenuBar() {
 }
 
 const MenuBox = styled.div`
-  max-width: 500px;
+  max-width: 480px;
   position: fixed;
   bottom: 0;
   height: 60px;
