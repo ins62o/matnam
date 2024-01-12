@@ -108,17 +108,20 @@ export default function MypageSection() {
 }
 
 const Container = styled.div`
-  margin: 0 10px;
-
+  max-width: 480px;
+  margin: 0 auto;
+  height: 65vh;
   .menuBar {
-    margin: 20px 0px;
+    margin: 10px 0px;
     border-radius: 10px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--box-shadow);
     display: flex;
+    height: 15%;
+    margin: 10px;
   }
 
   .menu {
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--box-shadow);
     width: 25%;
     display: flex;
     flex-direction: column;
@@ -126,10 +129,11 @@ const Container = styled.div`
     justify-content: center;
     padding: 10px;
     font-weight: 700;
+    cursor: pointer;
   }
 
   .check-menu {
-    background-color: var(--dark-gray);
+    background-color: var(--gray-300);
     border-radius: 10px;
   }
 
@@ -139,11 +143,10 @@ const Container = styled.div`
   }
 
   .swiper {
-    margin: 10px 10px 80px 10px;
-    height: 320px;
-    border: 1px solid var(--hover-gray);
     border-radius: 10px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--box-shadow);
+    margin: 10px;
+    height: 70%;
   }
 
   .auto {

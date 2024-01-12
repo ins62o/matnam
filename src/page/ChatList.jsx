@@ -96,15 +96,15 @@ export default function ChatList() {
             </div>
           </div>
         </div>
+        <MenuBar />
       </ChatBox>
-      <MenuBar />
     </>
   );
 }
 
 const ChatBox = styled.div`
-  margin: 0px 10px;
-  padding-bottom: 80px;
+  margin: 0 auto;
+  max-width: 480px;
 
   .HeaderBar {
     height: 60px;
@@ -115,6 +115,7 @@ const ChatBox = styled.div`
   .goBack-icon {
     font-size: 1.2rem;
     width: 30px;
+    cursor: pointer;
   }
   .title {
     padding: 10px;
@@ -128,6 +129,8 @@ const ChatBox = styled.div`
     border-radius: 10px;
     padding: 10px;
     position: relative;
+    margin-bottom: 10px;
+    box-shadow: var(--box-shadow);
   }
 
   .chat-card {
@@ -139,10 +142,11 @@ const ChatBox = styled.div`
   .icon {
     font-size: 1.4rem;
     width: 30px;
+    cursor: pointer;
   }
 
   .card-image {
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-300);
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -186,6 +190,6 @@ const ChatBox = styled.div`
   .chat-container {
     background-color: var(--hover-gray);
     border-radius: 10px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
+    margin: 0px 10px;
   }
 `;

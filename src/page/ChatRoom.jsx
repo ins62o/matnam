@@ -22,7 +22,7 @@ export default function ChatRoom() {
             <div>닉네임</div>
           </div>
           <div>
-            <CiLogout className="icon" />
+            <CiLogout className="icon-out" />
           </div>
         </div>
         <div className="chat-room">
@@ -41,15 +41,16 @@ export default function ChatRoom() {
             />
           </div>
         </div>
+        <MenuBar />
       </Container>
-
-      <MenuBar />
     </>
   );
 }
 
 const Container = styled.div`
   height: 90vh;
+  max-width: 480px;
+  margin: 0 auto;
   .HeaderBar {
     height: 10%;
     display: flex;
@@ -60,6 +61,7 @@ const Container = styled.div`
   .icon {
     font-size: 1.2rem;
     width: 30px;
+    cursor: pointer;
   }
 
   .title {
@@ -71,7 +73,7 @@ const Container = styled.div`
   }
 
   .chat-room {
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--box-shadow);
     margin: 0 10px;
     height: 90%;
     position: relative;
@@ -81,24 +83,23 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     height: 40px;
-    background-color: var(--hover-gray);
     border-radius: 10px;
     position: absolute;
     bottom: 0;
     width: 100%;
+    background-color: var(--gray-200);
   }
 
   .you-profile {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid var(--dark-gray);
+    border: 1px solid var(--gray-400);
   }
 
   .search-input {
     width: 80%;
     height: 100%;
-    background-color: var(--hover-gray);
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0);
     outline: none;
@@ -115,6 +116,12 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     margin-right: 10px;
+  }
+
+  .icon-out {
+    font-size: 1.4rem;
+    margin-right: 10px;
+    cursor: pointer;
   }
 
   .two-box {
@@ -139,6 +146,7 @@ const Container = styled.div`
     display: flex;
     padding-top: 10px;
     flex-direction: row-reverse;
+    margin-right: 10px;
   }
 
   .you-nickname {
@@ -149,7 +157,6 @@ const Container = styled.div`
   .you-chatmessage {
     padding: 20px;
     border-radius: 0px 30px 30px 30px;
-    background-color: var(--hover-gray);
     display: inline-block;
     line-height: 1.2;
     letter-spacing: 1px;

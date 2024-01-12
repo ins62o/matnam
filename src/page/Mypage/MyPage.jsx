@@ -21,23 +21,24 @@ export default function MyPage() {
             <button className="logout">로그아웃</button>
           </div>
         </div>
+        <MypageSection />
+        <MenuBar />
       </Container>
-      <MypageSection />
-      <MenuBar />
     </>
   );
 }
 
 const Container = styled.div`
-  margin: 0px 10px;
-  display: flex;
-  justify-content: center;
+  max-width: 480px;
+  margin: 0 auto;
+  margin-top: 10px;
+
   .user-info-box {
     display: flex;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--box-shadow);
     border-radius: 10px;
-    padding: 10px 10px 20px 10px;
-    width: 500px;
+    padding: 10px;
+    margin: 0px 10px;
   }
 
   .sub-info {
@@ -52,31 +53,30 @@ const Container = styled.div`
   }
 
   .logout {
-    background-color: var(--hover-gray);
+    background-color: var(--gray-200);
     padding: 10px;
     border-radius: 10px;
     position: absolute;
     top: 0;
     right: 0;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--box-shadow);
   }
 
   .profile-box {
-    width: 30%;
     position: relative;
     display: flex;
     justify-content: flex-end;
   }
 
   .user-profile {
-    border: 1px solid black;
+    border: 1px solid var(--gray-300);
     width: 100px;
     height: 100px;
     border-radius: 50%;
   }
 
   .setting {
-    border: 1px solid black;
+    border: 1px solid var(--gray-300);
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -86,7 +86,7 @@ const Container = styled.div`
   }
 
   .user-name-box {
-    width: 70%;
+    width: 80%;
     position: relative;
   }
 `;
