@@ -7,6 +7,7 @@ export const MenuStateAtom = atom({
     Login: false,
     home: false,
     shop: false,
+    mypage: false,
   },
 });
 
