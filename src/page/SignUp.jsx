@@ -1,55 +1,55 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import MenuBar from "../component/MenuBar";
 import { FaChevronLeft } from "react-icons/fa";
-import { Toast } from "../sweetalert";
 import { useNavigate } from "react-router-dom";
+import { showToast } from "../sweetalert";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 
 export default function SignUp() {
-  // 선언
   const navigate = useNavigate();
-  // 회원가입 데이터 Ref
   const nicknameRef = useRef();
   const idRef = useRef();
   const pwRef = useRef();
   const pwcheckRef = useRef();
-  // 회원가입 체크
+
+  // 회원가입 체크 함수 - checkSignUp
   const checkSignUp = () => {
-    if (
-      2 > nicknameRef.current.value.length ||
-      6 < nicknameRef.current.value.length
-    ) {
-      nicknameRef.current.focus();
-      Toast.fire({
-        icon: "error",
-        title: "2~6글자 사이로 설정해주세요",
-      });
-    } else if (!idRef.current.value.includes("@")) {
-      idRef.current.focus();
-      Toast.fire({
-        icon: "error",
-        title: "이메일형식으로 적어주세요",
-      });
-    } else if (pwRef.current.value.length < 6) {
-      pwRef.current.focus();
-      Toast.fire({
-        icon: "error",
-        title: "6자 이상의 패스워드를 설정해주세요",
-      });
-    } else if (pwRef.current.value !== pwcheckRef.current.value) {
-      pwcheckRef.current.focus();
-      Toast.fire({
-        icon: "error",
-        title: "패스워드가 일치하지 않습니다",
-      });
+    const nicknameLength = nicknameRef.current.value.length;
+    const idValue = idRef.current.value;
+    const pwValue = pwRef.current.value;
+    const pwCheckValue = pwcheckRef.current.value;
+
+    if (nicknameLength < 2 || nicknameLength > 6) {
+      showToast("error", "2~6글자 사이로 설정해주세요", nicknameRef);
+    } else if (!idValue.includes("@")) {
+      showToast("error", "이메일 형식으로 적어주세요", idRef);
+    } else if (pwValue.length < 6) {
+      showToast("error", "6자 이상의 패스워드를 설정해주세요", pwRef);
+    } else if (pwValue !== pwCheckValue) {
+      showToast("error", "패스워드가 일치하지 않습니다", pwcheckRef);
     } else {
-      Toast.fire({
-        icon: "success",
-        title: "회원가입을 축하합니다.",
-      });
-      nicknameRef.current.value = "";
-      idRef.current.value = "";
-      navigate("/Login");
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, idValue, pwValue)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          showToast("success", "회원가입을 축하합니다.");
+          updateProfile(user, {
+            displayName: nicknameRef.current.value,
+            photoURL:
+              "https://matnam.s3.ap-northeast-2.amazonaws.com/LogoIcon.png",
+          });
+          nicknameRef.current.value = "";
+          idRef.current.value = "";
+          navigate("/Login");
+        })
+        .catch(() => {
+          showToast("error", "이미 존재하는 아이디입니다.", idRef);
+        });
     }
   };
 
@@ -178,7 +178,7 @@ const Container = styled.div`
     justify-content: center;
     border-radius: 10px;
     margin-top: 20px;
-    background-color: var(--sub-color);
+    background-color: var(--main-color);
     color: black;
     font-weight: 700;
   }
