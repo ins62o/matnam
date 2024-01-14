@@ -18,6 +18,7 @@ import { MenuStateAtom } from "../atom";
 export default function MenuBar() {
   const [toggle, setToggle] = useState(false);
   const menuState = useRecoilValue(MenuStateAtom);
+  const Token = localStorage.getItem("accessToken");
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
@@ -31,7 +32,6 @@ export default function MenuBar() {
         )}
         <div>홈</div>
       </Link>
-
       <Link to="/Shop" className="iconBox">
         {menuState.shop ? (
           <RiShoppingBagFill className="menuBar-icon" />
@@ -54,15 +54,25 @@ export default function MenuBar() {
         <FaArrowUp className="menuBar-icon" onClick={scrollToTop} />
         TOP
       </div>
-      <Link to="/Login" className="iconBox">
-        {menuState.Login ? (
-          <FaUser className="menuBar-icon" />
-        ) : (
-          <FaRegUser className="menuBar-icon" />
-        )}
-        로그인
-      </Link>
-
+      {Token ? (
+        <Link to="/mypage" className="iconBox">
+          {menuState.mypage ? (
+            <FaUserCircle className="menuBar-icon" />
+          ) : (
+            <FaRegUserCircle className="menuBar-icon" />
+          )}
+          마이페이지
+        </Link>
+      ) : (
+        <Link to="/Login" className="iconBox">
+          {menuState.Login ? (
+            <FaUser className="menuBar-icon" />
+          ) : (
+            <FaRegUser className="menuBar-icon" />
+          )}
+          로그인
+        </Link>
+      )}
       <div className="subBox">
         <div className="sub-menuBox">
           <Link to="/RecipeWrite">
