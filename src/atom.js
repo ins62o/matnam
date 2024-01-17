@@ -38,6 +38,15 @@ export const RecipeAtom = atom({
   key: "RecipeAtom",
   default: {
     title: "",
-    category: "",
+    categoryName: "",
+    ingredients: [],
+    cookTip: "",
+    cookStep: [],
+    like: 0,
+    writer: {
+      nickname: localStorage.getItem("nickname"),
+      profile: localStorage.getItem("profile"),
+    },
+    see: 0,
   },
 });
