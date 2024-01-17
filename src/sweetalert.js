@@ -17,3 +17,11 @@ export const showToast = (icon, title, ref) => {
   if (ref) ref.current.focus();
   Toast.fire({ icon, title });
 };
+
+export const alertSweet = (icon, text, title) => {
+  Swal.fire({
+    icon,
+    text,
+    title,
+  });
+};
