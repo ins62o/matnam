@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth, updateProfile } from "firebase/auth";
+import { getAuth, updateProfile, signOut } from "firebase/auth";
 import { showToast } from "../../sweetalert";
 
 export default function MyPage() {
@@ -36,10 +36,17 @@ export default function MyPage() {
 
   // 로그아웃 함수 - logout
   const logout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("nickname");
-    localStorage.removeItem("profile");
-    navigate("/Login");
+    const auth = getAuth();
+    signOut(auth)
+      .then((data) => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("nickname");
+        localStorage.removeItem("profile");
+        navigate("/Login");
+      })
+      .catch((error) => {
+        showToast("error", "로그아웃에 문제가 발생했습니다.");
+      });
   };
 
   // 이미지 url 뽑아오는 함수(encodeFileToBase64)
@@ -95,7 +102,7 @@ export default function MyPage() {
                   <input
                     type="file"
                     id="file-input"
-                    accept="profile/*"
+                    accept="image/*"
                     onChange={(e) => {
                       encodeFileToBase64(e.target.files[0]);
                       setFireimage(e.target.files[0]);
