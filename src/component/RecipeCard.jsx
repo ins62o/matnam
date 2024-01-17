@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { GiCook } from "react-icons/gi";
+import { FaRegEye } from "react-icons/fa";
 export default function RecipeCard({ color }) {
   return (
     <Container color={color}>
@@ -12,13 +12,20 @@ export default function RecipeCard({ color }) {
             <FaRegHeart className="heart-icon" />
             <div className="heart-count">16명이 좋아해요</div>
           </div>
-          <div>
-            <b className="tag">[ 국·탕 ]</b> 맛좋은 된장국
+          <div className="title-box">
+            <div className="tag"> 국·탕 </div>
+            <div>맛좋은 된장국</div>
           </div>
           <div className="write">
             <div className="profile-image"></div>
-            <div>닉네임</div>
+            <div className="nick-name">닉네임</div>
           </div>
+        </div>
+        <div className="see-box">
+          <div>
+            <FaRegEye />
+          </div>
+          <div className="see-count">12</div>
         </div>
       </div>
     </Container>
@@ -43,12 +50,23 @@ const Container = styled.div`
     margin-right: 3px;
   }
   .cardBox {
-    border: 1px solid ${({ color }) => color || "var(--dark-gray)"};
+    border: 1px solid ${({ color }) => color || "var(--gray-400)"};
     height: 80px;
     border-radius: 10px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--box-shadow);
     padding: 10px;
     display: flex;
+    position: relative;
+  }
+
+  .nick-name {
+    font-size: 0.9rem;
+  }
+
+  .title-box {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
   }
 
   .image-box {
@@ -60,12 +78,17 @@ const Container = styled.div`
   }
 
   .tag {
-    font-weight: 700;
+    background-color: var(--main-color);
+    border-radius: 10px;
+    margin-right: 5px;
+    padding: 7px;
+    font-size: 0.9rem;
   }
 
   .write {
     display: flex;
     align-items: center;
+    font-weight: 700;
   }
 
   .heart-box {
@@ -73,8 +96,23 @@ const Container = styled.div`
     align-items: center;
   }
 
+  .see-box {
+    display: flex;
+    font-weight: 700;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+    color: var(--gray-700);
+  }
+
   .write-icon {
     margin-right: 3px;
+  }
+
+  .see-count {
+    font-size: 0.9rem;
+    margin-left: 2px;
   }
 
   .heart-icon {

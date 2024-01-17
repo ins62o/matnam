@@ -7,49 +7,33 @@ import { collection, getDocs, where, query, orderBy } from "firebase/firestore";
 import { db } from "../firebase";
 import { FaRegEye } from "react-icons/fa";
 
-export default function RecipeBox({ name }) {
+export default function NewCard({ name }) {
   const [data, setData] = useState([]);
+  console.log(data);
   useEffect(() => {
-    if (!name) {
-      return;
-    }
-
     const getData = async () => {
       try {
-        let snapshot;
+        const recipesQuery = query(
+          collection(db, "recipe"),
+          orderBy("date", "desc")
+        );
 
-        if (name === "모든") {
-          const recipesQuery = query(
-            collection(db, "recipe"),
-            orderBy("date", "desc")
-          );
-          snapshot = await getDocs(recipesQuery);
-        } else {
-          const recipesQuery = query(
-            collection(db, "recipe"),
-            where("categoryName", "==", name),
-            orderBy("date", "desc")
-          );
-          snapshot = await getDocs(recipesQuery);
-        }
-
+        const querySnapshot = await getDocs(recipesQuery);
         const newData = [];
-        snapshot.forEach((doc) => {
+        querySnapshot.forEach((doc) => {
           newData.push(doc.data());
         });
-
         setData(newData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
     getData();
   }, [name]);
 
   return (
     <Container>
-      {data.map((item) => {
+      {data.slice(0, 1).map((item) => {
         return (
           <div key={item.id}>
             <div className="image-box">
@@ -128,6 +112,7 @@ const Container = styled.div`
     background-color: var(--main-color);
     padding: 7px;
     border-radius: 10px;
+    font-size: 0.9rem;
   }
 
   .userprofile {
@@ -136,6 +121,12 @@ const Container = styled.div`
     border: 1px solid var(--gray-400);
     border-radius: 50%;
     margin-right: 3px;
+  }
+
+  .user-profile {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
   }
 
   .recipe-title {
@@ -192,11 +183,5 @@ const Container = styled.div`
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
-  }
-
-  .user-profile {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
   }
 `;

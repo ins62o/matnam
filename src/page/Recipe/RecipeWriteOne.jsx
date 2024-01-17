@@ -1,24 +1,52 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import RecipeBar from "../../component/RecipeBar";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { categoryAtom } from "../../atom";
+import { categoryAtom, RecipeAtom } from "../../atom";
 import { useRecoilState } from "recoil";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
 import RecipeBtnBar from "../../component/RecipeBtnBar";
+import { alertSweet } from "../../sweetalert";
 
 export default function RecipeWriteOne() {
   const [category, setCategory] = useRecoilState(categoryAtom);
+  const [recipe, setRecipe] = useRecoilState(RecipeAtom);
+  const [name, setName] = useState("");
+  useEffect(() => {
+    const selectedMenu = Object.keys(category).find(
+      (menu) => category[menu] === true
+    );
+
+    // 선택한 메뉴가 이미 선택되어 있으면 categoryName 변경하지 않음
+
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      categoryName: selectedMenu,
+    }));
+  }, [category]);
 
   const handleMenuClick = (menuName) => {
-    setCategory((prev) => ({
-      ...prev,
-      [menuName]: !prev[menuName],
-    }));
+    setCategory((prev) => {
+      const isSelected = prev[menuName];
+      const check = Object.values(prev).filter((item) => item === true).length;
+
+      if ((check < 1 && !isSelected) || (check === 1 && isSelected)) {
+        const updatedCategory = {
+          ...prev,
+          [menuName]: !isSelected,
+        };
+
+        return updatedCategory;
+      } else {
+        alertSweet("error", "하나만 골라주세요");
+        return prev;
+      }
+    });
   };
+
   return (
     <>
       <Container>
@@ -30,6 +58,12 @@ export default function RecipeWriteOne() {
               type="text"
               className="recipeInput"
               placeholder="소개 할 레시피의 이름은 무엇인가요?"
+              onChange={(e) =>
+                setRecipe((prev) => ({
+                  ...prev,
+                  title: e.target.value,
+                }))
+              }
             />
           </div>
         </div>
@@ -173,7 +207,7 @@ export default function RecipeWriteOne() {
             </SwiperSlide>
           </Swiper>
         </div>
-        <RecipeBtnBar next={"RecipeWriteTwo"} />
+        <RecipeBtnBar next={"1"} />
       </Container>
     </>
   );

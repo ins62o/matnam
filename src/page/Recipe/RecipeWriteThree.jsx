@@ -7,18 +7,69 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
+import { categoryAtom, RecipeAtom } from "../../atom";
+import { useRecoilState } from "recoil";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase";
 
 export default function RecipeWriteThree() {
-  const [img, setImg] = useState("");
+  const [fireimage, setFireimage] = useState("");
   const [images, setImages] = useState([]);
   const [swiper, setSwiper] = useState("");
   const [add, setAdd] = useState([{ id: 1 }]);
   const [num, setNum] = useState(0);
   const [numtwo, setNumtwo] = useState(1);
-
+  const [recipe, setRecipe] = useRecoilState(RecipeAtom);
+  const [url, setUrl] = useState("");
+  const [info, setInfo] = useState("");
+  console.log(recipe);
   useEffect(() => {
     setNum((pre) => pre + 1);
   }, [add]);
+
+  useEffect(() => {
+    if (url || info) {
+      setRecipe((prev) => {
+        const updatedCookStep = [...prev.cookStep];
+        const lastIndex = updatedCookStep.length - 1;
+
+        if (lastIndex >= 0 && !updatedCookStep[lastIndex].imageUrl) {
+          // 이미지를 올릴 때 가장 최근 인덱스의 imageUrl이 비어 있다면 업데이트
+          updatedCookStep[lastIndex] = {
+            ...updatedCookStep[lastIndex],
+            imageUrl: url,
+          };
+        } else {
+          // 새로운 객체 추가
+          updatedCookStep.push({ info, imageUrl: url });
+        }
+
+        return { ...prev, cookStep: updatedCookStep };
+      });
+    }
+  }, [url, info]);
+
+  useEffect(() => {
+    const uploadImage = async () => {
+      if (fireimage) {
+        const storagePath = "image/" + fireimage.name;
+        const storageRef = ref(storage, storagePath);
+
+        try {
+          // 이미지 업로드
+          const snapshot = await uploadBytes(storageRef, fireimage);
+          // 업로드된 이미지의 다운로드 URL 가져오기
+          const imageUrl = await getDownloadURL(storageRef);
+          // recipe 아톰의 imageUrl 업데이트
+          setUrl(imageUrl);
+        } catch (error) {
+          console.error("이미지 업로드 실패:", error);
+        }
+      }
+    };
+
+    uploadImage();
+  }, [fireimage]);
 
   const handleAdd = () => {
     setAdd((prev) => [...prev, { id: prev.length + 1 }]);
@@ -34,6 +85,16 @@ export default function RecipeWriteThree() {
         resolve();
       };
     });
+  };
+
+  const handleTextAreaChange = (e) => {
+    const index = e.target.dataset.index;
+    const updatedCookSteps = [...recipe.cookStep];
+    updatedCookSteps[index] = {
+      info: e.target.value,
+      imageUrl: updatedCookSteps[index]?.imageUrl || "",
+    };
+    setRecipe((prev) => ({ ...prev, cookStep: updatedCookSteps }));
   };
 
   return (
@@ -77,6 +138,7 @@ export default function RecipeWriteThree() {
                       accept="image/*"
                       onChange={(e) => {
                         encodeFileToBase64(e.target.files[0]);
+                        setFireimage(e.target.files[0]);
                       }}
                     />
                     <div className="step-no">STEP {index + 1}</div>
@@ -87,6 +149,8 @@ export default function RecipeWriteThree() {
                   <textarea
                     placeholder="단계별 레시피를 자세하게 설명해주세요."
                     className="level-text"
+                    data-index={index}
+                    onChange={handleTextAreaChange}
                   />
                 </div>
               </SwiperSlide>
@@ -99,11 +163,17 @@ export default function RecipeWriteThree() {
             <textarea
               placeholder="나만의 요리 TIP을 알려주세요"
               className="tip-text"
+              onChange={(e) => {
+                setRecipe((prev) => ({
+                  ...prev,
+                  cookTip: e.target.value,
+                }));
+              }}
             />
           </div>
           <div className="last"></div>
         </div>
-        <RecipeBtnBar next={""} />
+        <RecipeBtnBar next={"3"} />
       </Container>
     </>
   );

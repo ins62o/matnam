@@ -1,32 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
-import { categoryAtom } from "../atom";
+import { useRecoilValue, useRecoilCallback } from "recoil";
+import { categoryAtom, RecipeAtom } from "../atom";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { collection, addDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import { alertSweet } from "../sweetalert";
+
 export default function RecipeBtnBar({ next }) {
   const navigate = useNavigate();
-
   const category = useRecoilValue(categoryAtom);
-  const data = () => {
-    const trueKeys = Object.keys(category).filter(
-      (key) => category[key] === true
-    );
-    if (trueKeys.length > 1) {
-      alert("카테고리를 하나만 선택해주세요!");
-    } else {
-      console.log(trueKeys.join(""));
+  const recipe = useRecoilValue(RecipeAtom);
+  const [page, setPage] = useState("");
+  const currentDate = new Date();
+  const formattedDate = `${String(currentDate.getFullYear()).slice(
+    -2
+  )}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(
+    currentDate.getDate()
+  ).padStart(2, "0")} ${String(currentDate.getHours()).padStart(
+    2,
+    "0"
+  )}:${String(currentDate.getMinutes()).padStart(2, "0")}`;
+
+  useEffect(() => {
+    if (next == "1") setPage("/RecipeWriteTwo");
+    if (next == "2") setPage("/RecipeWriteThree");
+  }, [next]);
+
+  const createData = useRecoilCallback(({ snapshot, set }) => async () => {
+    try {
+      const docRef = await addDoc(collection(db, "recipe"), recipe);
+      const updatedData = {
+        id: docRef.id,
+        date: formattedDate,
+      };
+      await updateDoc(docRef, updatedData);
+
+      // Recoil 상태 초기화
+      await snapshot.retain();
+      await set(categoryAtom, {});
+      await set(RecipeAtom, {
+        title: "",
+        categoryName: "",
+        ingredients: [],
+        cookTip: "",
+        cookStep: [],
+        like: 0,
+        writer: localStorage.getItem("nickname"),
+        see: 0,
+      });
+
+      alertSweet("success", "레시피를 등록했습니다", "축하");
+      navigate("/");
+    } catch (e) {
+      console.error("Error adding document: ", e);
     }
-  };
+  });
 
   return (
     <Container>
       <button className="goBack Btn" onClick={() => navigate(-1)}>
         이전
       </button>
-      <Link to={`/${next}`}>
-        <button className="next Btn">다음</button>
-      </Link>
+      {next === "3" ? (
+        <button className="next Btn" onClick={createData}>
+          작성
+        </button>
+      ) : (
+        <Link to={page}>
+          <button className="next Btn">다음</button>
+        </Link>
+      )}
     </Container>
   );
 }
