@@ -14,6 +14,8 @@ import RecipeDetail from "./page/Recipe/RecipeDetail";
 import MyPage from "./page/Mypage/MyPage";
 import ChatList from "./page/ChatList";
 import ChatRoom from "./page/ChatRoom";
+import { db } from "../src/firebase";
+import Loading from "./page/Loading";
 
 function App() {
   return (

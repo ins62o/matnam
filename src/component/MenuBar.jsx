@@ -108,6 +108,7 @@ const MenuBox = styled.div`
     justify-content: center;
     align-items: center;
     width: 25%;
+    cursor: pointer;
   }
 
   .menuBar-icon {

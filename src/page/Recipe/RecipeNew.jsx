@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { FaAngleRight } from "react-icons/fa6";
-import RecipeBox from "../../component/RecipeBox";
 import { Link } from "react-router-dom";
+import NewCard from "../../component/NewCard";
+import RecipeBox from "./../../component/RecipeBox";
 export default function RecipeNew() {
   return (
     <Container>

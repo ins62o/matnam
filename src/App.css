@@ -167,7 +167,7 @@ a {
   --gray-400: #bebebe;
   --gray-700: #606060;
   --gray-900: #333333;
-  --box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 4px 12px 36px rgba(0, 0, 0, 0.05);
+  --box-shadow: 0 0 2px rgba(0, 0, 0, 0.08), 4px 12px 36px rgba(0, 0, 0, 0.08);
 }
 
 ::-webkit-scrollbar {

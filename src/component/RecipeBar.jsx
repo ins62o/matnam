@@ -16,7 +16,7 @@ export default function RecipeBar({ level }) {
         </Link>
         <div>레시피작성</div>
         <div>
-          <FaTimes className="icon-fa" onClick={() => navigate(-1)} />
+          <FaTimes className="icon-fa" onClick={() => navigate("/")} />
         </div>
       </div>
       <div className="level-boxes">

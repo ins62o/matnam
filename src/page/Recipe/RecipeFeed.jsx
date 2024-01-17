@@ -33,9 +33,7 @@ export default function RecipeFeed() {
           맛남의 <b className="point">{name}</b> 레시피를 살펴보세요 !
         </div>
         <div className="card-box">
-          <RecipeBox />
-          <RecipeBox />
-          <RecipeBox />
+          <RecipeBox name={name} />
         </div>
         <MenuBar />
       </Container>
@@ -46,6 +44,7 @@ export default function RecipeFeed() {
 const Container = styled.div`
   max-width: 480px;
   margin: 0 auto;
+  padding-bottom: 60px;
   .search-box {
     display: flex;
     align-items: center;
@@ -81,7 +80,8 @@ const Container = styled.div`
   }
 
   .card-box {
-    padding-bottom: 80px;
-    margin: 0 10px;
+    margin: 10px 10px;
+    display: flex;
+    flex-direction: column;
   }
 `;
