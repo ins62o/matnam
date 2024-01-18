@@ -3,14 +3,14 @@ import LogoBar from "../../component/LogoBar";
 import styled from "styled-components";
 import MenuBar from "../../component/MenuBar";
 import MypageSection from "./MypageSection";
-import { MenuStateAtom } from "../../atom";
+import { MenuStateAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth, updateProfile, signOut } from "firebase/auth";
-import { showToast } from "../../sweetalert";
+import { showToast } from "../../services/sweetalert";
 
 export default function MyPage() {
   const [menu, setMenu] = useRecoilState(MenuStateAtom);
@@ -43,6 +43,7 @@ export default function MyPage() {
         localStorage.removeItem("nickname");
         localStorage.removeItem("profile");
         navigate("/Login");
+        showToast("success", "로그아웃하였습니다.");
       })
       .catch((error) => {
         showToast("error", "로그아웃에 문제가 발생했습니다.");

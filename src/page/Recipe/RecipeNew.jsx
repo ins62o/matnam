@@ -1,10 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { collection, getDocs, where, query, orderBy } from "firebase/firestore";
+import { db } from "../../firebase";
 import styled from "styled-components";
 import { FaAngleRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import NewCard from "../../component/NewCard";
 import RecipeBox from "./../../component/RecipeBox";
+
 export default function RecipeNew() {
+  const [data, setData] = useState([]);
+  const getData = async () => {
+    try {
+      const recipesQuery = query(
+        collection(db, "recipe"),
+        orderBy("date", "desc")
+      );
+
+      const querySnapshot = await getDocs(recipesQuery);
+      const newData = [];
+      querySnapshot.forEach((doc) => {
+        newData.push(doc.data());
+      });
+      setData(newData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <Container>
       <div className="new-title">
@@ -17,7 +41,9 @@ export default function RecipeNew() {
         </Link>
       </div>
       <div className="Box">
-        <RecipeBox />
+        {data.slice(0, 1).map((item) => (
+          <RecipeBox item={item} key={item.id} getData={getData} />
+        ))}
       </div>
     </Container>
   );

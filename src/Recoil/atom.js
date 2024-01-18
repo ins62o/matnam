@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-// 메뉴 상태 데이터
+// 하단메뉴바 상태 아톰
 export const MenuStateAtom = atom({
   key: "MenuStateAtom",
   default: {
@@ -11,7 +11,7 @@ export const MenuStateAtom = atom({
   },
 });
 
-// 카테고리 데이터
+// 레시피작성 - 카테고리 상태 아톰
 export const categoryAtom = atom({
   key: "categoryAtom",
   default: {
@@ -34,6 +34,7 @@ export const categoryAtom = atom({
   },
 });
 
+// 레시피작성 - 데이터 관리 상태
 export const RecipeAtom = atom({
   key: "RecipeAtom",
   default: {
@@ -42,11 +43,17 @@ export const RecipeAtom = atom({
     ingredients: [],
     cookTip: "",
     cookStep: [],
-    like: 0,
+    heart: [],
     writer: {
       nickname: localStorage.getItem("nickname"),
       profile: localStorage.getItem("profile"),
     },
     see: 0,
   },
+});
+
+// 카드 내용 상태 아톰
+export const CardData = atom({
+  key: "CardData",
+  default: [],
 });

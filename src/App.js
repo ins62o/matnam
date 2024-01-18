@@ -5,17 +5,15 @@ import SignUp from "./page/SignUp";
 import { RecoilRoot } from "recoil";
 import RecipeHome from "./page/Recipe/RecipeHome";
 import ShopHome from "./page/Shop/ShopHome";
-import ScrollToTop from "./ScrollToTop";
+import ScrollToTop from "./services/ScrollToTop";
 import RecipeWriteOne from "./page/Recipe/RecipeWriteOne";
 import RecipeWriteTwo from "./page/Recipe/RecipeWriteTwo";
 import RecipeWriteThree from "./page/Recipe/RecipeWriteThree";
 import RecipeFeed from "./page/Recipe/RecipeFeed";
 import RecipeDetail from "./page/Recipe/RecipeDetail";
 import MyPage from "./page/Mypage/MyPage";
-import ChatList from "./page/ChatList";
-import ChatRoom from "./page/ChatRoom";
-import { db } from "../src/firebase";
-import Loading from "./page/Loading";
+import ChatList from "./page/Chat/ChatList";
+import ChatRoom from "./page/Chat/ChatRoom";
 
 function App() {
   return (

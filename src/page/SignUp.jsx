@@ -3,7 +3,7 @@ import styled from "styled-components";
 import MenuBar from "../component/MenuBar";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { showToast } from "../sweetalert";
+import { showToast } from "../services/sweetalert";
 import {
   getAuth,
   createUserWithEmailAndPassword,

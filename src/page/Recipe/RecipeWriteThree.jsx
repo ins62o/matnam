@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
-import { categoryAtom, RecipeAtom } from "../../atom";
+import { categoryAtom, RecipeAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
@@ -22,7 +22,6 @@ export default function RecipeWriteThree() {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState("");
-  console.log(recipe);
   useEffect(() => {
     setNum((pre) => pre + 1);
   }, [add]);

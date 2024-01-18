@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import MenuBar from "../component/MenuBar";
-import LogoBar from "../component/LogoBar";
+import MenuBar from "../../component/MenuBar";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaChevronLeft } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";

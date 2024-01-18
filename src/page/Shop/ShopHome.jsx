@@ -2,15 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LogoBar from "../../component/LogoBar";
 import MenuBar from "../../component/MenuBar";
-import { MenuStateAtom } from "../../atom";
+import { MenuStateAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
 import { IoSearchOutline } from "react-icons/io5";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { Pagination } from "swiper/modules";
-import Shopbar from "../../component/Shopbar";
+
 export default function ShopHome() {
   const [menu, setMenu] = useRecoilState(MenuStateAtom);
 

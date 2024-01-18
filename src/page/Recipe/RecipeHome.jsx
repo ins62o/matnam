@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LogoBar from "./../../component/LogoBar";
 import MenuBar from "../../component/MenuBar";
-import { MenuStateAtom } from "../../atom";
+import { MenuStateAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
 import RecipeMenu from "./RecipeMenu";
 import RecipeBest from "./RecipeBest";

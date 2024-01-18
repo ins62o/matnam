@@ -4,7 +4,6 @@ import { FaTimes } from "react-icons/fa";
 import Logo from "../asset/LogoIcon.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { levelAtom } from "../atom";
 
 export default function RecipeBar({ level }) {
   const navigate = useNavigate();

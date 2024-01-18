@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import RecipeBar from "../../component/RecipeBar";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { categoryAtom, RecipeAtom } from "../../atom";
+import { categoryAtom, RecipeAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
 import RecipeBtnBar from "../../component/RecipeBtnBar";
-import { alertSweet } from "../../sweetalert";
+import { alertSweet } from "../../services/sweetalert";
 
 export default function RecipeWriteOne() {
   const [category, setCategory] = useRecoilState(categoryAtom);

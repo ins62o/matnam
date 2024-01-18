@@ -1,96 +1,104 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { GiCook } from "react-icons/gi";
-import { Link } from "react-router-dom";
-import { collection, getDocs, where, query, orderBy } from "firebase/firestore";
-import { db } from "../firebase";
 import { FaRegEye } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
-export default function RecipeBox({ name }) {
-  const [data, setData] = useState([]);
+export default function RecipeBox({ item, getData }) {
+  const nickname = localStorage.getItem("nickname");
+  const [check, setCheck] = useState();
+
   useEffect(() => {
-    if (!name) {
-      return;
-    }
-
-    const getData = async () => {
-      try {
-        let snapshot;
-
-        if (name === "모든") {
-          const recipesQuery = query(
-            collection(db, "recipe"),
-            orderBy("date", "desc")
-          );
-          snapshot = await getDocs(recipesQuery);
-        } else {
-          const recipesQuery = query(
-            collection(db, "recipe"),
-            where("categoryName", "==", name),
-            orderBy("date", "desc")
-          );
-          snapshot = await getDocs(recipesQuery);
-        }
-
-        const newData = [];
-        snapshot.forEach((doc) => {
-          newData.push(doc.data());
-        });
-
-        setData(newData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+    const checking = async () => {
+      const recipeDocRef = doc(db, "recipe", item.id);
+      const recipeDocSnapshot = await getDoc(recipeDocRef);
+      const prevheart = recipeDocSnapshot.data().heart;
+      if (prevheart.includes(nickname)) {
+        setCheck(true);
+      } else {
+        setCheck(false);
       }
     };
+    checking();
+  }, []);
 
+  const heartUp = async () => {
+    const recipeDocRef = doc(db, "recipe", item.id);
+    const recipeDocSnapshot = await getDoc(recipeDocRef);
+    const prevheart = recipeDocSnapshot.data().heart;
+    if (prevheart.includes(nickname)) {
+      const heart = prevheart.filter((user) => user !== nickname);
+      const updateData = {
+        heart,
+      };
+      await updateDoc(recipeDocRef, updateData);
+      setCheck(false);
+    } else {
+      const heart = [...prevheart, nickname];
+      const updateData = {
+        heart,
+      };
+      await updateDoc(recipeDocRef, updateData);
+      setCheck(true);
+    }
+    await getDoc(recipeDocRef);
     getData();
-  }, [name]);
+  };
 
   return (
     <Container>
-      {data.map((item) => {
-        return (
-          <div key={item.id}>
-            <div className="image-box">
-              <img
-                src={item.cookStep[0].imageUrl}
-                alt="메인사진"
-                className="main-image"
-              />
-            </div>
-            <div className="content-box">
-              <div className="tag-name-box">
-                <div className="tag">{item.categoryName}</div>
-                <div className="see-box">
-                  <div>
-                    <FaRegEye />
-                  </div>
-                  <div className="see-count">{item.see}</div>
-                </div>
+      <div key={item.id}>
+        <Link to={`/RecipeDetail/${item.id}`}>
+          <div className="image-box">
+            <img
+              src={item.cookStep[0].imageUrl}
+              alt="메인사진"
+              className="main-image"
+            />
+          </div>
+        </Link>
+
+        <div className="content-box">
+          <div className="tag-name-box">
+            <div className="tag">{item.categoryName}</div>
+            <div className="see-box">
+              <div>
+                <FaRegEye />
               </div>
-              <div className="heart-see-box">
-                <div className="heart-box">
-                  <FaRegHeart className="heart-icon" />
-                  <div className="heart-count">{item.like}명이 좋아해요</div>
-                </div>
-                <div className="namebox">
-                  <div className="userprofile">
-                    <img
-                      src={item.writer.profile}
-                      alt="프로필 사진"
-                      className="user-profile"
-                    />
-                  </div>
-                  <div className="user-name">{item.writer.nickname}</div>
-                </div>
-              </div>
-              <div className="recipe-title">{item.title}</div>
-              <div className="recipe-btn"> {item.title} 레시피 보러가기 </div>
+              <div className="see-count">{item.see}</div>
             </div>
           </div>
-        );
-      })}
+          <div className="heart-see-box">
+            <div className="heart-box">
+              {check ? (
+                <FaHeart className="heart-icon" onClick={heartUp} />
+              ) : (
+                <FaRegHeart className="heart-icon" onClick={heartUp} />
+              )}
+
+              <div className="heart-count">
+                {item.heart.length}명이 좋아해요
+              </div>
+            </div>
+            <div className="namebox">
+              <div className="userprofile">
+                <img
+                  src={item.writer.profile}
+                  alt="프로필 사진"
+                  className="user-profile"
+                />
+              </div>
+              <div className="user-name">{item.writer.nickname}</div>
+            </div>
+          </div>
+          <div className="recipe-title">{item.title}</div>
+          <Link to={`/RecipeDetail/${item.id}`}>
+            <div className="recipe-btn"> {item.title} 레시피 보러가기 </div>
+          </Link>
+        </div>
+      </div>
     </Container>
   );
 }
@@ -100,6 +108,7 @@ const Container = styled.div`
   border-radius: 10px;
   height: 400px;
   padding: 10px;
+  margin-bottom: 20px;
 
   .image-box {
     border-radius: 10px;
@@ -128,6 +137,7 @@ const Container = styled.div`
     background-color: var(--main-color);
     padding: 7px;
     border-radius: 10px;
+    font-size: 0.9rem;
   }
 
   .userprofile {
@@ -136,6 +146,12 @@ const Container = styled.div`
     border: 1px solid var(--gray-400);
     border-radius: 50%;
     margin-right: 3px;
+  }
+
+  .user-profile {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
   }
 
   .recipe-title {
@@ -159,6 +175,7 @@ const Container = styled.div`
     width: 20px;
     height: 20px;
     color: red;
+    cursor: pointer;
   }
 
   .heart-count {
@@ -192,11 +209,5 @@ const Container = styled.div`
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
-  }
-
-  .user-profile {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
   }
 `;

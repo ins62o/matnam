@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { MenuStateAtom } from "../atom";
+import { MenuStateAtom } from "../Recoil/atom";
 export default function MenuBar() {
   const [toggle, setToggle] = useState(false);
   const menuState = useRecoilValue(MenuStateAtom);

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import MenuBar from "../component/MenuBar";
+import MenuBar from "../../component/MenuBar";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";

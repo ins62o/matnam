@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -9,8 +9,35 @@ import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import MenuBar from "./../../component/MenuBar";
+import { doc, getDoc, increment, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { FaRegEye } from "react-icons/fa";
+import Loading from "../Loading";
 export default function RecipeDetail() {
   const navigate = useNavigate();
+  const recipeId = useParams();
+  const [data, setData] = useState();
+  const nickname = localStorage.getItem("nickname");
+  useEffect(() => {
+    const getRecipeById = async () => {
+      try {
+        const recipeDocRef = doc(db, "recipe", recipeId.id);
+        const updateData = {
+          see: increment(1),
+        };
+        await updateDoc(recipeDocRef, updateData);
+        const recipeDocSnapshot = await getDoc(recipeDocRef);
+        setData(recipeDocSnapshot.data());
+      } catch (error) {
+        console.error("Error fetching recipe:", error);
+      }
+    };
+    getRecipeById();
+  }, []);
+
+  if (!data) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -18,23 +45,39 @@ export default function RecipeDetail() {
         <div className="top-menu">
           <FaChevronLeft className="goBack-icon" onClick={() => navigate(-1)} />
         </div>
-        <div className="recipe-name title">맛좋은 된장국의 레시피</div>
+        <div>
+          <div className="recipe-name title">{data.title}의 레시피</div>
+          <div className="see-box">
+            <div>
+              <FaRegEye />
+            </div>
+            <div className="see-count">{data.see}</div>
+          </div>
+        </div>
         <div className="user-box">
           <div className="user">
-            <div className="profile-image"></div>
-            <div>닉네임</div>
+            <div className="profile-image">
+              <img
+                src={data.writer.profile}
+                alt="프로필"
+                className="user-profile"
+              />
+            </div>
+            <div>{data.writer.nickname}</div>
           </div>
           <div className="icon-box">
             <FaHeart className="icon-heart" />
-            16명
+            {data.heart.length}명
           </div>
         </div>
         <div className="titleBox">
           <div className="title">꿀팁🤫</div>
-          <div className="insdel">수정 | 삭제</div>
+          {nickname === data.writer.nickname ? (
+            <div className="insdel">수정 | 삭제</div>
+          ) : null}
         </div>
         <div className="cook-tip">
-          <div>요리의 TIP을 알려주겠습니다</div>
+          <div>{data.cookTip}</div>
         </div>
         <Swiper
           slidesPerView={1}
@@ -44,47 +87,32 @@ export default function RecipeDetail() {
           }}
           modules={[Pagination]}
         >
-          <SwiperSlide>
-            <div className="image-box"></div>
-            <div className="recipe">
-              <div className="number">
-                <div className="rank">1</div>
+          {data.cookStep.map((item, index) => (
+            <SwiperSlide>
+              <div className="image-box">
+                <img src={item.imageUrl} alt="사진" className="main-image" />
               </div>
-              <div className="info">떡볶이를 물에 충분히 행궈주세요</div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="image-box"></div>
-            <div className="recipe">
-              <div className="number">
-                <div className="rank">2</div>
+              <div className="recipe">
+                <div className="number">
+                  <div className="rank">{index + 1}</div>
+                </div>
+                <div className="info">{item.info}</div>
               </div>
-              <div className="info">떡볶이를 물에 충분히 행궈주세요</div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="image-box"></div>
-            <div className="recipe">
-              <div className="number">
-                <div className="rank">3</div>
-              </div>
-              <div className="info">떡볶이를 물에 충분히 행궈주세요</div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+          ))}
         </Swiper>
         <div>
           <div className="ingredient">재료🪹</div>
           <div className="ing-info">
-            <div className="info-box">
-              <div className="ing-rank">1</div>
-              <div className="ing-what"> 떡볶이떡 250g</div>
-            </div>
-            <div className="info-box">
-              <div className="ing-rank">1</div>
-              <div className="ing-what"> 떡볶이떡 250g</div>
-            </div>
+            {data.ingredients.map((item, index) => (
+              <div className="info-box">
+                <div className="ing-rank">{index + 1}</div>
+                <div className="ing-what">{item}</div>
+              </div>
+            ))}
           </div>
         </div>
+
         <MenuBar />
       </Container>
     </>
@@ -107,7 +135,6 @@ const Container = styled.div`
     align-items: center;
     margin: 0px 10px 20px 10px;
   }
-
   .user {
     display: flex;
     align-items: center;
@@ -164,6 +191,12 @@ const Container = styled.div`
     font-weight: 700;
   }
 
+  .user-profile {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
   .swiper {
     margin: 10px 10px 0px 10px;
     height: 320px;
@@ -215,7 +248,6 @@ const Container = styled.div`
 
   .info {
     width: 85%;
-    padding: 10px;
     font-weight: 700;
     font-size: 0.9rem;
     overflow: auto;
@@ -287,5 +319,25 @@ const Container = styled.div`
     letter-spacing: 0.8px;
     display: flex;
     align-items: center;
+  }
+
+  .see-box {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+    font-weight: 700;
+    color: var(--gray-700);
+  }
+
+  .see-count {
+    font-size: 0.9rem;
+    margin-left: 2px;
+  }
+
+  .main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px 10px 0px 0px;
   }
 `;

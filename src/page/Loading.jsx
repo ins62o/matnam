@@ -8,7 +8,7 @@ export default function Loading() {
       <div className="imageBox">
         <img src={Logo} alt="로고" />
         <div className="title">
-          <div>Loading...</div>
+          <div>잠시만 기다려주세요.</div>
         </div>
       </div>
     </LoadingBox>

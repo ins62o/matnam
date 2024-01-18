@@ -3,17 +3,57 @@ import styled from "styled-components";
 import LogoBar from "../../component/LogoBar";
 import MenuBar from "../../component/MenuBar";
 import { IoSearchOutline } from "react-icons/io5";
-import FeedCard from "../../component/FeedCard";
 import { useParams } from "react-router-dom";
-import categorylist from "../../category";
+import categorylist from "../../services/category";
 import RecipeBox from "./../../component/RecipeBox";
+import { collection, getDocs, where, query, orderBy } from "firebase/firestore";
+import { db } from "../../firebase";
+
 export default function RecipeFeed() {
   const { category } = useParams();
   const [name, setName] = useState("");
+  const [data, setData] = useState([]);
+
   useEffect(() => {
     const name = categorylist(category);
     setName(name);
-  }, [category]);
+
+    if (!name) {
+      return;
+    }
+
+    const getData = async () => {
+      try {
+        let snapshot;
+
+        if (name === "모든") {
+          const recipesQuery = query(
+            collection(db, "recipe"),
+            orderBy("date", "desc")
+          );
+          snapshot = await getDocs(recipesQuery);
+        } else {
+          const recipesQuery = query(
+            collection(db, "recipe"),
+            where("categoryName", "==", name),
+            orderBy("date", "desc")
+          );
+          snapshot = await getDocs(recipesQuery);
+        }
+
+        const newData = [];
+        snapshot.forEach((doc) => {
+          newData.push(doc.data());
+        });
+
+        setData(newData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    getData();
+  }, [category, name]);
 
   return (
     <>
@@ -33,7 +73,9 @@ export default function RecipeFeed() {
           맛남의 <b className="point">{name}</b> 레시피를 살펴보세요 !
         </div>
         <div className="card-box">
-          <RecipeBox name={name} />
+          {data.map((item) => (
+            <RecipeBox name={name} item={item} key={item.id} />
+          ))}
         </div>
         <MenuBar />
       </Container>

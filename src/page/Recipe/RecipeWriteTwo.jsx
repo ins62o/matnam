@@ -3,7 +3,7 @@ import styled from "styled-components";
 import RecipeBar from "../../component/RecipeBar";
 import RecipeBtnBar from "./../../component/RecipeBtnBar";
 import { useRecoilState } from "recoil";
-import { categoryAtom, RecipeAtom } from "../../atom";
+import { categoryAtom, RecipeAtom } from "../../Recoil/atom";
 import { GoXCircle } from "react-icons/go";
 
 export default function RecipeWriteTwo() {

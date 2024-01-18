@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRecoilValue, useRecoilCallback } from "recoil";
-import { categoryAtom, RecipeAtom } from "../atom";
+import { categoryAtom, RecipeAtom } from "../Recoil/atom";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { alertSweet } from "../sweetalert";
+import { alertSweet } from "../services/sweetalert";
 
 export default function RecipeBtnBar({ next }) {
   const navigate = useNavigate();
@@ -46,12 +46,18 @@ export default function RecipeBtnBar({ next }) {
         ingredients: [],
         cookTip: "",
         cookStep: [],
-        like: 0,
-        writer: localStorage.getItem("nickname"),
+        heart: {
+          count: 0,
+          heartState: false,
+        },
+        writer: {
+          nickname: localStorage.getItem("nickname"),
+          profile: localStorage.getItem("profile"),
+        },
         see: 0,
       });
 
-      alertSweet("success", "레시피를 등록했습니다", "축하");
+      alertSweet("success", "레시피를 등록했습니다", "성공");
       navigate("/");
     } catch (e) {
       console.error("Error adding document: ", e);
