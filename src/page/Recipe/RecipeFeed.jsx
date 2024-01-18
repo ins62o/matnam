@@ -6,54 +6,27 @@ import { IoSearchOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import categorylist from "../../services/category";
 import RecipeBox from "./../../component/RecipeBox";
-import { collection, getDocs, where, query, orderBy } from "firebase/firestore";
-import { db } from "../../firebase";
+import { useQuery } from "react-query";
+import { getCategoryRecipes, getAllRecipes } from "../../Firebase/firebaseFn";
+import Loading from "../Loading";
 
 export default function RecipeFeed() {
   const { category } = useParams();
   const [name, setName] = useState("");
-  const [data, setData] = useState([]);
-
   useEffect(() => {
     const name = categorylist(category);
     setName(name);
-
-    if (!name) {
-      return;
-    }
-
-    const getData = async () => {
-      try {
-        let snapshot;
-
-        if (name === "모든") {
-          const recipesQuery = query(
-            collection(db, "recipe"),
-            orderBy("date", "desc")
-          );
-          snapshot = await getDocs(recipesQuery);
-        } else {
-          const recipesQuery = query(
-            collection(db, "recipe"),
-            where("categoryName", "==", name),
-            orderBy("date", "desc")
-          );
-          snapshot = await getDocs(recipesQuery);
-        }
-
-        const newData = [];
-        snapshot.forEach((doc) => {
-          newData.push(doc.data());
-        });
-
-        setData(newData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    getData();
   }, [category, name]);
+
+  const { isLoading, error, data } = useQuery(
+    ["FeedRecipe", name],
+    () => (name === "모든" ? getAllRecipes() : getCategoryRecipes(name)),
+    {
+      staleTime: 1000 * 60 * 5,
+    }
+  );
+  if (isLoading) return <Loading />;
+  if (error) return <p>{error}</p>;
 
   return (
     <>

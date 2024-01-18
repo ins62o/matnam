@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
+import { collection, getDocs, where, query, orderBy } from "firebase/firestore";
+import { db } from "../firebase";
 export default function RecipeCard({ color }) {
+  const getData = async () => {
+    const recipesQuery = query(
+      collection(db, "recipe"),
+      orderBy("date", "desc")
+    );
+    let snapshot = await getDocs(recipesQuery);
+
+    snapshot.forEach((doc) => {});
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <Container color={color}>
       <div className="cardBox">

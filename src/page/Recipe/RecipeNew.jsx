@@ -1,34 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { collection, getDocs, where, query, orderBy } from "firebase/firestore";
-import { db } from "../../firebase";
+import React from "react";
 import styled from "styled-components";
 import { FaAngleRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import RecipeBox from "./../../component/RecipeBox";
+import { getAllRecipes } from "../../Firebase/firebaseFn";
+import { useQuery } from "react-query";
 
 export default function RecipeNew() {
-  const [data, setData] = useState([]);
-  const getData = async () => {
-    try {
-      const recipesQuery = query(
-        collection(db, "recipe"),
-        orderBy("date", "desc")
-      );
+  const { isLoading, error, data } = useQuery(["NewRecipe"], getAllRecipes, {
+    staleTime: 1000 * 60 * 5,
+  });
 
-      const querySnapshot = await getDocs(recipesQuery);
-      const newData = [];
-      querySnapshot.forEach((doc) => {
-        newData.push(doc.data());
-      });
-      setData(newData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
-  useEffect(() => {
-    getData();
-  }, []);
   return (
     <Container>
       <div className="new-title">
@@ -42,7 +27,7 @@ export default function RecipeNew() {
       </div>
       <div className="Box">
         {data.slice(0, 1).map((item) => (
-          <RecipeBox item={item} key={item.id} getData={getData} />
+          <RecipeBox item={item} key={item.id} />
         ))}
       </div>
     </Container>
