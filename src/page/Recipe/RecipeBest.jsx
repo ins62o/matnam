@@ -1,32 +1,28 @@
 import React from "react";
 import styled from "styled-components";
 import RecipeCard from "../../component/RecipeCard";
+import { useQuery } from "react-query";
+import { likeRecipes } from "../../Firebase/firebaseFn";
 
 export default function RecipeBest() {
+  const { isLoading, error, data } = useQuery(["likeRecipe"], likeRecipes, {
+    staleTime: 1000 * 60 * 5,
+  });
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
   return (
     <>
       <Container>
         <div className="best-title"> 인기 레시피 TOP 3🏆</div>
-        <div className="card-container">
-          <div className="rank-one rank">1</div>
-          <div className="card-box">
-            <RecipeCard color={"var(--main-color)"} />
+        {data.slice(0, 3).map((data, index) => (
+          <div className="card-container" key={data.id}>
+            <div className={`rank-${index + 1} rank`}>{index + 1}</div>
+            <div className="card-box">
+              <RecipeCard color={index + 1} data={data} />
+            </div>
           </div>
-        </div>
-
-        <div className="card-container">
-          <div className="rank-two rank">2</div>
-          <div className="card-box">
-            <RecipeCard color={"silver"} />
-          </div>
-        </div>
-
-        <div className="card-container">
-          <div className="rank-three rank">3</div>
-          <div className="card-box">
-            <RecipeCard color={"#826a5d"} />
-          </div>
-        </div>
+        ))}
       </Container>
     </>
   );
@@ -64,15 +60,15 @@ const Container = styled.div`
     left: -7px;
   }
 
-  .rank-one {
+  .rank-1 {
     background-color: var(--main-color);
   }
 
-  .rank-two {
-    background-color: silver;
+  .rank-2 {
+    background-color: var(--gray-400);
   }
 
-  .rank-three {
+  .rank-3 {
     background-color: #826a5d;
   }
 `;

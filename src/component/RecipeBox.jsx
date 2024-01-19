@@ -9,50 +9,12 @@ import { useQueryClient } from "react-query";
 
 export default function RecipeBox({ item, getData }) {
   const nickname = localStorage.getItem("nickname");
-  const [check, setCheck] = useState();
-  const client = useQueryClient; // 1번
+  const [heart, setHeart] = useState(false);
+  const client = useQueryClient;
 
-  // const checking = async () => {
-  //   const recipeDocRef = doc(db, "recipe", item.id);
-  //   const recipeDocSnapshot = await getDoc(recipeDocRef);
-  //   const prevheart = recipeDocSnapshot.data().heart;
-  //   if (prevheart.includes(nickname)) {
-  //     setCheck(true);
-  //   } else {
-  //     setCheck(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   checking();
-  // }, []);
-
-  // const heartUp = async (itemId) => {
-  //   const recipeDocRef = doc(db, "recipe", itemId);
-  //   const recipeDocSnapshot = await getDoc(recipeDocRef);
-  //   const prevheart = recipeDocSnapshot.data().heart;
-  //   if (prevheart.includes(nickname)) {
-  //     const heart = prevheart.filter((user) => user !== nickname);
-  //     const updateData = {
-  //       heart,
-  //     };
-  //     await updateDoc(recipeDocRef, updateData);
-  //     setCheck(false);
-  //   } else {
-  //     const heart = [...prevheart, nickname];
-  //     const updateData = {
-  //       heart,
-  //     };
-  //     await updateDoc(recipeDocRef, updateData);
-  //     setCheck(true);
-  //   }
-  //   await getDoc(recipeDocRef);
-  //   getData();
-  // };
-
-  const increaseHeart = () => {
-    // client.invalidateQueries(["Card"]);
-  };
+  useEffect(() => {
+    setHeart(item.heart.includes(nickname));
+  }, [item, nickname]);
 
   return (
     <Container>
@@ -79,10 +41,10 @@ export default function RecipeBox({ item, getData }) {
           </div>
           <div className="heart-see-box">
             <div className="heart-box">
-              {check ? (
-                <FaHeart className="heart-icon" onClick={increaseHeart} />
+              {heart ? (
+                <FaHeart className="heart-icon" />
               ) : (
-                <FaRegHeart className="heart-icon" onClick={increaseHeart} />
+                <FaRegHeart className="heart-icon" />
               )}
 
               <div className="heart-count">
@@ -182,7 +144,6 @@ const Container = styled.div`
     width: 20px;
     height: 20px;
     color: red;
-    cursor: pointer;
   }
 
   .heart-count {

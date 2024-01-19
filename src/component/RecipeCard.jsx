@@ -1,48 +1,61 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
-import { collection, getDocs, where, query, orderBy } from "firebase/firestore";
-import { db } from "../firebase";
-export default function RecipeCard({ color }) {
-  const getData = async () => {
-    const recipesQuery = query(
-      collection(db, "recipe"),
-      orderBy("date", "desc")
-    );
-    let snapshot = await getDocs(recipesQuery);
+import { Link } from "react-router-dom";
 
-    snapshot.forEach((doc) => {});
-  };
-
+export default function RecipeCard({ color, data }) {
+  const [heart, setHeart] = useState(false);
+  const nickname = localStorage.getItem("nickname");
+  if (color == 1) color = "var(--main-color)";
+  if (color == 2) color = "var(--gray-400)";
+  if (color == 3) color = "#826a5d;";
   useEffect(() => {
-    getData();
-  }, []);
+    setHeart(data.heart.includes(nickname));
+  }, [data, nickname]);
+
   return (
     <Container color={color}>
-      <div className="cardBox">
-        <div className="image-box"></div>
-        <div className="info-box">
-          <div className="heart-box">
-            <FaRegHeart className="heart-icon" />
-            <div className="heart-count">16명이 좋아해요</div>
+      <Link to={`/RecipeDetail/${data.id}`}>
+        <div className="cardBox">
+          <div className="image-box">
+            <img src={data.cookStep[0].imageUrl} className="main-image" />
           </div>
-          <div className="title-box">
-            <div className="tag"> 국·탕 </div>
-            <div>맛좋은 된장국</div>
+
+          <div className="info-box">
+            <div className="heart-box">
+              {heart ? (
+                <FaHeart className="heart-icon" />
+              ) : (
+                <FaRegHeart className="heart-icon" />
+              )}
+              <div className="heart-count">
+                {data.heart.length}명이 좋아해요
+              </div>
+            </div>
+            <div className="title-box">
+              <div className="tag"> {data.categoryName}</div>
+              <div>{data.title}</div>
+            </div>
+            <div className="write">
+              <div className="profile-image">
+                <img
+                  src={data.writer.profile}
+                  alt="프로필"
+                  className="main-image"
+                />
+              </div>
+              <div className="nick-name">{data.writer.nickname}</div>
+            </div>
           </div>
-          <div className="write">
-            <div className="profile-image"></div>
-            <div className="nick-name">닉네임</div>
+          <div className="see-box">
+            <div>
+              <FaRegEye />
+            </div>
+            <div className="see-count">{data.see}</div>
           </div>
         </div>
-        <div className="see-box">
-          <div>
-            <FaRegEye />
-          </div>
-          <div className="see-count">12</div>
-        </div>
-      </div>
+      </Link>
     </Container>
   );
 }
@@ -98,6 +111,12 @@ const Container = styled.div`
     margin-right: 5px;
     padding: 7px;
     font-size: 0.9rem;
+  }
+
+  .main-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
   }
 
   .write {

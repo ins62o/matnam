@@ -16,7 +16,7 @@ export default function Loading() {
 }
 
 const LoadingBox = styled.div`
-  background-color: var(--main-color);
+  background-color: var(--gray-200);
   width: 100vw;
   height: 100vh;
   display: flex;
