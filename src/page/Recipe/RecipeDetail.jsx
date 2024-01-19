@@ -13,55 +13,35 @@ import { doc, getDoc, increment, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { FaRegEye } from "react-icons/fa";
 import Loading from "../Loading";
-import { useQueryClient, useQuery } from "react-query";
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import { seeIncrease } from "../../Firebase/actionFn";
 import { detailRecipe } from "../../Firebase/firebaseFn";
 export default function RecipeDetail() {
   const navigate = useNavigate();
   const recipeId = useParams();
-  const client = useQueryClient();
+  const queryClient = useQueryClient();
   const nickname = localStorage.getItem("nickname");
 
-  useEffect(() => {
-    const seeIncrease = async () => {
-      const recipeDocRef = doc(db, "recipe", recipeId.id);
-      const recipeDocSnapshot = await getDoc(recipeDocRef);
-      const updateData = {
-        see: increment(1),
-      };
-      await updateDoc(recipeDocRef, updateData);
-      client.invalidateQueries(["NewRecipe"]);
-      client.invalidateQueries(["likeRecipe"]);
-      client.invalidateQueries(["FeedRecipe"]);
-      client.invalidateQueries(["DetailRecipe"]);
-    };
+  const { error, isLoading, data } = useQuery({
+    queryKey: ["DetailRecipe", recipeId],
+    queryFn: () => detailRecipe(recipeId),
+  });
 
-    seeIncrease();
+  const mutation = useMutation({
+    mutationFn: seeIncrease,
+    onSuccess: () => {
+      console.log("조회수 증가");
+      queryClient.invalidateQueries(["DetailRecipe"]);
+    },
+  });
+
+  useEffect(() => {
+    mutation.mutate(recipeId);
   }, []);
 
-  const { isLoading, error, data } = useQuery(["DetailRecipe", recipeId], () =>
-    detailRecipe(recipeId)
-  );
   if (isLoading) return <Loading />;
   if (error) return <p>{error}</p>;
-
-  // 좋아요 증가
-  const heartUp = async (recipeId, nickname) => {
-    const recipeDocRef = doc(db, "recipe", recipeId.id);
-    const recipeDocSnapshot = await getDoc(recipeDocRef);
-    const prevheart = recipeDocSnapshot.data().heart;
-
-    const heart = prevheart.includes(nickname)
-      ? prevheart.filter((user) => user !== nickname)
-      : [...prevheart, nickname];
-
-    const updateData = {
-      heart,
-    };
-
-    await updateDoc(recipeDocRef, updateData);
-    client.invalidateQueries(["DetailRecipe"]);
-  };
+  console.log(data);
 
   return (
     <>
@@ -91,15 +71,9 @@ export default function RecipeDetail() {
           </div>
           <div className="icon-box">
             {data.heart.includes(nickname) ? (
-              <FaHeart
-                className="icon-heart"
-                onClick={() => heartUp(recipeId, nickname)}
-              />
+              <FaHeart className="icon-heart" />
             ) : (
-              <FaRegHeart
-                className="icon-heart"
-                onClick={() => heartUp(recipeId, nickname)}
-              />
+              <FaRegHeart className="icon-heart" />
             )}
             {data.heart.length}명
           </div>
