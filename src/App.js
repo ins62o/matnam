@@ -55,7 +55,6 @@ function App() {
           </BrowserRouter>
         </RecoilRoot>
       </>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }

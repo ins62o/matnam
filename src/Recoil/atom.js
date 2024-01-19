@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 // 하단메뉴바 상태 아톰
 export const MenuStateAtom = atom({
@@ -50,10 +50,4 @@ export const RecipeAtom = atom({
     },
     see: 0,
   },
-});
-
-// 카드 내용 상태 아톰
-export const CardData = atom({
-  key: "CardData",
-  default: [],
 });
