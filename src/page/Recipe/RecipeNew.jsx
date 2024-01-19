@@ -4,11 +4,12 @@ import { FaAngleRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import RecipeBox from "./../../component/RecipeBox";
 import { getAllRecipes } from "../../Firebase/firebaseFn";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export default function RecipeNew() {
-  const { isLoading, error, data } = useQuery(["NewRecipe"], getAllRecipes, {
-    staleTime: 1000 * 60 * 5,
+  const { error, isLoading, data } = useQuery({
+    queryKey: ["FeedRecipe"],
+    queryFn: getAllRecipes,
   });
 
   if (isLoading) return <p>Loading...</p>;

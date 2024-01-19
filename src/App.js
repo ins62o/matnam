@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./page/Login";
 import SignUp from "./page/SignUp";
 import { RecoilRoot } from "recoil";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import RecipeHome from "./page/Recipe/RecipeHome";
 import ShopHome from "./page/Shop/ShopHome";
 import ScrollToTop from "./services/ScrollToTop";
@@ -15,7 +15,7 @@ import RecipeDetail from "./page/Recipe/RecipeDetail";
 import MyPage from "./page/Mypage/MyPage";
 import ChatList from "./page/Chat/ChatList";
 import ChatRoom from "./page/Chat/ChatRoom";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +55,7 @@ function App() {
           </BrowserRouter>
         </RecoilRoot>
       </>
+      <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );
 }

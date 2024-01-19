@@ -5,7 +5,7 @@ import { FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function RecipeBox({ item, getData }) {
   const nickname = localStorage.getItem("nickname");

@@ -6,7 +6,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import categorylist from "../../services/category";
 import RecipeBox from "./../../component/RecipeBox";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getCategoryRecipes, getAllRecipes } from "../../Firebase/firebaseFn";
 import Loading from "../Loading";
 
@@ -18,13 +18,12 @@ export default function RecipeFeed() {
     setName(name);
   }, [category, name]);
 
-  const { isLoading, error, data } = useQuery(
-    ["FeedRecipe", name],
-    () => (name === "모든" ? getAllRecipes() : getCategoryRecipes(name)),
-    {
-      staleTime: 1000 * 60 * 5,
-    }
-  );
+  const { error, isLoading, data } = useQuery({
+    queryKey: ["FeedRecipe", name],
+    queryFn: () =>
+      name === "모든" ? getAllRecipes() : getCategoryRecipes(name),
+  });
+
   if (isLoading) return <Loading />;
   if (error) return <p>{error}</p>;
 

@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import RecipeCard from "../../component/RecipeCard";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { likeRecipes } from "../../Firebase/firebaseFn";
 
 export default function RecipeBest() {
-  const { isLoading, error, data } = useQuery(["likeRecipe"], likeRecipes, {
-    staleTime: 1000 * 60 * 5,
+  const { error, isLoading, data } = useQuery({
+    queryKey: ["likeRecipe"],
+    queryFn: likeRecipes,
   });
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
