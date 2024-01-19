@@ -13,31 +13,55 @@ import { doc, getDoc, increment, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { FaRegEye } from "react-icons/fa";
 import Loading from "../Loading";
+import { useQueryClient, useQuery } from "react-query";
+import { seeIncrease } from "../../Firebase/actionFn";
+import { detailRecipe } from "../../Firebase/firebaseFn";
 export default function RecipeDetail() {
   const navigate = useNavigate();
   const recipeId = useParams();
-  const [data, setData] = useState();
+  const client = useQueryClient();
   const nickname = localStorage.getItem("nickname");
+
   useEffect(() => {
-    const getRecipeById = async () => {
-      try {
-        const recipeDocRef = doc(db, "recipe", recipeId.id);
-        const updateData = {
-          see: increment(1),
-        };
-        await updateDoc(recipeDocRef, updateData);
-        const recipeDocSnapshot = await getDoc(recipeDocRef);
-        setData(recipeDocSnapshot.data());
-      } catch (error) {
-        console.error("Error fetching recipe:", error);
-      }
+    const seeIncrease = async () => {
+      const recipeDocRef = doc(db, "recipe", recipeId.id);
+      const recipeDocSnapshot = await getDoc(recipeDocRef);
+      const updateData = {
+        see: increment(1),
+      };
+      await updateDoc(recipeDocRef, updateData);
+      client.invalidateQueries(["NewRecipe"]);
+      client.invalidateQueries(["likeRecipe"]);
+      client.invalidateQueries(["FeedRecipe"]);
+      client.invalidateQueries(["DetailRecipe"]);
     };
-    getRecipeById();
+
+    seeIncrease();
   }, []);
 
-  if (!data) {
-    return <Loading />;
-  }
+  const { isLoading, error, data } = useQuery(["DetailRecipe", recipeId], () =>
+    detailRecipe(recipeId)
+  );
+  if (isLoading) return <Loading />;
+  if (error) return <p>{error}</p>;
+
+  // 좋아요 증가
+  const heartUp = async (recipeId, nickname) => {
+    const recipeDocRef = doc(db, "recipe", recipeId.id);
+    const recipeDocSnapshot = await getDoc(recipeDocRef);
+    const prevheart = recipeDocSnapshot.data().heart;
+
+    const heart = prevheart.includes(nickname)
+      ? prevheart.filter((user) => user !== nickname)
+      : [...prevheart, nickname];
+
+    const updateData = {
+      heart,
+    };
+
+    await updateDoc(recipeDocRef, updateData);
+    client.invalidateQueries(["DetailRecipe"]);
+  };
 
   return (
     <>
@@ -66,7 +90,17 @@ export default function RecipeDetail() {
             <div>{data.writer.nickname}</div>
           </div>
           <div className="icon-box">
-            <FaHeart className="icon-heart" />
+            {data.heart.includes(nickname) ? (
+              <FaHeart
+                className="icon-heart"
+                onClick={() => heartUp(recipeId, nickname)}
+              />
+            ) : (
+              <FaRegHeart
+                className="icon-heart"
+                onClick={() => heartUp(recipeId, nickname)}
+              />
+            )}
             {data.heart.length}명
           </div>
         </div>
@@ -81,14 +115,13 @@ export default function RecipeDetail() {
         </div>
         <Swiper
           slidesPerView={1}
-          loop={true}
           pagination={{
             clickable: true,
           }}
           modules={[Pagination]}
         >
           {data.cookStep.map((item, index) => (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <div className="image-box">
                 <img src={item.imageUrl} alt="사진" className="main-image" />
               </div>
@@ -105,7 +138,7 @@ export default function RecipeDetail() {
           <div className="ingredient">재료🪹</div>
           <div className="ing-info">
             {data.ingredients.map((item, index) => (
-              <div className="info-box">
+              <div className="info-box" key={index}>
                 <div className="ing-rank">{index + 1}</div>
                 <div className="ing-what">{item}</div>
               </div>
@@ -286,6 +319,7 @@ const Container = styled.div`
     color: red;
     width: 20px;
     height: 20px;
+    cursor: pointer;
   }
 
   .insdel {
