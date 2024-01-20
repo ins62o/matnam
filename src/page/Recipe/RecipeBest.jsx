@@ -3,6 +3,7 @@ import styled from "styled-components";
 import RecipeCard from "../../component/RecipeCard";
 import { useQuery } from "@tanstack/react-query";
 import { likeRecipes } from "../../Firebase/firebaseFn";
+import CardSkeleton from "../CardSkeleton";
 
 export default function RecipeBest() {
   const { error, isLoading, data } = useQuery({
@@ -10,7 +11,15 @@ export default function RecipeBest() {
     queryFn: likeRecipes,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <Container>
+        <div className="best-title"> 인기 레시피 TOP 3🏆</div>
+        <CardSkeleton />
+        <CardSkeleton />
+        <CardSkeleton />
+      </Container>
+    );
   if (error) return <p>{error}</p>;
 
   return (

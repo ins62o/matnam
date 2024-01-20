@@ -1,71 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
-import { useQueryClient } from "@tanstack/react-query";
 
-export default function RecipeBox({ item, getData }) {
-  const nickname = localStorage.getItem("nickname");
-  const [heart, setHeart] = useState(false);
-  const client = useQueryClient;
-
-  useEffect(() => {
-    setHeart(item.heart.includes(nickname));
-  }, [item, nickname]);
-
+export default function BoxSkeleton() {
   return (
     <Container>
-      <div key={item.id}>
-        <Link to={`/RecipeDetail/${item.id}`}>
-          <div className="image-box">
-            <img
-              src={item.cookStep[0].imageUrl}
-              alt="메인사진"
-              className="main-image"
-            />
-          </div>
-        </Link>
+      <div>
+        <div className="image-box"></div>
 
         <div className="content-box">
           <div className="tag-name-box">
-            <div className="tag">{item.categoryName}</div>
             <div className="see-box">
-              <div>
-                <FaRegEye />
-              </div>
-              <div className="see-count">{item.see}</div>
+              <div className="see-count"></div>
             </div>
           </div>
           <div className="heart-see-box">
             <div className="heart-box">
-              {heart ? (
-                <FaHeart className="heart-icon" />
-              ) : (
-                <FaRegHeart className="heart-icon" />
-              )}
-
-              <div className="heart-count">
-                {item.heart.length}명이 좋아해요
-              </div>
+              <div className="heart-count"></div>
             </div>
-            <div className="namebox">
-              <div className="userprofile">
-                <img
-                  src={item.writer.profile}
-                  alt="프로필 사진"
-                  className="user-profile"
-                />
-              </div>
-              <div className="user-name">{item.writer.nickname}</div>
-            </div>
+            <div className="namebox"></div>
           </div>
-          <div className="recipe-title">{item.title}</div>
-          <Link to={`/RecipeDetail/${item.id}`}>
-            <div className="recipe-btn"> {item.title} 레시피 보러가기 </div>
-          </Link>
+          <div className="recipe-title"></div>
+          <div className="recipe-btn"> </div>
         </div>
       </div>
     </Container>
@@ -82,7 +39,7 @@ const Container = styled.div`
   .image-box {
     border-radius: 10px;
     height: 200px;
-    border: 1px solid var(--gray-400);
+    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
   }
 
   .content-box {
@@ -95,6 +52,9 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
   }
 
   .namebox {
@@ -137,6 +97,9 @@ const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-top: 10px;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
   }
 
   .heart-icon {
@@ -166,15 +129,17 @@ const Container = styled.div`
 
   .recipe-btn {
     border-radius: 10px;
-    background-color: var(--gray-300);
-    padding: 15px;
     margin-top: 20px;
     text-align: center;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
   }
 
   .main-image {
     width: 100%;
     height: 100%;
+    object-fit: cover;
     border-radius: 10px;
   }
 `;

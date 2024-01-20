@@ -9,6 +9,7 @@ import RecipeBox from "./../../component/RecipeBox";
 import { useQuery } from "@tanstack/react-query";
 import { getCategoryRecipes, getAllRecipes } from "../../Firebase/firebaseFn";
 import Loading from "../Loading";
+import BoxSkeleton from "../BoxSkeleton";
 
 export default function RecipeFeed() {
   const { category } = useParams();
@@ -24,7 +25,27 @@ export default function RecipeFeed() {
       name === "모든" ? getAllRecipes() : getCategoryRecipes(name),
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading)
+    return (
+      <Container>
+        <LogoBar />
+        <div className="search-box">
+          <div>
+            <IoSearchOutline className="search-icon" />
+          </div>
+          <input
+            type="text"
+            className="search-input"
+            placeholder="오늘은 어떤 요리를 할까요?"
+          />
+        </div>
+        <div className="main-title">
+          맛남의 <b className="point">{name}</b> 레시피를 살펴보세요 !
+        </div>
+        <BoxSkeleton />
+        <BoxSkeleton />
+      </Container>
+    );
   if (error) return <p>{error}</p>;
 
   return (

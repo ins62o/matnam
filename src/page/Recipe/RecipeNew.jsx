@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import RecipeBox from "./../../component/RecipeBox";
 import { getAllRecipes } from "../../Firebase/firebaseFn";
 import { useQuery } from "@tanstack/react-query";
+import BoxSkeleton from "../BoxSkeleton";
 
 export default function RecipeNew() {
   const { error, isLoading, data } = useQuery({
@@ -12,7 +13,14 @@ export default function RecipeNew() {
     queryFn: getAllRecipes,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <Container>
+        <div className="title"> 방금 나온 신상 레시피🎉</div>
+        <BoxSkeleton />
+      </Container>
+    );
+  if (error) return <p>{error}</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -27,8 +35,10 @@ export default function RecipeNew() {
         </Link>
       </div>
       <div className="Box">
-        {data.slice(0, 1).map((item) => (
-          <RecipeBox item={item} key={item.id} />
+        {data.slice(0, 1).map((item, index) => (
+          <div key={index}>
+            <RecipeBox item={item} />
+          </div>
         ))}
       </div>
     </Container>
