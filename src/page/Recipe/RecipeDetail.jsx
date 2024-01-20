@@ -29,6 +29,10 @@ export default function RecipeDetail() {
   const { error, isLoading, data } = useQuery({
     queryKey: ["DetailRecipe", recipeId],
     queryFn: () => detailRecipe(recipeId),
+    onSuccess: () => {
+      console.log("데이터 성공");
+    },
+    staleTime: 0, // 쿼리가 만료되었어도 캐시를 사용하지 않도록 설정
   });
 
   const SeeMutation = useMutation({
@@ -42,6 +46,20 @@ export default function RecipeDetail() {
     mutationFn: IncreaseHeart,
     onSuccess: () => {
       queryClient.invalidateQueries(["DetailRecipe", recipeId]);
+    },
+    onMutate: async () => {
+      await queryClient.cancelQueries(["DetailRecipe", recipeId]);
+      const prevData = queryClient.getQueryData(["DetailRecipe", recipeId]);
+      queryClient.setQueryData(["DetailRecipe", recipeId], (old) => {
+        const heart = old.heart.filter((user) => user !== nickname);
+        return old.heart.includes(nickname)
+          ? { ...old, heart }
+          : { ...old, heart: [...old.heart, nickname] };
+      });
+      return prevData;
+    },
+    onError: (err, variales, prevData) => {
+      queryClient.setQueryData(["DetailRecipe", recipeId], prevData);
     },
   });
 
