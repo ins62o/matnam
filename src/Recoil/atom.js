@@ -6,7 +6,7 @@ export const MenuStateAtom = atom({
   default: {
     Login: false,
     home: false,
-    shop: false,
+    feed: false,
     mypage: false,
   },
 });

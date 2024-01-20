@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { IoHomeOutline, IoHomeSharp } from "react-icons/io5";
 import { RiShoppingBagLine, RiShoppingBagFill } from "react-icons/ri";
+import { IoNewspaperOutline, IoNewspaper } from "react-icons/io5";
 import { animateScroll as scroll } from "react-scroll";
 import {
   FaArrowUp,
@@ -32,14 +33,14 @@ export default function MenuBar() {
         )}
         <div>홈</div>
       </Link>
-      <Link to="/Shop" className="iconBox">
-        {menuState.shop ? (
-          <RiShoppingBagFill className="menuBar-icon" />
+      <Link to="/recipeFeed/1" className="iconBox">
+        {menuState.feed ? (
+          <IoNewspaper className="menuBar-icon" />
         ) : (
-          <RiShoppingBagLine className="menuBar-icon" />
+          <IoNewspaperOutline className="menuBar-icon" />
         )}
 
-        <div>쿡 쇼핑</div>
+        <div>피드</div>
       </Link>
       <div className="iconBox">
         <div className="icon-circle" onClick={() => setToggle(!toggle)}>
