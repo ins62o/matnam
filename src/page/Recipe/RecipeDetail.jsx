@@ -14,7 +14,7 @@ import { db } from "../../firebase";
 import { FaRegEye } from "react-icons/fa";
 import Loading from "../Loading";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
-import { seeIncrease } from "../../Firebase/actionFn";
+import { IncraseSee, IncreaseHeart } from "../../Firebase/actionFn";
 import { detailRecipe } from "../../Firebase/firebaseFn";
 export default function RecipeDetail() {
   const navigate = useNavigate();
@@ -22,26 +22,31 @@ export default function RecipeDetail() {
   const queryClient = useQueryClient();
   const nickname = localStorage.getItem("nickname");
 
+  useEffect(() => {
+    SeeMutation.mutate(recipeId);
+  }, []);
+
   const { error, isLoading, data } = useQuery({
     queryKey: ["DetailRecipe", recipeId],
     queryFn: () => detailRecipe(recipeId),
   });
 
-  const mutation = useMutation({
-    mutationFn: seeIncrease,
+  const SeeMutation = useMutation({
+    mutationFn: IncraseSee,
     onSuccess: () => {
-      console.log("조회수 증가");
-      queryClient.invalidateQueries(["DetailRecipe"]);
+      queryClient.invalidateQueries(["DetailRecipe", recipeId]);
     },
   });
 
-  useEffect(() => {
-    mutation.mutate(recipeId);
-  }, []);
+  const HeartMutation = useMutation({
+    mutationFn: IncreaseHeart,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["DetailRecipe", recipeId]);
+    },
+  });
 
   if (isLoading) return <Loading />;
   if (error) return <p>{error}</p>;
-  console.log(data);
 
   return (
     <>
@@ -71,9 +76,15 @@ export default function RecipeDetail() {
           </div>
           <div className="icon-box">
             {data.heart.includes(nickname) ? (
-              <FaHeart className="icon-heart" />
+              <FaHeart
+                className="icon-heart"
+                onClick={() => HeartMutation.mutate({ recipeId, nickname })}
+              />
             ) : (
-              <FaRegHeart className="icon-heart" />
+              <FaRegHeart
+                className="icon-heart"
+                onClick={() => HeartMutation.mutate({ recipeId, nickname })}
+              />
             )}
             {data.heart.length}명
           </div>
