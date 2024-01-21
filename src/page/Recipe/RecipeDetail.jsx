@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -9,8 +9,6 @@ import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import MenuBar from "./../../component/MenuBar";
-import { doc, getDoc, increment, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
 import { FaRegEye } from "react-icons/fa";
 import Loading from "../Loading";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
@@ -29,10 +27,6 @@ export default function RecipeDetail() {
   const { error, isLoading, data } = useQuery({
     queryKey: ["DetailRecipe", recipeId],
     queryFn: () => detailRecipe(recipeId),
-    onSuccess: () => {
-      console.log("데이터 성공");
-    },
-    staleTime: 0, // 쿼리가 만료되었어도 캐시를 사용하지 않도록 설정
   });
 
   const SeeMutation = useMutation({
@@ -110,7 +104,13 @@ export default function RecipeDetail() {
         <div className="titleBox">
           <div className="title">꿀팁🤫</div>
           {nickname === data.writer.nickname ? (
-            <div className="insdel">수정 | 삭제</div>
+            <div className="ins-del-box">
+              <Link to={`/RecipeWrite/${recipeId.id}`}>
+                <div className="ins">수정</div>
+              </Link>
+
+              <div className="del">삭제</div>
+            </div>
           ) : null}
         </div>
         <div className="cook-tip">
@@ -176,6 +176,12 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     font-weight: 700;
+  }
+
+  .ins-del-box {
+    display: flex;
+    font-weight: 700;
+    margin-right: 10px;
   }
 
   .goBack-icon {
@@ -325,10 +331,15 @@ const Container = styled.div`
     cursor: pointer;
   }
 
-  .insdel {
-    margin-right: 20px;
+  .ins {
     font-weight: 700;
     cursor: pointer;
+  }
+
+  .del {
+    font-weight: 700;
+    cursor: pointer;
+    margin-left: 10px;
   }
 
   .ingredient {

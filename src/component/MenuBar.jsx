@@ -102,6 +102,7 @@ const MenuBox = styled.div`
   background-color: #fff;
   display: flex;
   z-index: 1;
+  font-weight: 700;
 
   .iconBox {
     display: flex;

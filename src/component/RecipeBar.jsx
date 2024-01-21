@@ -3,17 +3,18 @@ import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
 import Logo from "../asset/LogoIcon.png";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function RecipeBar({ level }) {
   const navigate = useNavigate();
+  const { id } = useParams();
   return (
     <Container>
       <div className="titleBar">
         <Link to="/">
           <img src={Logo} alt="로고" className="logo" />
         </Link>
-        <div>레시피작성</div>
+        <div>{id ? "레시피수정" : "레시피작성"}</div>
         <div>
           <FaTimes className="icon-fa" onClick={() => navigate("/")} />
         </div>
