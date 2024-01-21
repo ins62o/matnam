@@ -8,6 +8,7 @@ import {
   getDoc,
   increment,
   updateDoc,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { useQueryClient } from "@tanstack/react-query";
@@ -23,6 +24,7 @@ export const IncraseSee = async ({ id }) => {
   await updateDoc(doc(db, "recipe", id), updateData);
 };
 
+// 좋아요 증가
 export const IncreaseHeart = async ({ recipeId, nickname }) => {
   const recipeDocRef = await getDoc(doc(db, "recipe", recipeId.id));
   const likeField = recipeDocRef.data().heart;
@@ -39,5 +41,14 @@ export const IncreaseHeart = async ({ recipeId, nickname }) => {
       heart,
     };
     await updateDoc(doc(db, "recipe", recipeId.id), updateData);
+  }
+};
+
+// 게시글 쓰기
+export const createData = async (recipe) => {
+  try {
+    const docRef = await addDoc(collection(db, "recipe"), recipe);
+  } catch (e) {
+    console.log(e);
   }
 };

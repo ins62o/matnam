@@ -7,24 +7,24 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
-import { categoryAtom, RecipeAtom } from "../../Recoil/atom";
+import { categoryAtom, RecipeAtom, imagesAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
 
 export default function RecipeWriteThree() {
   const [fireimage, setFireimage] = useState("");
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useRecoilState(imagesAtom);
   const [swiper, setSwiper] = useState("");
   const [add, setAdd] = useState([{ id: 1 }]);
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState(1);
   const [numtwo, setNumtwo] = useState(1);
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState("");
-  useEffect(() => {
-    setNum((pre) => pre + 1);
-  }, [add]);
+
+  console.log("레시피 데이터 : ", recipe.cookStep);
+  console.log("이미지 담겨있는 : ", images);
 
   useEffect(() => {
     if (url || info) {
@@ -71,7 +71,11 @@ export default function RecipeWriteThree() {
   }, [fireimage]);
 
   const handleAdd = () => {
-    setAdd((prev) => [...prev, { id: prev.length + 1 }]);
+    setRecipe((prev) => ({
+      ...prev,
+      cookStep: [...prev.cookStep, { info: "", imageUrl: "" }],
+    }));
+    setNum((pre) => pre + 1);
   };
 
   // 이미지 url 뽑아오는 함수(encodeFileToBase64)
@@ -103,7 +107,7 @@ export default function RecipeWriteThree() {
         <div className="title-box">
           <div className="title">조리 방법</div>
           <button onClick={handleAdd} className="add">
-            {`추가 ${numtwo} / ${num}`}
+            {`추가 ${numtwo} / ${recipe.cookStep.length}`}
           </button>
         </div>
 
@@ -117,13 +121,16 @@ export default function RecipeWriteThree() {
             modules={[Pagination]}
             onSlideChange={(swiper) => setNumtwo(swiper.activeIndex + 1)}
           >
-            {add.map((data, index) => (
-              <SwiperSlide key={data.id}>
+            {recipe.cookStep.map((data, index) => (
+              <SwiperSlide key={index}>
                 {index < images.length ? (
                   <div>
                     <img
-                      src={images[index]}
-                      alt={`사진 ${index + 1}`}
+                      src={
+                        recipe.cookStep[index].imageUrl
+                          ? recipe.cookStep[index].imageUrl
+                          : images[index]
+                      }
                       className="recipe-image"
                     />
                     <div className="step">STEP {index + 1}</div>
@@ -149,6 +156,7 @@ export default function RecipeWriteThree() {
                     placeholder="단계별 레시피를 자세하게 설명해주세요."
                     className="level-text"
                     data-index={index}
+                    defaultValue={data.info}
                     onChange={handleTextAreaChange}
                   />
                 </div>
@@ -162,6 +170,7 @@ export default function RecipeWriteThree() {
             <textarea
               placeholder="나만의 요리 TIP을 알려주세요"
               className="tip-text"
+              defaultValue={recipe.cookTip}
               onChange={(e) => {
                 setRecipe((prev) => ({
                   ...prev,

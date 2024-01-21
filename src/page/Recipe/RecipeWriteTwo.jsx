@@ -3,7 +3,7 @@ import styled from "styled-components";
 import RecipeBar from "../../component/RecipeBar";
 import RecipeBtnBar from "./../../component/RecipeBtnBar";
 import { useRecoilState } from "recoil";
-import { categoryAtom, RecipeAtom } from "../../Recoil/atom";
+import { RecipeAtom } from "../../Recoil/atom";
 import { GoXCircle } from "react-icons/go";
 
 export default function RecipeWriteTwo() {
@@ -11,6 +11,7 @@ export default function RecipeWriteTwo() {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const [ingredientInput, setIngredientInput] = useState();
   const ingredRef = useRef("");
+  console.log(recipe);
 
   const handleAddIngredient = () => {
     setRecipe((prev) => ({

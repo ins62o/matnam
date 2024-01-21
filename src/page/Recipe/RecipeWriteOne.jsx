@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import RecipeBar from "../../component/RecipeBar";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { categoryAtom, RecipeAtom } from "../../Recoil/atom";
+import { RecipeAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -12,39 +12,14 @@ import RecipeBtnBar from "../../component/RecipeBtnBar";
 import { alertSweet } from "../../services/sweetalert";
 
 export default function RecipeWriteOne() {
-  const [category, setCategory] = useRecoilState(categoryAtom);
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const [name, setName] = useState("");
-  useEffect(() => {
-    const selectedMenu = Object.keys(category).find(
-      (menu) => category[menu] === true
-    );
 
-    // 선택한 메뉴가 이미 선택되어 있으면 categoryName 변경하지 않음
-
+  const handleMenuClick = (categoryName) => {
     setRecipe((prevRecipe) => ({
       ...prevRecipe,
-      categoryName: selectedMenu,
+      categoryName,
     }));
-  }, [category]);
-
-  const handleMenuClick = (menuName) => {
-    setCategory((prev) => {
-      const isSelected = prev[menuName];
-      const check = Object.values(prev).filter((item) => item === true).length;
-
-      if ((check < 1 && !isSelected) || (check === 1 && isSelected)) {
-        const updatedCategory = {
-          ...prev,
-          [menuName]: !isSelected,
-        };
-
-        return updatedCategory;
-      } else {
-        alertSweet("error", "하나만 골라주세요");
-        return prev;
-      }
-    });
   };
 
   return (
@@ -58,6 +33,7 @@ export default function RecipeWriteOne() {
               type="text"
               className="recipeInput"
               placeholder="소개 할 레시피의 이름은 무엇인가요?"
+              defaultValue={recipe.title}
               onChange={(e) =>
                 setRecipe((prev) => ({
                   ...prev,
@@ -81,28 +57,40 @@ export default function RecipeWriteOne() {
               <div className="menu-Container">
                 <div className="menu-list">
                   <div
-                    className={category.메인반찬 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "메인반찬"
+                        ? "Onmenu-box"
+                        : "menu-box"
+                    }
                     onClick={() => handleMenuClick("메인반찬")}
                   >
                     <div className="menu-icon">🥘</div>
                     <div className="menu-name">메인반찬</div>
                   </div>
                   <div
-                    className={category.밑반찬 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "밑반찬"
+                        ? "Onmenu-box"
+                        : "menu-box"
+                    }
                     onClick={() => handleMenuClick("밑반찬")}
                   >
                     <div className="menu-icon">🍳</div>
                     <div className="menu-name">밑반찬</div>
                   </div>
                   <div
-                    className={category.국·탕 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "국·탕" ? "Onmenu-box" : "menu-box"
+                    }
                     onClick={() => handleMenuClick("국·탕")}
                   >
                     <div className="menu-icon">🍲</div>
                     <div className="menu-name">국·탕</div>
                   </div>
                   <div
-                    className={category.밥·죽 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "밥·죽" ? "Onmenu-box" : "menu-box"
+                    }
                     onClick={() => handleMenuClick("밥·죽")}
                   >
                     <div className="menu-icon">🍚</div>
@@ -111,28 +99,42 @@ export default function RecipeWriteOne() {
                 </div>
                 <div className="menu-list">
                   <div
-                    className={category.튀김 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "튀김" ? "Onmenu-box" : "menu-box"
+                    }
                     onClick={() => handleMenuClick("튀김")}
                   >
                     <div className="menu-icon">🍤</div>
                     <div className="menu-name">튀김</div>
                   </div>
                   <div
-                    className={category.면요리 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "면요리"
+                        ? "Onmenu-box"
+                        : "menu-box"
+                    }
                     onClick={() => handleMenuClick("면요리")}
                   >
                     <div className="menu-icon">🍜</div>
                     <div className="menu-name">면요리</div>
                   </div>
                   <div
-                    className={category.양념·소스 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "양념·소스"
+                        ? "Onmenu-box"
+                        : "menu-box"
+                    }
                     onClick={() => handleMenuClick("양념·소스")}
                   >
                     <div className="menu-icon">🧉</div>
                     <div className="menu-name">양념·소스</div>
                   </div>
                   <div
-                    className={category.김치·젓갈 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "김치·젓갈"
+                        ? "Onmenu-box"
+                        : "menu-box"
+                    }
                     onClick={() => handleMenuClick("김치·젓갈")}
                   >
                     <div className="menu-icon">🌶️</div>
@@ -145,28 +147,42 @@ export default function RecipeWriteOne() {
               <div className="menu-Container">
                 <div className="menu-list">
                   <div
-                    className={category.셀러드 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "셀러드"
+                        ? "Onmenu-box"
+                        : "menu-box"
+                    }
                     onClick={() => handleMenuClick("셀러드")}
                   >
                     <div className="menu-icon">🥗</div>
                     <div className="menu-name">셀러드</div>
                   </div>
                   <div
-                    className={category.빵 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "빵" ? "Onmenu-box" : "menu-box"
+                    }
                     onClick={() => handleMenuClick("빵")}
                   >
                     <div className="menu-icon">🥖</div>
                     <div className="menu-name">빵</div>
                   </div>
                   <div
-                    className={category.디저트 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "디저트"
+                        ? "Onmenu-box"
+                        : "menu-box"
+                    }
                     onClick={() => handleMenuClick("디저트")}
                   >
                     <div className="menu-icon">🍨</div>
                     <div className="menu-name">디저트</div>
                   </div>
                   <div
-                    className={category.차·음료 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "차·음료"
+                        ? "Onmenu-box"
+                        : "menu-box"
+                    }
                     onClick={() => handleMenuClick("차·음료")}
                   >
                     <div className="menu-icon">🍵</div>
@@ -175,28 +191,40 @@ export default function RecipeWriteOne() {
                 </div>
                 <div className="menu-list">
                   <div
-                    className={category.편의점요리 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "편의점요리"
+                        ? "Onmenu-box"
+                        : "menu-box"
+                    }
                     onClick={() => handleMenuClick("편의점요리")}
                   >
                     <div className="menu-icon">🍙</div>
                     <div className="menu-name">편의점요리</div>
                   </div>
                   <div
-                    className={category.술 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "술" ? "Onmenu-box" : "menu-box"
+                    }
                     onClick={() => handleMenuClick("술")}
                   >
                     <div className="menu-icon">🍺</div>
                     <div className="menu-name">술</div>
                   </div>
                   <div
-                    className={category.도시락 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "도시락"
+                        ? "Onmenu-box"
+                        : "menu-box"
+                    }
                     onClick={() => handleMenuClick("도시락")}
                   >
                     <div className="menu-icon">🍱</div>
                     <div className="menu-name">도시락</div>
                   </div>
                   <div
-                    className={category.기타 ? "Onmenu-box" : "menu-box"}
+                    className={
+                      recipe.categoryName == "기타" ? "Onmenu-box" : "menu-box"
+                    }
                     onClick={() => handleMenuClick("기타")}
                   >
                     <div className="menu-icon">🍽️</div>
