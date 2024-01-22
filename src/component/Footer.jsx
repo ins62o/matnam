@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FaReact, FaAws } from "react-icons/fa";
 import { SiSpringboot } from "react-icons/si";
 import Logo from "../asset/Logo.png";
+
 export default function Footer() {
   return (
     <Container>

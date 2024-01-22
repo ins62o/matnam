@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { FaRegEye } from "react-icons/fa";
 
 export default function BoxSkeleton() {
   return (
@@ -36,12 +34,6 @@ const Container = styled.div`
   padding: 10px;
   margin-bottom: 20px;
 
-  .image-box {
-    border-radius: 10px;
-    height: 200px;
-    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
-  }
-
   .content-box {
     height: 200px;
     font-weight: 700;
@@ -69,20 +61,6 @@ const Container = styled.div`
     font-size: 0.9rem;
   }
 
-  .userprofile {
-    width: 20px;
-    height: 20px;
-    border: 1px solid var(--gray-400);
-    border-radius: 50%;
-    margin-right: 3px;
-  }
-
-  .user-profile {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-  }
-
   .recipe-title {
     font-size: 1.4rem;
     padding: 20px 0px 0px 7px;
@@ -100,13 +78,6 @@ const Container = styled.div`
     width: 100%;
     height: 20px;
     background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
-  }
-
-  .heart-icon {
-    margin-right: 5px;
-    width: 20px;
-    height: 20px;
-    color: red;
   }
 
   .heart-count {
@@ -134,12 +105,5 @@ const Container = styled.div`
     width: 100%;
     height: 50px;
     background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
-  }
-
-  .main-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
   }
 `;

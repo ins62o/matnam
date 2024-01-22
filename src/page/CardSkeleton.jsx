@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FaHeart, FaRegEye } from "react-icons/fa";
+import { FaRegEye } from "react-icons/fa";
 
 export default function CardSkeleton() {
   return (

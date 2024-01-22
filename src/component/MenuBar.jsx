@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { IoHomeOutline, IoHomeSharp } from "react-icons/io5";
-import { RiShoppingBagLine, RiShoppingBagFill } from "react-icons/ri";
 import { IoNewspaperOutline, IoNewspaper } from "react-icons/io5";
 import { animateScroll as scroll } from "react-scroll";
 import {
@@ -11,20 +10,21 @@ import {
   FaUserCircle,
   FaRegUserCircle,
   FaPlus,
-  FaAngleDown,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { MenuStateAtom } from "../Recoil/atom";
 export default function MenuBar() {
-  const [toggle, setToggle] = useState(false);
   const menuState = useRecoilValue(MenuStateAtom);
   const Token = localStorage.getItem("accessToken");
+
+  // TOP 버튼
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
+
   return (
-    <MenuBox toggle={toggle.toString()}>
+    <MenuBox>
       <Link to="/" className="iconBox">
         {menuState.home ? (
           <IoHomeSharp className="menuBar-icon" />
@@ -39,17 +39,14 @@ export default function MenuBar() {
         ) : (
           <IoNewspaperOutline className="menuBar-icon" />
         )}
-
         <div>피드</div>
       </Link>
       <div className="iconBox">
-        <div className="icon-circle" onClick={() => setToggle(!toggle)}>
-          {toggle ? (
-            <FaAngleDown className="menuBar-icon white-icon" />
-          ) : (
+        <Link to="/RecipeWrite">
+          <div className="icon-circle">
             <FaPlus className="menuBar-icon white-icon" />
-          )}
-        </div>
+          </div>
+        </Link>
       </div>
       <div className="iconBox">
         <FaArrowUp className="menuBar-icon" onClick={scrollToTop} />
@@ -74,21 +71,6 @@ export default function MenuBar() {
           로그인
         </Link>
       )}
-      <div className="subBox">
-        <div className="sub-menuBox">
-          <Link to="/RecipeWrite">
-            <div className="sub-menu sub-menu-one">
-              <div className="write-icon">📝</div>
-              <div>레시피쓰기</div>
-            </div>
-          </Link>
-
-          <div className="sub-menu">
-            <div className="write-icon">📝</div>
-            <div>쿡쇼핑쓰기</div>
-          </div>
-        </div>
-      </div>
     </MenuBox>
   );
 }
@@ -135,8 +117,6 @@ const MenuBox = styled.div`
 
   .sub-menuBox {
     display: flex;
-    opacity: ${({ toggle }) => (toggle === "true" ? "1" : "0")};
-    visibility: ${({ toggle }) => (toggle === "true" ? "visible" : "hidden")};
     border-radius: 10px;
     transition: all 0.5s ease 0s;
     background-color: #fff;
@@ -166,7 +146,5 @@ const MenuBox = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-    opacity: ${({ toggle }) => (toggle === "true" ? "1" : "0")};
-    visibility: ${({ toggle }) => (toggle === "true" ? "visible" : "hidden")};
   }
 `;

@@ -3,15 +3,13 @@ import styled from "styled-components";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
-import { useQueryClient } from "@tanstack/react-query";
 
-export default function RecipeBox({ item, getData }) {
+export default function RecipeBox({ item }) {
+  // item : RecipeNew , RecipeFeed 에서 받아오는 recipe 데이터 값
   const nickname = localStorage.getItem("nickname");
   const [heart, setHeart] = useState(false);
-  const client = useQueryClient;
 
+  // 카드박스 - 좋아요 처리
   useEffect(() => {
     setHeart(item.heart.includes(nickname));
   }, [item, nickname]);

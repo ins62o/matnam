@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { RecipeAtom, RecipeEditAtom } from "../Recoil/atom";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
-import { createData } from "../Firebase/actionFn";
 import { alertSweet } from "./../services/sweetalert";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 export default function RecipeBtnBar({ next }) {
   const navigate = useNavigate();
-  const [recipe, setRecipe] = useRecoilState(RecipeAtom);
-  const [recipeEdit, setRecipeEdit] = useRecoilState(RecipeEditAtom);
-  const [page, setPage] = useState("");
   const { id } = useParams();
+  const [recipe, setRecipe] = useRecoilState(RecipeAtom);
+  const recipeEdit = useRecoilValue(RecipeEditAtom);
+  const [page, setPage] = useState("");
 
+  // 수정 & 작성 페이지 라우터 처리
   useEffect(() => {
     if (next === "1" && id) {
       setPage(`/RecipeEditTwo/${id}`);
@@ -26,38 +26,29 @@ export default function RecipeBtnBar({ next }) {
     }
   }, [next]);
 
-  const updataData = async (recipe, id) => {
-    try {
-      await updateDoc(doc(db, "recipe", id), recipe);
-      navigate(`/RecipeDetail/${id}`);
-      alertSweet("success", "레시피를 수정했습니다", "성공");
-    } catch (e) {
-      alertSweet("error", "레시피 수정에 오류가 발생했습니다.", "오류");
-    }
+  // 레시피 작성
+  const createData = async () => {
+    await addDoc(collection(db, "recipe"), recipe)
+      .then(() => {
+        alertSweet("success", "레시피를 등록했습니다", "성공");
+        navigate("/");
+        setRecipe(initialRecipe);
+      })
+      .catch(() => {
+        alertSweet("error", "레시피 작성에 오류가 발생했습니다.", "오류");
+      });
   };
 
-  const createRecipe = () => {
-    try {
-      createData(recipe);
-      navigate("/");
-      alertSweet("success", "레시피를 등록했습니다", "성공");
-      setRecipe({
-        title: "",
-        categoryName: "",
-        ingredients: [],
-        cookTip: "",
-        cookStep: [{ info: "", imageUrl: "" }],
-        date: new Date(),
-        heart: [],
-        writer: {
-          nickname: localStorage.getItem("nickname"),
-          profile: localStorage.getItem("profile"),
-        },
-        see: 0,
+  // 레시피 수정
+  const updataData = async (recipe, id) => {
+    await updateDoc(doc(db, "recipe", id), recipe)
+      .then(() => {
+        navigate(`/RecipeDetail/${id}`);
+        alertSweet("success", "레시피를 수정했습니다", "성공");
+      })
+      .catch(() => {
+        alertSweet("error", "레시피 수정에 오류가 발생했습니다.", "오류");
       });
-    } catch (e) {
-      alertSweet("error", "레시피 작성에 오류가 발생했습니다.", "오류");
-    }
   };
 
   return (
@@ -74,7 +65,7 @@ export default function RecipeBtnBar({ next }) {
             수정
           </button>
         ) : (
-          <button className="next Btn" onClick={createRecipe}>
+          <button className="next Btn" onClick={createData}>
             작성
           </button>
         )
@@ -110,3 +101,18 @@ const Container = styled.div`
     background-color: var(--main-color);
   }
 `;
+
+const initialRecipe = {
+  title: "",
+  categoryName: "",
+  ingredients: [],
+  cookTip: "",
+  cookStep: [{ info: "", imageUrl: "" }],
+  date: new Date(),
+  heart: [],
+  writer: {
+    nickname: localStorage.getItem("nickname"),
+    profile: localStorage.getItem("profile"),
+  },
+  see: 0,
+};
