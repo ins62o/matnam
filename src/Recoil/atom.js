@@ -16,6 +16,11 @@ export const imagesAtom = atom({
   default: [],
 });
 
+export const ModeAtom = atom({
+  key: "ModeAtom",
+  default: false,
+});
+
 // 레시피작성 - 데이터 관리 상태
 export const RecipeAtom = atom({
   key: "RecipeAtom",
@@ -25,6 +30,25 @@ export const RecipeAtom = atom({
     ingredients: [],
     cookTip: "",
     cookStep: [{ info: "", imageUrl: "" }],
+    date: new Date(),
+    heart: [],
+    writer: {
+      nickname: localStorage.getItem("nickname"),
+      profile: localStorage.getItem("profile"),
+    },
+    see: 0,
+  },
+});
+
+// 레시피수정 - 데이터 관리 상태
+export const RecipeEditAtom = atom({
+  key: "RecipeEditAtom",
+  default: {
+    title: "",
+    categoryName: "",
+    ingredients: [],
+    cookTip: "",
+    cookStep: [],
     date: new Date(),
     heart: [],
     writer: {
