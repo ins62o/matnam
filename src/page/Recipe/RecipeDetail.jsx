@@ -14,6 +14,10 @@ import Loading from "../Loading";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import { IncraseSee, IncreaseHeart } from "../../Firebase/actionFn";
 import { detailRecipe } from "../../Firebase/firebaseFn";
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { alertSweet } from "../../services/sweetalert";
+
 export default function RecipeDetail() {
   const navigate = useNavigate();
   const recipeId = useParams();
@@ -60,6 +64,16 @@ export default function RecipeDetail() {
   if (isLoading) return <Loading />;
   if (error) return <p>{error}</p>;
 
+  const deleteRecipe = async (id) => {
+    try {
+      await deleteDoc(doc(db, "recipe", id));
+      navigate(`/`);
+      alertSweet("success", "레시피를 삭제했습니다", "성공");
+    } catch (e) {
+      alertSweet("error", "레시피를 삭제하지 못했어요.", "오류");
+    }
+  };
+
   return (
     <>
       <Container>
@@ -105,11 +119,13 @@ export default function RecipeDetail() {
           <div className="title">꿀팁🤫</div>
           {nickname === data.writer.nickname ? (
             <div className="ins-del-box">
-              <Link to={`/RecipeWrite/${recipeId.id}`}>
+              <Link to={`/RecipeEdit/${recipeId.id}`}>
                 <div className="ins">수정</div>
               </Link>
 
-              <div className="del">삭제</div>
+              <div className="del" onClick={() => deleteRecipe(recipeId.id)}>
+                삭제
+              </div>
             </div>
           ) : null}
         </div>
