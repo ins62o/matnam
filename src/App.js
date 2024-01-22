@@ -10,6 +10,9 @@ import ScrollToTop from "./services/ScrollToTop";
 import RecipeWriteOne from "./page/Recipe/RecipeWriteOne";
 import RecipeWriteTwo from "./page/Recipe/RecipeWriteTwo";
 import RecipeWriteThree from "./page/Recipe/RecipeWriteThree";
+import RecipeEditOne from "./page/Recipe/RecipeEditOne";
+import RecipeEditTwo from "./page/Recipe/RecipeEditTwo";
+import RecipeEditThree from "./page/Recipe/RecipeEditThree";
 import RecipeFeed from "./page/Recipe/RecipeFeed";
 import RecipeDetail from "./page/Recipe/RecipeDetail";
 import MyPage from "./page/Mypage/MyPage";
@@ -41,6 +44,16 @@ function App() {
                 path="/RecipeWriteThree"
                 element={<RecipeWriteThree />}
               ></Route>
+
+              <Route path="/RecipeEdit/:id" element={<RecipeEditOne />}></Route>
+              <Route
+                path="/RecipeEditTwo/:id"
+                element={<RecipeEditTwo />}
+              ></Route>
+              <Route
+                path="/RecipeEditThree/:id"
+                element={<RecipeEditThree />}
+              ></Route>
               <Route
                 path="/RecipeDetail/:id"
                 element={<RecipeDetail />}
@@ -55,7 +68,6 @@ function App() {
           </BrowserRouter>
         </RecoilRoot>
       </>
-      <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );
 }

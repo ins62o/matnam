@@ -11,6 +11,7 @@ import { categoryAtom, RecipeAtom, imagesAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
+import { useParams } from "react-router-dom";
 
 export default function RecipeWriteThree() {
   const [fireimage, setFireimage] = useState("");
@@ -22,6 +23,7 @@ export default function RecipeWriteThree() {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState("");
+  const recipeId = useParams();
 
   console.log("레시피 데이터 : ", recipe.cookStep);
   console.log("이미지 담겨있는 : ", images);

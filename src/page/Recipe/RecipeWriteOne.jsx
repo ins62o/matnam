@@ -2,18 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 import RecipeBar from "../../component/RecipeBar";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { RecipeAtom } from "../../Recoil/atom";
+import { RecipeAtom, ModeAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { detailRecipe } from "../../Firebase/firebaseFn";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
 import RecipeBtnBar from "../../component/RecipeBtnBar";
-import { alertSweet } from "../../services/sweetalert";
 
 export default function RecipeWriteOne() {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
-  const [name, setName] = useState("");
 
   const handleMenuClick = (categoryName) => {
     setRecipe((prevRecipe) => ({

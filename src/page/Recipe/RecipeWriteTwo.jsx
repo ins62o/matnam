@@ -11,7 +11,6 @@ export default function RecipeWriteTwo() {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const [ingredientInput, setIngredientInput] = useState();
   const ingredRef = useRef("");
-  console.log(recipe);
 
   const handleAddIngredient = () => {
     setRecipe((prev) => ({

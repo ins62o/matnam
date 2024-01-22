@@ -88,19 +88,9 @@ export default function MypageSection() {
           onSwiper={(swiper) => setSwiper(swiper)}
           onSlideChange={(swiper) => changeSwiper(swiper.activeIndex)}
         >
-          <SwiperSlide className="auto">
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-          </SwiperSlide>
+          <SwiperSlide className="auto"></SwiperSlide>
           <SwiperSlide>2</SwiperSlide>
-          <SwiperSlide className="auto">
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-          </SwiperSlide>
+          <SwiperSlide className="auto"></SwiperSlide>
         </Swiper>
       </Container>
     </>

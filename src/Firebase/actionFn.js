@@ -11,7 +11,6 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
-import { useQueryClient } from "@tanstack/react-query";
 
 // 조회수 증가
 export const IncraseSee = async ({ id }) => {
