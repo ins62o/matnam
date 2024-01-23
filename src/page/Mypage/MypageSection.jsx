@@ -23,7 +23,6 @@ export default function MypageSection() {
       Object.keys(newMenu).forEach((key) => {
         newMenu[key] = key === menu;
       });
-
       return newMenu;
     });
   };
@@ -57,21 +56,13 @@ export default function MypageSection() {
             className={menu.recipe ? "check-menu menu" : "menu"}
             onClick={() => moveSwiper(0, "recipe")}
           >
-            <div className="icon">📖</div>
-            <div className="menu-name">레시피</div>
-          </div>
-
-          <div
-            className={menu.shop ? "check-menu menu" : "menu"}
-            onClick={() => moveSwiper(1, "shop")}
-          >
-            <div className="icon">🛒</div>
-            <div className="menu-name">쇼핑</div>
+            <div className="icon">👨‍🍳</div>
+            <div className="menu-name">레시피(14)</div>
           </div>
 
           <div
             className={menu.like ? "check-menu menu" : "menu"}
-            onClick={() => moveSwiper(2, "like")}
+            onClick={() => moveSwiper(1, "like")}
           >
             <div className="icon">😍</div>
             <div className="menu-name">좋아요</div>
@@ -88,9 +79,8 @@ export default function MypageSection() {
           onSwiper={(swiper) => setSwiper(swiper)}
           onSlideChange={(swiper) => changeSwiper(swiper.activeIndex)}
         >
-          <SwiperSlide className="auto"></SwiperSlide>
+          <SwiperSlide className="auto">1</SwiperSlide>
           <SwiperSlide>2</SwiperSlide>
-          <SwiperSlide className="auto"></SwiperSlide>
         </Swiper>
       </Container>
     </>
@@ -100,19 +90,18 @@ export default function MypageSection() {
 const Container = styled.div`
   max-width: 480px;
   margin: 0 auto;
-  height: 65vh;
+  padding-bottom: 80px;
+
   .menuBar {
-    margin: 10px 0px;
     border-radius: 10px;
-    box-shadow: var(--box-shadow);
     display: flex;
-    height: 15%;
-    margin: 10px;
+    height: 60px;
+    margin: 20px;
+    box-shadow: var(--box-shadow);
   }
 
   .menu {
-    box-shadow: var(--box-shadow);
-    width: 25%;
+    width: 33%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -123,20 +112,19 @@ const Container = styled.div`
   }
 
   .check-menu {
-    background-color: var(--gray-300);
-    border-radius: 10px;
+    background-color: var(--gray-200);
   }
 
   .icon {
     font-size: 1.2rem;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
   }
 
   .swiper {
     border-radius: 10px;
+    margin: 20px;
     box-shadow: var(--box-shadow);
-    margin: 10px;
-    height: 70%;
+    height: 400px;
   }
 
   .auto {

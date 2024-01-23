@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
-import LogoBar from "../../component/LogoBar";
 import styled from "styled-components";
-import MenuBar from "../../component/MenuBar";
+import MenuBar from "./../../component/MenuBar";
 import MypageSection from "./MypageSection";
-import { MenuStateAtom } from "../../Recoil/atom";
-import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { FaChevronLeft } from "react-icons/fa6";
+import { FiLogOut } from "react-icons/fi";
 import { IoMdSettings } from "react-icons/io";
+import { useRecoilState } from "recoil";
+import { MenuStateAtom } from "../../Recoil/atom";
+import { showToast } from "../../services/sweetalert";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth, updateProfile, signOut } from "firebase/auth";
-import { showToast } from "../../services/sweetalert";
+import { useNavigate } from "react-router-dom";
 
 export default function MyPage() {
-  const [menu, setMenu] = useRecoilState(MenuStateAtom);
   const profile = localStorage.getItem("profile");
   const nickname = localStorage.getItem("nickname");
+  const [menu, setMenu] = useRecoilState(MenuStateAtom);
+  const [inserton, setInserton] = useState(false);
   const [image, setImage] = useState(profile);
   const [fireimage, setFireimage] = useState("");
-  const [inserton, setInserton] = useState(false);
   const navigate = useNavigate();
+
   // 하단 메뉴바 상태 관리 - useEffect
   useEffect(() => {
     setMenu((prev) => ({
@@ -34,22 +36,6 @@ export default function MyPage() {
     };
   }, [menu.mypage]);
 
-  // 로그아웃 함수 - logout
-  const logout = () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then((data) => {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("nickname");
-        localStorage.removeItem("profile");
-        navigate("/Login");
-        showToast("success", "로그아웃하였습니다.");
-      })
-      .catch((error) => {
-        showToast("error", "로그아웃에 문제가 발생했습니다.");
-      });
-  };
-
   // 이미지 url 뽑아오는 함수(encodeFileToBase64)
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -62,9 +48,25 @@ export default function MyPage() {
     });
   };
 
+  // 로그아웃 함수 - logout
+  const logout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("nickname");
+        localStorage.removeItem("profile");
+        navigate("/Login");
+        showToast("success", "로그아웃하였습니다.");
+      })
+      .catch(() => {
+        showToast("error", "로그아웃에 문제가 발생했습니다.");
+      });
+  };
+
   // 프로필 이미지 변경 함수 - changeProfile
   const changeProfile = async () => {
-    const storagePath = "profile/" + fireimage.name;
+    const storagePath = "profile/" + fireimage.name + nickname;
     const storageRef = ref(storage, storagePath);
 
     try {
@@ -88,126 +90,141 @@ export default function MyPage() {
   };
 
   return (
-    <>
-      <LogoBar />
-      <Container>
-        <div className="user-info-box">
-          <div className="profile-box">
-            <div className="user-profile">
-              <img src={image} alt="프로필" />
-              {inserton ? (
-                <div className="setting">
-                  <label htmlFor="file-input">
-                    <IoMdSettings className="set-icon" />
-                  </label>
-                  <input
-                    type="file"
-                    id="file-input"
-                    accept="image/*"
-                    onChange={(e) => {
-                      encodeFileToBase64(e.target.files[0]);
-                      setFireimage(e.target.files[0]);
-                    }}
-                  />
-                </div>
-              ) : null}
+    <Container>
+      <div className="header-box">
+        <FaChevronLeft onClick={() => navigate(-1)} />
+        <FiLogOut onClick={logout} />
+      </div>
+      <div className="profile-box">
+        <div className="profile">
+          <img src={image} alt="이미지" className="main-image" />
+          {inserton ? (
+            <div className="setting">
+              <label htmlFor="file-input">
+                <IoMdSettings className="setting-icon" />
+              </label>
+              <input
+                type="file"
+                id="file-input"
+                accept="image/*"
+                onChange={(e) => {
+                  encodeFileToBase64(e.target.files[0]);
+                  setFireimage(e.target.files[0]);
+                }}
+              />
             </div>
-          </div>
-          <div className="user-name-box">
-            <div className="nickname">{nickname}</div>
-            <div className="sub-info">한줄소개 vs 팔로잉</div>
-            {!inserton ? (
-              <button className="insert" onClick={() => setInserton(!inserton)}>
-                수정
-              </button>
-            ) : (
-              <button className="insert" onClick={changeProfile}>
-                완료
-              </button>
-            )}
-
-            <button className="logout" onClick={logout}>
-              로그아웃
-            </button>
-          </div>
+          ) : null}
         </div>
-        <MypageSection />
-        <MenuBar />
-      </Container>
-    </>
+        <div className="user-nickname">{nickname}</div>
+        {!inserton ? (
+          <button
+            className="info-insert-btn"
+            onClick={() => setInserton(!inserton)}
+          >
+            내 정보 수정
+          </button>
+        ) : (
+          <button
+            className="info-insert-btn info-check-btn  "
+            onClick={changeProfile}
+          >
+            수정 완료
+          </button>
+        )}
+      </div>
+      <MypageSection />
+      <MenuBar />
+    </Container>
   );
 }
 
 const Container = styled.div`
   max-width: 480px;
   margin: 0 auto;
-  margin-top: 10px;
 
-  .user-info-box {
+  .header-box {
+    height: 50px;
+    margin: 0 10px;
+    font-size: 1.5rem;
     display: flex;
-    box-shadow: var(--box-shadow);
-    border-radius: 10px;
-    padding: 10px;
-    margin: 0px 10px;
-  }
-
-  .sub-info {
-    padding: 15px;
-    font-weight: 700;
-  }
-
-  .nickname {
-    padding: 15px;
-    font-weight: 700;
-    font-size: 1.2rem;
-  }
-
-  .logout {
-    background-color: var(--gray-200);
-    padding: 10px;
-    border-radius: 10px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    box-shadow: var(--box-shadow);
-  }
-
-  .insert {
-    background-color: var(--gray-200);
-    padding: 10px;
-    border-radius: 10px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    box-shadow: var(--box-shadow);
-  }
-
-  .profile-box {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .user-profile {
-    border: 1px solid var(--gray-300);
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
   }
 
-  img {
+  .profile-box {
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+    position: relative;
+  }
+
+  .user-nickname {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .info-insert-btn {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--gray-200);
+    color: var(--gray-700);
+  }
+
+  .info-check-btn {
+    color: black;
+  }
+
+  .menu-bar {
+    display: flex;
+    box-shadow: var(--box-shadow);
+    justify-content: center;
+    margin: 20px;
+    border-radius: 10px;
+    font-weight: 700;
+  }
+
+  .main-image {
     width: 100%;
     height: 100%;
     border-radius: 50%;
+  }
+
+  .menu-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+    padding: 10px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .menu-list:nth-child(2) {
+    border-left: 1px solid var(--gray-300);
+    border-right: 1px solid var(--gray-300);
+  }
+
+  .menu-icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
   }
 
   .setting {
     background-color: var(--gray-200);
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     position: absolute;
     right: 0;
@@ -217,24 +234,8 @@ const Container = styled.div`
     justify-content: center;
   }
 
-  .user-name-box {
-    width: 80%;
-    position: relative;
-  }
-
-  .setting label {
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
+  /* 파일 필드 숨기기 */
   .setting input[type="file"] {
-    /* 파일 필드 숨기기 */
     position: absolute;
     width: 1px;
     height: 1px;
@@ -243,5 +244,9 @@ const Container = styled.div`
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+  }
+
+  .setting-icon {
+    font-size: 1.5rem;
   }
 `;
