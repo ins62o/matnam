@@ -1,24 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import RecipeCard from "../../component/RecipeCard";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { myRecipe, mylikeRecipe } from "../../Firebase/firebaseFn";
 
 export default function MypageSection() {
+  const nickname = localStorage.getItem("nickname");
   const [swiper, setSwiper] = useState();
+  const [RecipeCard, setRecipeCard] = useState([]);
+  const [likeCard, setLikeCard] = useState([]);
   const [menu, setMenu] = useState({
-    recipe: false,
-    shop: false,
+    recipe: true,
     like: false,
   });
+
+  const { data: RecipeData } = useQuery({
+    queryKey: ["myRecipe", nickname],
+    queryFn: () => myRecipe(nickname),
+  });
+
+  const { data: LikeData } = useQuery({
+    queryKey: ["myLikeRecipe", nickname],
+    queryFn: () => mylikeRecipe(nickname),
+  });
+
   const moveSwiper = (index, menu) => {
     swiper.slideTo(index, 1000, false);
     setMenu((prevMenu) => {
       const newMenu = { ...prevMenu };
-
       // 클릭된 메뉴는 true로 설정하고, 다른 모든 메뉴는 false로 설정
       Object.keys(newMenu).forEach((key) => {
         newMenu[key] = key === menu;
@@ -37,13 +50,6 @@ export default function MypageSection() {
     } else if (index === 1) {
       setMenu({
         recipe: false,
-        shop: true,
-        like: false,
-      });
-    } else {
-      setMenu({
-        recipe: false,
-        shop: false,
         like: true,
       });
     }
@@ -57,7 +63,7 @@ export default function MypageSection() {
             onClick={() => moveSwiper(0, "recipe")}
           >
             <div className="icon">👨‍🍳</div>
-            <div className="menu-name">레시피(14)</div>
+            <div className="menu-name">레시피({RecipeData?.length})</div>
           </div>
 
           <div
@@ -65,7 +71,7 @@ export default function MypageSection() {
             onClick={() => moveSwiper(1, "like")}
           >
             <div className="icon">😍</div>
-            <div className="menu-name">좋아요</div>
+            <div className="menu-name">좋아요({LikeData?.length})</div>
           </div>
           <Link to="/chatList" className="menu">
             <div>
@@ -79,8 +85,36 @@ export default function MypageSection() {
           onSwiper={(swiper) => setSwiper(swiper)}
           onSlideChange={(swiper) => changeSwiper(swiper.activeIndex)}
         >
-          <SwiperSlide className="auto">1</SwiperSlide>
-          <SwiperSlide>2</SwiperSlide>
+          <SwiperSlide className="auto">
+            <div className="card-box">
+              {RecipeData?.map((data) => (
+                <Link to={`/RecipeDetail/${data.id}`} key={data.id}>
+                  <div className="card">
+                    <img
+                      src={data.cookStep[0].imageUrl}
+                      alt="이미지"
+                      className="recipe-image"
+                    />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="card-box">
+              {LikeData?.map((data) => (
+                <Link to={`/RecipeDetail/${data.id}`} key={data.id}>
+                  <div className="card">
+                    <img
+                      src={data.cookStep[0].imageUrl}
+                      alt="이미지"
+                      className="recipe-image"
+                    />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </SwiperSlide>
         </Swiper>
       </Container>
     </>
@@ -121,7 +155,6 @@ const Container = styled.div`
   }
 
   .swiper {
-    border-radius: 10px;
     margin: 20px;
     box-shadow: var(--box-shadow);
     height: 400px;
@@ -129,5 +162,23 @@ const Container = styled.div`
 
   .auto {
     overflow: auto;
+  }
+
+  .card-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    cursor: pointer;
+  }
+
+  .card {
+    width: 100%;
+    height: 130px;
+  }
+
+  .recipe-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(80%);
   }
 `;

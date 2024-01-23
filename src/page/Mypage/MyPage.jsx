@@ -92,8 +92,8 @@ export default function MyPage() {
   return (
     <Container>
       <div className="header-box">
-        <FaChevronLeft onClick={() => navigate(-1)} />
-        <FiLogOut onClick={logout} />
+        <FaChevronLeft onClick={() => navigate(-1)} className="icon" />
+        <FiLogOut onClick={logout} className="icon" />
       </div>
       <div className="profile-box">
         <div className="profile">
@@ -219,6 +219,10 @@ const Container = styled.div`
   .menu-icon {
     font-size: 1.5rem;
     margin-bottom: 5px;
+  }
+
+  .icon {
+    cursor: pointer;
   }
 
   .setting {
