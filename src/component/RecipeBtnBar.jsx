@@ -14,6 +14,10 @@ export default function RecipeBtnBar({ next }) {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const recipeEdit = useRecoilValue(RecipeEditAtom);
   const [page, setPage] = useState("");
+  const nickname = localStorage.getItem("nickname");
+  const profile = localStorage.getItem("profile");
+
+  console.log(recipe);
 
   // 수정 & 작성 페이지 라우터 처리
   useEffect(() => {
@@ -28,6 +32,15 @@ export default function RecipeBtnBar({ next }) {
 
   // 레시피 작성
   const createData = async () => {
+    if (
+      recipe.writer.nickname !== nickname ||
+      recipe.writer.profile !== profile
+    ) {
+      setRecipe((prev) => ({
+        ...prev,
+        writer: { nickname, profile },
+      }));
+    }
     await addDoc(collection(db, "recipe"), recipe)
       .then(() => {
         alertSweet("success", "레시피를 등록했습니다", "성공");
