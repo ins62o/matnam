@@ -5,7 +5,6 @@ import SignUp from "./page/SignUp";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import RecipeHome from "./page/Recipe/RecipeHome";
-import ShopHome from "./page/Shop/ShopHome";
 import ScrollToTop from "./services/ScrollToTop";
 import RecipeWriteOne from "./page/Recipe/RecipeWriteOne";
 import RecipeWriteTwo from "./page/Recipe/RecipeWriteTwo";
@@ -60,7 +59,6 @@ function App() {
               ></Route>
               <Route path="/Login" element={<Login />}></Route>
               <Route path="/SignUP" element={<SignUp />}></Route>
-              <Route path="/Shop" element={<ShopHome />}></Route>
               <Route path="/Mypage" element={<MyPage />}></Route>
               <Route path="/chatList" element={<ChatList />}></Route>
               <Route path="/chatroom" element={<ChatRoom />}></Route>
