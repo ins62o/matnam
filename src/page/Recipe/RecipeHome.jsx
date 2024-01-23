@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LogoBar from "./../../component/LogoBar";
 import MenuBar from "../../component/MenuBar";
-import { MenuStateAtom } from "../../Recoil/atom";
+import { MenuStateAtom, RecipeAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
 import RecipeMenu from "./RecipeMenu";
 import RecipeBest from "./RecipeBest";
@@ -11,11 +11,19 @@ import Footer from "../../component/Footer";
 
 export default function RecipeHome() {
   const [menu, setMenu] = useRecoilState(MenuStateAtom);
+  const [recipe, setRecipe] = useRecoilState(RecipeAtom);
+  const nickname = localStorage.getItem("nickname");
+  const profile = localStorage.getItem("profile");
 
   useEffect(() => {
     setMenu((prev) => ({
       ...prev,
       home: true,
+    }));
+
+    setRecipe((prev) => ({
+      ...prev,
+      writer: { nickname, profile },
     }));
 
     return () => {
