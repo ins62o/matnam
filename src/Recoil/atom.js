@@ -58,3 +58,14 @@ export const RecipeEditAtom = atom({
     see: 0,
   },
 });
+
+// users 초기 데이터
+export const usersAtom = atom({
+  key: "usersAtom",
+  default: {
+    nickname: "",
+    imageUrl: "https://matnam.s3.ap-northeast-2.amazonaws.com/LogoIcon.png",
+    following: [],
+    followers: [],
+  },
+});

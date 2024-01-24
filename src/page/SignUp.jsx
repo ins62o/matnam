@@ -1,29 +1,41 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 import MenuBar from "../component/MenuBar";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../services/sweetalert";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
+import { usersAtom } from "../Recoil/atom";
+import { useRecoilState } from "recoil";
+import { db } from "../firebase";
+import { userData } from "../Firebase/firebaseFn";
 
 export default function SignUp() {
+  const [users, setUsers] = useRecoilState(usersAtom);
   const navigate = useNavigate();
   const nicknameRef = useRef();
   const idRef = useRef();
   const pwRef = useRef();
   const pwcheckRef = useRef();
 
+  useEffect(() => {
+    return () => {
+      setUsers({
+        nickname: "",
+        imageUrl: "https://matnam.s3.ap-northeast-2.amazonaws.com/LogoIcon.png",
+        following: [],
+        followers: [],
+      });
+    };
+  }, []);
+
   // 엔터키 Keydown 이벤트 적용
   const handleEnter = (e) => {
     if (e.key === "Enter") checkSignUp();
   };
 
-  // 회원가입 체크 함수 - checkSignUp
-  const checkSignUp = () => {
+  const checkSignUp = async () => {
     const nicknameLength = nicknameRef.current.value.length;
     const idValue = idRef.current.value;
     const pwValue = pwRef.current.value;
@@ -38,23 +50,44 @@ export default function SignUp() {
     } else if (pwValue !== pwCheckValue) {
       showToast("error", "패스워드가 일치하지 않습니다", pwcheckRef);
     } else {
-      const auth = getAuth();
-      createUserWithEmailAndPassword(auth, idValue, pwValue)
-        .then((userCredential) => {
+      try {
+        const auth = getAuth();
+        const newNickname = nicknameRef.current.value;
+        const usersdata = await userData();
+        if (
+          usersdata.some((item) => item.nickname === nicknameRef.current.value)
+        ) {
+          showToast("error", "닉네임이 사용중입니다.", nicknameRef);
+          nicknameRef.current.focus();
+        } else {
+          // users 아톰 상태 변경
+          setUsers((prev) => ({
+            ...prev,
+            nickname: newNickname,
+          }));
+
+          // 파이어베이스 회원가입
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            idValue,
+            pwValue
+          );
           const user = userCredential.user;
-          showToast("success", "회원가입을 축하합니다.");
-          updateProfile(user, {
-            displayName: nicknameRef.current.value,
-            photoURL:
-              "https://matnam.s3.ap-northeast-2.amazonaws.com/LogoIcon.png",
+
+          // 새로운 users 정보 문서 생성
+          await addDoc(collection(db, "users"), {
+            ...users,
+            nickname: newNickname,
           });
+
           nicknameRef.current.value = "";
           idRef.current.value = "";
+          showToast("success", "회원가입을 축하합니다.");
           navigate("/Login");
-        })
-        .catch(() => {
-          showToast("error", "이미 존재하는 아이디입니다.", idRef);
-        });
+        }
+      } catch (err) {
+        showToast("error", "이미 존재하는 아이디입니다.", idRef);
+      }
     }
   };
 

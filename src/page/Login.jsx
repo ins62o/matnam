@@ -1,23 +1,26 @@
-/* eslint-disable */
 import React, { useEffect, useRef } from "react";
 import MenuBar from "../component/MenuBar";
 import styled from "styled-components";
 import Logo from "../asset/Logo.png";
 import { useNavigate, Link } from "react-router-dom";
-import { MenuStateAtom } from "../Recoil/atom";
+import { MenuStateAtom, usersAtom } from "../Recoil/atom";
 import { useRecoilState } from "recoil";
 import { Toast, showToast } from "../services/sweetalert";
 import { FcGoogle } from "react-icons/fc";
 import { FaX } from "react-icons/fa6";
+import { collection, addDoc } from "firebase/firestore";
 import {
   getAuth,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { db } from "../firebase";
+import { userData } from "../Firebase/firebaseFn";
 
 export default function Login() {
   const [menu, setMenu] = useRecoilState(MenuStateAtom);
+  const [users, setUsers] = useRecoilState(usersAtom);
   const navigate = useNavigate();
   const idRef = useRef();
   const pwRef = useRef();
@@ -68,19 +71,33 @@ export default function Login() {
   };
 
   // 구글 로그인 처리 함수 - googleLogin
-  const googleLogin = () => {
+  const googleLogin = async () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
+    const usersdata = await userData();
+    console.log(usersdata);
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
-        localStorage.setItem("accessToken", user.accessToken);
-        localStorage.setItem("nickname", user.displayName);
-        localStorage.setItem("profile", user.photoURL);
-        showToast("success", `${user.displayName} 님 환영합니다.`);
-        navigate("/");
+        if (usersdata.some((item) => item.nickname === user.displayName)) {
+          const nickname = prompt(
+            ` ${user.displayName} 닉네임이 사용중입니다.`
+          );
+
+          if (nickname === null) return false;
+          await addDoc(collection(db, "users"), {
+            ...users,
+            nickname,
+            imageUrl: user.photoURL,
+          });
+          localStorage.setItem("accessToken", user.accessToken);
+          localStorage.setItem("nickname", user.displayName);
+          localStorage.setItem("profile", user.photoURL);
+          showToast("success", `${user.displayName} 님 환영합니다.`);
+          navigate("/");
+        }
       })
-      .catch(() => {
+      .catch((err) => {
         showToast("error", "맛남의 공간 회원이 아닙니다.");
       });
   };

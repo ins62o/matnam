@@ -17,8 +17,6 @@ export default function RecipeBtnBar({ next }) {
   const nickname = localStorage.getItem("nickname");
   const profile = localStorage.getItem("profile");
 
-  console.log(recipe);
-
   // 수정 & 작성 페이지 라우터 처리
   useEffect(() => {
     if (next === "1" && id) {
