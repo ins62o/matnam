@@ -78,3 +78,19 @@ export const mylikeRecipe = async (nickname) => {
 
   return myData;
 };
+
+export const searchRecipe = async (searchValue) => {
+  // 검색어를 공백으로 분리
+  const searchTerms = searchValue.split(" ");
+
+  // "recipe" 컬렉션의 모든 문서를 가져옴
+  const recipesQuery = await getDocs(query(collection(db, "recipe")));
+
+  // 검색어와 일치하는 문서들을 필터링
+  const searchData = recipesQuery.docs.filter((item) =>
+    searchTerms.every((term) => item.data().title.includes(term))
+  );
+
+  // 검색 결과를 반환
+  return searchData.map((doc) => ({ id: doc.id, ...doc.data() }));
+};

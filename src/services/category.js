@@ -52,7 +52,7 @@ export default function categorylist(category) {
       return "기타";
     }
     default: {
-      return "하이";
+      return "";
     }
   }
 }

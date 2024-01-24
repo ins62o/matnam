@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { IoSearchOutline } from "react-icons/io5";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,17 +8,34 @@ import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
 import event from "../../asset/event.jpg";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export default function RecipeMenu() {
+  const searchRef = useRef("");
+  const navigate = useNavigate();
+
+  // 해당 검색어로 이동 (쿼리스트링 사용)
+  const handleSearch = () => {
+    const searchTerm = encodeURIComponent(searchRef.current.value);
+    navigate(`/recipeFeed?search=${searchTerm}`);
+  };
+
+  // 엔터키 Keydown 이벤트 적용
+  const handleEnter = (e) => {
+    if (e.key === "Enter") handleSearch();
+  };
+
   return (
     <MenuBox>
       <div className="search-box">
         <div>
-          <IoSearchOutline className="search-icon" />
+          <IoSearchOutline className="search-icon" onClick={handleSearch} />
         </div>
         <input
           type="text"
           className="search-input"
           placeholder="오늘은 어떤 요리를 할까요?"
+          ref={searchRef}
+          onKeyDown={handleEnter}
         />
       </div>
       <div className="info-box">
@@ -196,6 +213,10 @@ const MenuBox = styled.div`
     border-radius: 10px;
   }
 
+  .search-input::placeholder {
+    font-weight: 400;
+  }
+
   .search-input {
     width: 80%;
     height: 100%;
@@ -203,6 +224,7 @@ const MenuBox = styled.div`
     background-color: rgba(255, 255, 255, 0);
     outline: none;
     padding-left: 7px;
+    font-weight: 700;
   }
 
   .search-icon {
