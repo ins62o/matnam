@@ -11,8 +11,6 @@ import { myRecipe, mylikeRecipe } from "../../Firebase/firebaseFn";
 export default function MypageSection() {
   const nickname = localStorage.getItem("nickname");
   const [swiper, setSwiper] = useState();
-  const [RecipeCard, setRecipeCard] = useState([]);
-  const [likeCard, setLikeCard] = useState([]);
   const [menu, setMenu] = useState({
     recipe: true,
     like: false,

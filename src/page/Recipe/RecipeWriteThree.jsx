@@ -16,17 +16,15 @@ import { useParams } from "react-router-dom";
 export default function RecipeWriteThree() {
   const [fireimage, setFireimage] = useState("");
   const [images, setImages] = useRecoilState(imagesAtom);
-  const [swiper, setSwiper] = useState("");
-  const [add, setAdd] = useState([{ id: 1 }]);
   const [num, setNum] = useState(1);
   const [numtwo, setNumtwo] = useState(1);
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState("");
-  const recipeId = useParams();
 
-  console.log("레시피 데이터 : ", recipe.cookStep);
-  console.log("이미지 담겨있는 : ", images);
+  useEffect(() => {
+    setImages([]);
+  }, []);
 
   useEffect(() => {
     if (url || info) {

@@ -51,7 +51,7 @@ export default function RecipeEditOne() {
               type="text"
               className="recipeInput"
               placeholder="소개 할 레시피의 이름은 무엇인가요?"
-              defaultValue={recipe?.title}
+              defaultValue={data?.title}
               onChange={(e) =>
                 setRecipe((prev) => ({
                   ...prev,
