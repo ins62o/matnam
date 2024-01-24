@@ -34,6 +34,7 @@ function App() {
                 path="/recipeFeed/:category"
                 element={<RecipeFeed />}
               ></Route>
+              <Route path="/recipeFeed/" element={<RecipeFeed />}></Route>
               <Route path="/RecipeWrite" element={<RecipeWriteOne />}></Route>
               <Route
                 path="/RecipeWriteTwo"
