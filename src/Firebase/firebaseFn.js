@@ -94,3 +94,10 @@ export const searchRecipe = async (searchValue) => {
   // 검색 결과를 반환
   return searchData.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
+
+// 유저 테이블 가져오기 - Get
+export const userData = async () => {
+  const UserQuery = await getDocs(query(collection(db, "users")));
+
+  return UserQuery.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+};
