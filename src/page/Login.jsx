@@ -22,6 +22,11 @@ export default function Login() {
   const idRef = useRef();
   const pwRef = useRef();
 
+  // 엔터키 Keydown 이벤트 적용
+  const handleEnter = (e) => {
+    if (e.key === "Enter") loginhandle();
+  };
+
   // 하단 메뉴바 상태 관리 - useEffect
   useEffect(() => {
     setMenu((prev) => ({
@@ -101,12 +106,14 @@ export default function Login() {
               className="inputStyle"
               placeholder="아이디"
               ref={idRef}
+              onKeyDown={handleEnter}
             />
             <input
               type="password"
               className="inputStyle"
               placeholder="비밀번호"
               ref={pwRef}
+              onKeyDown={handleEnter}
             />
             <button className="Login Btn" onClick={loginhandle}>
               로그인

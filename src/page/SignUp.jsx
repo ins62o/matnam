@@ -17,6 +17,11 @@ export default function SignUp() {
   const pwRef = useRef();
   const pwcheckRef = useRef();
 
+  // 엔터키 Keydown 이벤트 적용
+  const handleEnter = (e) => {
+    if (e.key === "Enter") checkSignUp();
+  };
+
   // 회원가입 체크 함수 - checkSignUp
   const checkSignUp = () => {
     const nicknameLength = nicknameRef.current.value.length;
@@ -77,6 +82,7 @@ export default function SignUp() {
             className="inputStyle"
             ref={nicknameRef}
             placeholder="사용하실 닉네임을 입력해주세요."
+            onKeyDown={handleEnter}
           />
           <div className="inputTitle">아이디</div>
           <input
@@ -84,6 +90,7 @@ export default function SignUp() {
             className="inputStyle"
             ref={idRef}
             placeholder="이메일을 적어주세요."
+            onKeyDown={handleEnter}
           />
 
           <div className="inputTitle">패스워드</div>
@@ -92,6 +99,7 @@ export default function SignUp() {
             className="inputStyle"
             ref={pwRef}
             placeholder="패스워드를 적어주세요."
+            onKeyDown={handleEnter}
           />
 
           <div className="inputTitle">패스워드 확인</div>
@@ -100,6 +108,7 @@ export default function SignUp() {
             className="inputStyle"
             ref={pwcheckRef}
             placeholder="한번 더 입력해주세요."
+            onKeyDown={handleEnter}
           />
         </div>
         <div className="btn-box">
