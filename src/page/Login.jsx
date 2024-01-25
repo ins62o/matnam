@@ -57,14 +57,15 @@ export default function Login() {
       signInWithEmailAndPassword(auth, idValue, pwValue)
         .then(async (userCredential) => {
           const user = userCredential.user;
-          const DBUserData = await userData(user.displayName);
+          const DBUserData = await userData(user.displayName, user.email);
           localStorage.setItem("accessToken", user.accessToken);
-          localStorage.setItem("nickname", DBUserData.nickname);
-          localStorage.setItem("profile", DBUserData.profile);
-          showToast("success", `${DBUserData.nickname} 님 환영합니다.`);
+          localStorage.setItem("nickname", DBUserData[0].nickname);
+          localStorage.setItem("profile", DBUserData[0].profile);
+          showToast("success", `${DBUserData[0].nickname} 님 환영합니다.`);
           navigate("/");
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err);
           showToast("error", "맛남의 공간 회원이 아닙니다.", idRef);
         });
     }
@@ -76,19 +77,15 @@ export default function Login() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then(async (userCredential) => {
       const user = userCredential.user;
-      const DBUserData = await userData(user.displayName);
-      console.log(DBUserData);
-      console.log(user);
+      const DBUserData = await userData(user.displayName, user.email);
 
       // 나의 회원 테이블이 DB에 있다는 소리
-      if (DBUserData.some((item) => item.email === user.email)) {
-        const data = DBUserData.filter((item) => item.email === user.email);
-        console.log(data[0]);
+      if (DBUserData[0].email === user.email) {
         localStorage.setItem("accessToken", user.accessToken);
-        localStorage.setItem("nickname", data[0].nickname);
-        localStorage.setItem("profile", data[0].profile);
+        localStorage.setItem("nickname", DBUserData[0].nickname);
+        localStorage.setItem("profile", DBUserData[0].profile);
         navigate("/");
-        showToast("success", `${data[0].nickname}님 환영합니다.`);
+        showToast("success", `${DBUserData[0].nickname}님 환영합니다.`);
       } else {
         if (user.displayName === DBUserData.nickname) {
           const nickname = prompt(

@@ -96,14 +96,12 @@ export const searchRecipe = async (searchValue) => {
 };
 
 // 유저 테이블 가져오기 - Get
-export const userData = async (nickname) => {
-  const usersQuery = await getDocs(query(collection(db, "users")));
-  const users = usersQuery.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  const filteredUsers = users.filter((item) => item.nickname === nickname);
+export const userData = async (nickname, email) => {
+  const usersQuery = await getDocs(
+    query(collection(db, "users"), where("nickname", "==", nickname))
+  );
 
-  if (users.some((item) => item.nickname === nickname)) {
-    return filteredUsers;
-  } else {
-    return users;
-  }
+  const users = usersQuery.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  const filteredUsers = users.filter((item) => item.email === email);
+  return filteredUsers;
 };
