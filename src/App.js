@@ -60,7 +60,7 @@ function App() {
               ></Route>
               <Route path="/Login" element={<Login />}></Route>
               <Route path="/SignUP" element={<SignUp />}></Route>
-              <Route path="/Mypage" element={<MyPage />}></Route>
+              <Route path="/Mypage/:nickname" element={<MyPage />}></Route>
               <Route path="/chatList" element={<ChatList />}></Route>
               <Route path="/chatroom" element={<ChatRoom />}></Route>
             </Routes>

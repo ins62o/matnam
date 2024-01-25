@@ -154,6 +154,19 @@ export default function MyPage() {
           </button>
         )}
       </div>
+      <div className="friend-box">
+        <div className="box">
+          <div className="item-box">
+            <div className="item-icon">👩‍👧‍👦</div>
+            <div className="item-name">친구(23)</div>
+          </div>
+          <div className="item-box">
+            <div className="item-icon">📬</div>
+            <div className="item-name">친구신청(1)</div>
+            <div className="new-circle">N</div>
+          </div>
+        </div>
+      </div>
       <MypageSection />
       <MenuBar />
     </Container>
@@ -287,5 +300,50 @@ const Container = styled.div`
 
   .setting-icon {
     font-size: 1.5rem;
+  }
+
+  .friend-box {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .box {
+    width: 200px;
+    height: 60px;
+    display: flex;
+    box-shadow: var(--box-shadow);
+  }
+
+  .item-box {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .item-icon {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+
+  .item-name {
+    font-weight: 700;
+  }
+
+  .new-circle {
+    font-weight: 700;
+    color: #fff;
+    background-color: red;
+    width: 21px;
+    height: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 `;
