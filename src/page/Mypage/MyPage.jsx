@@ -103,7 +103,6 @@ export default function MyPage() {
       // 수정버튼 false
       setInserton(false);
     } catch (error) {
-      console.log(error);
       showToast("error", "프로필 이미지를 변경하지 못했습니다.");
     }
   };

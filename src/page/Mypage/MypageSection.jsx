@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { myRecipe, mylikeRecipe } from "../../Firebase/firebaseFn";
 
 export default function MypageSection() {
-  const nickname = localStorage.getItem("nickname");
+  const email = localStorage.getItem("email");
   const [swiper, setSwiper] = useState();
   const [menu, setMenu] = useState({
     recipe: true,
@@ -17,13 +17,13 @@ export default function MypageSection() {
   });
 
   const { data: RecipeData } = useQuery({
-    queryKey: ["myRecipe", nickname],
-    queryFn: () => myRecipe(nickname),
+    queryKey: ["myRecipe", email],
+    queryFn: () => myRecipe(email),
   });
 
   const { data: LikeData } = useQuery({
-    queryKey: ["myLikeRecipe", nickname],
-    queryFn: () => mylikeRecipe(nickname),
+    queryKey: ["myLikeRecipe", email],
+    queryFn: () => mylikeRecipe(email),
   });
 
   const moveSwiper = (index, menu) => {

@@ -66,7 +66,6 @@ export default function Login() {
           navigate("/");
         })
         .catch((err) => {
-          console.log(err);
           showToast("error", "맛남의 공간 회원이 아닙니다.", idRef);
         });
     }

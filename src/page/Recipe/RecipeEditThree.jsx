@@ -25,9 +25,6 @@ export default function RecipeEditThree() {
   const [info, setInfo] = useState("");
   const recipeId = useParams();
 
-  console.log("레시피 데이터 : ", recipe.cookStep);
-  console.log("이미지 담겨있는 : ", images);
-
   useEffect(() => {
     if (url || info) {
       setRecipe((prev) => {

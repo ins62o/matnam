@@ -7,16 +7,15 @@ import { Link } from "react-router-dom";
 export default function RecipeCard({ color, data }) {
   // color : 1등 , 2등 ,3등 border 색상 , data : RecipeNew 에서 받아온 레시피 데이터값
   const [heart, setHeart] = useState(false);
-  const nickname = localStorage.getItem("nickname");
+  const email = localStorage.getItem("email");
   if (color == 1) color = "var(--main-color)";
   if (color == 2) color = "var(--gray-400)";
   if (color == 3) color = "#826a5d;";
-  console.log(data);
 
   // 카드박스 - 좋아요 처리
   useEffect(() => {
-    setHeart(data.heart.includes(nickname));
-  }, [data, nickname]);
+    setHeart(data.heart.includes(email));
+  }, [data, email]);
 
   return (
     <Container color={color}>

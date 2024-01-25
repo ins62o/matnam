@@ -50,10 +50,10 @@ export default function RecipeDetail() {
       await queryClient.cancelQueries(["DetailRecipe", recipeId]);
       const prevData = queryClient.getQueryData(["DetailRecipe", recipeId]);
       queryClient.setQueryData(["DetailRecipe", recipeId], (old) => {
-        const heart = old.heart.filter((user) => user !== nickname);
-        return old.heart.includes(nickname)
+        const heart = old.heart.filter((user) => user !== email);
+        return old.heart.includes(email)
           ? { ...old, heart }
-          : { ...old, heart: [...old.heart, nickname] };
+          : { ...old, heart: [...old.heart, email] };
       });
       return prevData;
     },
@@ -103,15 +103,15 @@ export default function RecipeDetail() {
             <div>{data.writer.nickname}</div>
           </div>
           <div className="icon-box">
-            {data.heart.includes(nickname) ? (
+            {data.heart.includes(email) ? (
               <FaHeart
                 className="icon-heart"
-                onClick={() => HeartMutation.mutate({ recipeId, nickname })}
+                onClick={() => HeartMutation.mutate({ recipeId, email })}
               />
             ) : (
               <FaRegHeart
                 className="icon-heart"
-                onClick={() => HeartMutation.mutate({ recipeId, nickname })}
+                onClick={() => HeartMutation.mutate({ recipeId, email })}
               />
             )}
             {data.heart.length}명

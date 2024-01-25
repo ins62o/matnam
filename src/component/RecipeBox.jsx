@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 
 export default function RecipeBox({ item }) {
   // item : RecipeNew , RecipeFeed 에서 받아오는 recipe 데이터 값
-  const nickname = localStorage.getItem("nickname");
+  const email = localStorage.getItem("email");
   const [heart, setHeart] = useState(false);
 
   // 카드박스 - 좋아요 처리
   useEffect(() => {
-    setHeart(item.heart.includes(nickname));
-  }, [item, nickname]);
+    setHeart(item.heart.includes(email));
+  }, [item, email]);
 
   return (
     <Container>

@@ -11,7 +11,6 @@ export default function RecipeEditTwo() {
   const [recipe, setRecipe] = useRecoilState(RecipeEditAtom);
   const [ingredientInput, setIngredientInput] = useState();
   const ingredRef = useRef("");
-  console.log(recipe);
 
   const handleAddIngredient = () => {
     setRecipe((prev) => ({
@@ -20,8 +19,6 @@ export default function RecipeEditTwo() {
     }));
     ingredRef.current.value = "";
   };
-
-  console.log(recipe);
 
   const handleRemoveIngredient = (index) => {
     setRecipe((prev) => {

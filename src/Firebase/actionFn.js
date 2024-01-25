@@ -13,18 +13,18 @@ export const IncraseSee = async ({ id }) => {
 };
 
 // 좋아요 증가
-export const IncreaseHeart = async ({ recipeId, nickname }) => {
+export const IncreaseHeart = async ({ recipeId, email }) => {
   const recipeDocRef = await getDoc(doc(db, "recipe", recipeId.id));
   const likeField = recipeDocRef.data().heart;
 
-  if (likeField.includes(nickname)) {
-    const heart = likeField.filter((item) => item !== nickname);
+  if (likeField.includes(email)) {
+    const heart = likeField.filter((item) => item !== email);
     const updateData = {
       heart,
     };
     await updateDoc(doc(db, "recipe", recipeId.id), updateData);
   } else {
-    const heart = [...likeField, nickname];
+    const heart = [...likeField, email];
     const updateData = {
       heart,
     };

@@ -52,29 +52,27 @@ export const detailRecipe = async ({ id }) => {
 };
 
 // 내가 쓴 레시피 조회 - Get
-export const myRecipe = async (nickname) => {
+export const myRecipe = async (email) => {
   const recipesQuery = await getDocs(query(collection(db, "recipe")));
   const recipesData = recipesQuery.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }));
 
-  const myData = recipesData.filter(
-    (item) => item.writer.nickname === nickname
-  );
+  const myData = recipesData.filter((item) => item.writer.email === email);
 
   return myData;
 };
 
 // 좋아요한 글 - Get
-export const mylikeRecipe = async (nickname) => {
+export const mylikeRecipe = async (email) => {
   const recipesQuery = await getDocs(query(collection(db, "recipe")));
   const recipesData = recipesQuery.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }));
 
-  const myData = recipesData.filter((item) => item.heart.includes(nickname));
+  const myData = recipesData.filter((item) => item.heart.includes(email));
 
   return myData;
 };
