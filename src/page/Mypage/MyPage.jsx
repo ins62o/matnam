@@ -11,16 +11,31 @@ import { showToast } from "../../services/sweetalert";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth, updateProfile, signOut } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { userData } from "../../Firebase/firebaseFn";
 
 export default function MyPage() {
-  const profile = localStorage.getItem("profile");
+  const email = localStorage.getItem("email");
   const nickname = localStorage.getItem("nickname");
   const [menu, setMenu] = useRecoilState(MenuStateAtom);
   const [inserton, setInserton] = useState(false);
-  const [image, setImage] = useState(profile);
+  const [data, setData] = useState({});
   const [fireimage, setFireimage] = useState("");
   const navigate = useNavigate();
+
+  // 마이페이지 상태 가져오기
+  useEffect(() => {
+    const myDataFetch = async () => {
+      const myData = await userData(nickname, email);
+      setData({
+        nickname: myData.nickname,
+        profile: myData.profile,
+      });
+    };
+    myDataFetch();
+  }, []);
 
   // 하단 메뉴바 상태 관리 - useEffect
   useEffect(() => {
@@ -42,7 +57,10 @@ export default function MyPage() {
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
       reader.onload = () => {
-        setImage(reader.result);
+        setData({
+          nickname,
+          profile: reader.result,
+        });
         resolve();
       };
     });
@@ -56,6 +74,7 @@ export default function MyPage() {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("nickname");
         localStorage.removeItem("profile");
+        localStorage.removeItem("email");
         navigate("/Login");
         showToast("success", "로그아웃하였습니다.");
       })
@@ -68,16 +87,15 @@ export default function MyPage() {
   const changeProfile = async () => {
     const storagePath = "profile/" + fireimage.name + nickname;
     const storageRef = ref(storage, storagePath);
+    const myData = await userData(nickname, email);
 
     try {
       // 이미지 업로드,URL
       const snapshot = await uploadBytes(storageRef, fireimage);
-      const url = await getDownloadURL(storageRef);
+      const profile = await getDownloadURL(storageRef);
 
       // 사용자 프로필 업데이트
-      const auth = getAuth();
-      await updateProfile(auth.currentUser, { photoURL: url });
-      localStorage.setItem("profile", auth.currentUser.photoURL);
+      await updateDoc(doc(db, "users", myData.id), { nickname, profile });
 
       // 성공 토스트 메시지 표시
       showToast("success", "프로필 이미지를 변경했습니다.");
@@ -85,6 +103,7 @@ export default function MyPage() {
       // 수정버튼 false
       setInserton(false);
     } catch (error) {
+      console.log(error);
       showToast("error", "프로필 이미지를 변경하지 못했습니다.");
     }
   };
@@ -97,7 +116,11 @@ export default function MyPage() {
       </div>
       <div className="profile-box">
         <div className="profile">
-          <img src={image} alt="이미지" className="main-image" />
+          {data.profile ? (
+            <img src={data.profile} alt="로딩중" className="main-image" />
+          ) : (
+            <div className="main-image-skt"></div>
+          )}
           {inserton ? (
             <div className="setting">
               <label htmlFor="file-input">
@@ -115,7 +138,7 @@ export default function MyPage() {
             </div>
           ) : null}
         </div>
-        <div className="user-nickname">{nickname}</div>
+        <div className="user-nickname">{data.nickname}</div>
         {!inserton ? (
           <button
             className="info-insert-btn"
@@ -192,6 +215,19 @@ const Container = styled.div`
     margin: 20px;
     border-radius: 10px;
     font-weight: 700;
+  }
+
+  .main-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  .main-image-skt {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
   }
 
   .main-image {

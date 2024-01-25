@@ -14,6 +14,7 @@ export default function RecipeHome() {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const nickname = localStorage.getItem("nickname");
   const profile = localStorage.getItem("profile");
+  const email = localStorage.getItem("email");
 
   useEffect(() => {
     setMenu((prev) => ({
@@ -23,7 +24,7 @@ export default function RecipeHome() {
 
     setRecipe((prev) => ({
       ...prev,
-      writer: { nickname, profile },
+      writer: { nickname, profile, email },
     }));
 
     return () => {

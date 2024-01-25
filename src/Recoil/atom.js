@@ -32,10 +32,7 @@ export const RecipeAtom = atom({
     cookStep: [{ info: "", imageUrl: "" }],
     date: new Date(),
     heart: [],
-    writer: {
-      nickname: localStorage.getItem("nickname"),
-      profile: localStorage.getItem("profile"),
-    },
+    writer: {},
     see: 0,
   },
 });
@@ -51,10 +48,7 @@ export const RecipeEditAtom = atom({
     cookStep: [],
     date: new Date(),
     heart: [],
-    writer: {
-      nickname: localStorage.getItem("nickname"),
-      profile: localStorage.getItem("profile"),
-    },
+    writer: {},
     see: 0,
   },
 });

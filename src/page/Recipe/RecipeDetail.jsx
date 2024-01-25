@@ -23,6 +23,7 @@ export default function RecipeDetail() {
   const recipeId = useParams();
   const queryClient = useQueryClient();
   const nickname = localStorage.getItem("nickname");
+  const email = localStorage.getItem("email");
 
   useEffect(() => {
     SeeMutation.mutate(recipeId);
@@ -65,13 +66,14 @@ export default function RecipeDetail() {
   if (error) return <p>{error}</p>;
 
   const deleteRecipe = async (id) => {
-    try {
-      await deleteDoc(doc(db, "recipe", id));
-      navigate(`/`);
-      alertSweet("success", "레시피를 삭제했습니다", "성공");
-    } catch (e) {
-      alertSweet("error", "레시피를 삭제하지 못했어요.", "오류");
-    }
+    await deleteDoc(doc(db, "recipe", id))
+      .then(() => {
+        navigate(`/`);
+        alertSweet("success", "레시피를 삭제했습니다", "성공");
+      })
+      .catch(() => {
+        alertSweet("error", "레시피를 삭제하지 못했어요.", "오류");
+      });
   };
 
   return (
@@ -117,7 +119,7 @@ export default function RecipeDetail() {
         </div>
         <div className="titleBox">
           <div className="title">꿀팁🤫</div>
-          {nickname === data.writer.nickname ? (
+          {email === data.writer.email ? (
             <div className="ins-del-box">
               <Link to={`/RecipeEdit/${recipeId.id}`}>
                 <div className="ins">수정</div>

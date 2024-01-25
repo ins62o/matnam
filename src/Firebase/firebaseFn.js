@@ -103,5 +103,5 @@ export const userData = async (nickname, email) => {
 
   const users = usersQuery.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   const filteredUsers = users.filter((item) => item.email === email);
-  return filteredUsers;
+  return filteredUsers[0];
 };

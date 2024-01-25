@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { alertSweet } from "./../services/sweetalert";
 import { doc, updateDoc, collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { userData } from "../Firebase/firebaseFn";
 
 export default function RecipeBtnBar({ next }) {
   const navigate = useNavigate();
@@ -16,6 +17,9 @@ export default function RecipeBtnBar({ next }) {
   const [page, setPage] = useState("");
   const nickname = localStorage.getItem("nickname");
   const profile = localStorage.getItem("profile");
+  const email = localStorage.getItem("email");
+
+  console.log(recipe);
 
   // 수정 & 작성 페이지 라우터 처리
   useEffect(() => {
@@ -30,15 +34,15 @@ export default function RecipeBtnBar({ next }) {
 
   // 레시피 작성
   const createData = async () => {
-    if (
-      recipe.writer.nickname !== nickname ||
-      recipe.writer.profile !== profile
-    ) {
-      setRecipe((prev) => ({
-        ...prev,
-        writer: { nickname, profile },
-      }));
-    }
+    const myData = await userData(nickname, email);
+    setRecipe((prev) => ({
+      ...prev,
+      writer: {
+        nickname: myData.nickname,
+        profile: myData.profile,
+        email: myData.email,
+      },
+    }));
     await addDoc(collection(db, "recipe"), recipe)
       .then(() => {
         alertSweet("success", "레시피를 등록했습니다", "성공");
@@ -121,9 +125,6 @@ const initialRecipe = {
   cookStep: [{ info: "", imageUrl: "" }],
   date: new Date(),
   heart: [],
-  writer: {
-    nickname: localStorage.getItem("nickname"),
-    profile: localStorage.getItem("profile"),
-  },
+  writer: {},
   see: 0,
 };

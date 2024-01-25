@@ -11,6 +11,7 @@ export default function RecipeCard({ color, data }) {
   if (color == 1) color = "var(--main-color)";
   if (color == 2) color = "var(--gray-400)";
   if (color == 3) color = "#826a5d;";
+  console.log(data);
 
   // 카드박스 - 좋아요 처리
   useEffect(() => {

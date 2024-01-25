@@ -59,9 +59,10 @@ export default function Login() {
           const user = userCredential.user;
           const DBUserData = await userData(user.displayName, user.email);
           localStorage.setItem("accessToken", user.accessToken);
-          localStorage.setItem("nickname", DBUserData[0].nickname);
-          localStorage.setItem("profile", DBUserData[0].profile);
-          showToast("success", `${DBUserData[0].nickname} 님 환영합니다.`);
+          localStorage.setItem("nickname", DBUserData.nickname);
+          localStorage.setItem("profile", DBUserData.profile);
+          localStorage.setItem("email", DBUserData.email);
+          showToast("success", `${DBUserData.nickname} 님 환영합니다.`);
           navigate("/");
         })
         .catch((err) => {
@@ -80,12 +81,13 @@ export default function Login() {
       const DBUserData = await userData(user.displayName, user.email);
 
       // 나의 회원 테이블이 DB에 있다는 소리
-      if (DBUserData[0].email === user.email) {
+      if (DBUserData.email === user.email) {
         localStorage.setItem("accessToken", user.accessToken);
-        localStorage.setItem("nickname", DBUserData[0].nickname);
-        localStorage.setItem("profile", DBUserData[0].profile);
+        localStorage.setItem("nickname", DBUserData.nickname);
+        localStorage.setItem("profile", DBUserData.profile);
+        localStorage.setItem("email", DBUserData.email);
         navigate("/");
-        showToast("success", `${DBUserData[0].nickname}님 환영합니다.`);
+        showToast("success", `${DBUserData.nickname}님 환영합니다.`);
       } else {
         if (user.displayName === DBUserData.nickname) {
           const nickname = prompt(
@@ -101,6 +103,7 @@ export default function Login() {
           localStorage.setItem("accessToken", user.accessToken);
           localStorage.setItem("nickname", nickname);
           localStorage.setItem("profile", user.photoURL);
+          localStorage.setItem("email", user.email);
           navigate("/");
           showToast("success", `${nickname}님 환영합니다.`);
         } else {
@@ -113,6 +116,7 @@ export default function Login() {
           localStorage.setItem("accessToken", user.accessToken);
           localStorage.setItem("nickname", user.displayName);
           localStorage.setItem("profile", user.photoURL);
+          localStorage.setItem("email", user.email);
           navigate("/");
           showToast("success", `${user.displayName}님 환영합니다.`);
         }
