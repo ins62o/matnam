@@ -17,7 +17,7 @@ import { MenuStateAtom } from "../Recoil/atom";
 export default function MenuBar() {
   const menuState = useRecoilValue(MenuStateAtom);
   const Token = localStorage.getItem("accessToken");
-
+  const nickname = localStorage.getItem("nickname");
   // TOP 버튼
   const scrollToTop = () => {
     scroll.scrollToTop();
@@ -53,7 +53,7 @@ export default function MenuBar() {
         TOP
       </div>
       {Token ? (
-        <Link to="/mypage" className="iconBox">
+        <Link to={`/mypage/${nickname}`} className="iconBox">
           {menuState.mypage ? (
             <FaUserCircle className="menuBar-icon" />
           ) : (

@@ -59,6 +59,7 @@ export default function SignUp() {
         const auth = getAuth();
         const newNickname = nicknameRef.current.value;
         const usersdata = await userData();
+        console.log(usersdata);
         if (
           usersdata.some((item) => item.nickname === nicknameRef.current.value)
         ) {
@@ -95,6 +96,7 @@ export default function SignUp() {
           navigate("/Login");
         }
       } catch (err) {
+        console.log(err);
         showToast("error", "이미 존재하는 아이디입니다.", idRef);
       }
     }

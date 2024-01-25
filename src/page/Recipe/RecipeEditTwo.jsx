@@ -7,9 +7,7 @@ import { RecipeEditAtom } from "../../Recoil/atom";
 import { GoXCircle } from "react-icons/go";
 
 export default function RecipeEditTwo() {
-  const [ingredients, setIngredients] = useState([]);
   const [recipe, setRecipe] = useRecoilState(RecipeEditAtom);
-  const [ingredientInput, setIngredientInput] = useState();
   const ingredRef = useRef("");
 
   const handleAddIngredient = () => {

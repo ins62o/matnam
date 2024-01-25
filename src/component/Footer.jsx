@@ -11,7 +11,7 @@ export default function Footer() {
         <h1 className="Footer-title">
           <img src={Logo} alt="로고" />
         </h1>
-        <div className="made-by">Made by 김광현 정인성</div>
+        <div className="made-by">Made by 정인성 김광현</div>
         <div className="icon-box">
           <div className="box">
             <FaReact className="icon-react" />
