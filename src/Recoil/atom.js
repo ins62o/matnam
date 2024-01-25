@@ -63,8 +63,9 @@ export const RecipeEditAtom = atom({
 export const usersAtom = atom({
   key: "usersAtom",
   default: {
+    email: "",
     nickname: "",
-    imageUrl: "https://matnam.s3.ap-northeast-2.amazonaws.com/LogoIcon.png",
+    profile: "https://matnam.s3.ap-northeast-2.amazonaws.com/LogoIcon.png",
     following: [],
     followers: [],
   },

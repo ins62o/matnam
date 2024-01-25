@@ -4,7 +4,11 @@ import MenuBar from "../component/MenuBar";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../services/sweetalert";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
 import { usersAtom } from "../Recoil/atom";
 import { useRecoilState } from "recoil";
@@ -22,8 +26,9 @@ export default function SignUp() {
   useEffect(() => {
     return () => {
       setUsers({
+        email: "",
         nickname: "",
-        imageUrl: "https://matnam.s3.ap-northeast-2.amazonaws.com/LogoIcon.png",
+        profile: "https://matnam.s3.ap-northeast-2.amazonaws.com/LogoIcon.png",
         following: [],
         followers: [],
       });
@@ -73,10 +78,14 @@ export default function SignUp() {
             pwValue
           );
           const user = userCredential.user;
+          updateProfile(auth.currentUser, {
+            displayName: nicknameRef.current.value,
+          });
 
           // 새로운 users 정보 문서 생성
           await addDoc(collection(db, "users"), {
             ...users,
+            email: idValue,
             nickname: newNickname,
           });
 

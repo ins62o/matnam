@@ -48,7 +48,6 @@ export default function Login() {
   const loginhandle = () => {
     const idValue = idRef.current.value;
     const pwValue = pwRef.current.value;
-
     if (idValue.length === 0) {
       showToast("error", "아이디를 입력하세요", idRef);
     } else if (pwValue.length === 0) {
@@ -56,12 +55,13 @@ export default function Login() {
     } else {
       const auth = getAuth();
       signInWithEmailAndPassword(auth, idValue, pwValue)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
           const user = userCredential.user;
+          const DBUserData = await userData(user.displayName);
           localStorage.setItem("accessToken", user.accessToken);
-          localStorage.setItem("nickname", user.displayName);
-          localStorage.setItem("profile", user.photoURL);
-          showToast("success", `${user.displayName} 님 환영합니다.`);
+          localStorage.setItem("nickname", DBUserData.nickname);
+          localStorage.setItem("profile", DBUserData.profile);
+          showToast("success", `${DBUserData.nickname} 님 환영합니다.`);
           navigate("/");
         })
         .catch(() => {
@@ -74,32 +74,53 @@ export default function Login() {
   const googleLogin = async () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
-    const usersdata = await userData();
-    console.log(usersdata);
-    signInWithPopup(auth, provider)
-      .then(async (result) => {
-        const user = result.user;
-        if (usersdata.some((item) => item.nickname === user.displayName)) {
-          const nickname = prompt(
-            ` ${user.displayName} 닉네임이 사용중입니다.`
-          );
+    signInWithPopup(auth, provider).then(async (userCredential) => {
+      const user = userCredential.user;
+      const DBUserData = await userData(user.displayName);
+      console.log(DBUserData);
+      console.log(user);
 
+      // 나의 회원 테이블이 DB에 있다는 소리
+      if (DBUserData.some((item) => item.email === user.email)) {
+        const data = DBUserData.filter((item) => item.email === user.email);
+        console.log(data[0]);
+        localStorage.setItem("accessToken", user.accessToken);
+        localStorage.setItem("nickname", data[0].nickname);
+        localStorage.setItem("profile", data[0].profile);
+        navigate("/");
+        showToast("success", `${data[0].nickname}님 환영합니다.`);
+      } else {
+        if (user.displayName === DBUserData.nickname) {
+          const nickname = prompt(
+            "동일한 닉네임이 있습니다. 다른 닉네임을 적어주세요"
+          );
           if (nickname === null) return false;
           await addDoc(collection(db, "users"), {
             ...users,
+            email: user.email,
             nickname,
-            imageUrl: user.photoURL,
+            profile: user.photoURL,
+          });
+          localStorage.setItem("accessToken", user.accessToken);
+          localStorage.setItem("nickname", nickname);
+          localStorage.setItem("profile", user.photoURL);
+          navigate("/");
+          showToast("success", `${nickname}님 환영합니다.`);
+        } else {
+          await addDoc(collection(db, "users"), {
+            ...users,
+            email: user.email,
+            nickname: user.displayName,
+            profile: user.photoURL,
           });
           localStorage.setItem("accessToken", user.accessToken);
           localStorage.setItem("nickname", user.displayName);
           localStorage.setItem("profile", user.photoURL);
-          showToast("success", `${user.displayName} 님 환영합니다.`);
           navigate("/");
+          showToast("success", `${user.displayName}님 환영합니다.`);
         }
-      })
-      .catch((err) => {
-        showToast("error", "맛남의 공간 회원이 아닙니다.");
-      });
+      }
+    });
   };
 
   return (
