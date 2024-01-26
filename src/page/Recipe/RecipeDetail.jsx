@@ -92,16 +92,21 @@ export default function RecipeDetail() {
           </div>
         </div>
         <div className="user-box">
-          <div className="user">
-            <div className="profile-image">
-              <img
-                src={data.writer.profile}
-                alt="프로필"
-                className="user-profile"
-              />
+          <Link
+            to={`/mypage/${data.writer.nickname}?email=${data.writer.email}`}
+          >
+            <div className="user">
+              <div className="profile-image">
+                <img
+                  src={data.writer.profile}
+                  alt="프로필"
+                  className="user-profile"
+                />
+              </div>
+              <div>{data.writer.nickname}</div>
             </div>
-            <div>{data.writer.nickname}</div>
-          </div>
+          </Link>
+
           <div className="icon-box">
             {data.heart.includes(email) ? (
               <FaHeart

@@ -4,26 +4,29 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { myRecipe, mylikeRecipe } from "../../Firebase/firebaseFn";
 
 export default function MypageSection() {
   const email = localStorage.getItem("email");
+  const location = useLocation();
   const [swiper, setSwiper] = useState();
+  const searchParams = new URLSearchParams(location.search);
+  const searchValue = searchParams.get("email");
   const [menu, setMenu] = useState({
     recipe: true,
     like: false,
   });
 
   const { data: RecipeData } = useQuery({
-    queryKey: ["myRecipe", email],
-    queryFn: () => myRecipe(email),
+    queryKey: ["myRecipe", searchValue],
+    queryFn: () => myRecipe(searchValue),
   });
 
   const { data: LikeData } = useQuery({
-    queryKey: ["myLikeRecipe", email],
-    queryFn: () => mylikeRecipe(email),
+    queryKey: ["myLikeRecipe", searchValue],
+    queryFn: () => mylikeRecipe(searchValue),
   });
 
   const moveSwiper = (index, menu) => {
@@ -71,12 +74,21 @@ export default function MypageSection() {
             <div className="icon">😍</div>
             <div className="menu-name">좋아요({LikeData?.length})</div>
           </div>
-          <Link to="/chatList" className="menu">
-            <div>
-              <div className="icon">💌</div>
-              <div className="menu-name">채팅</div>
-            </div>
-          </Link>
+          {searchValue === email ? (
+            <Link to="/chatList" className="menu">
+              <div>
+                <div className="icon">💌</div>
+                <div className="menu-name">대화방</div>
+              </div>
+            </Link>
+          ) : (
+            <Link to="/chatList" className="menu">
+              <div>
+                <div className="icon">💬</div>
+                <div className="menu-name">대화걸기</div>
+              </div>
+            </Link>
+          )}
         </div>
         <Swiper
           slidesPerView={1}
@@ -150,6 +162,7 @@ const Container = styled.div`
   .icon {
     font-size: 1.2rem;
     margin-bottom: 5px;
+    text-align: center;
   }
 
   .swiper {

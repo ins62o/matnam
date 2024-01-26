@@ -13,22 +13,24 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth, updateProfile, signOut } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { userData } from "../../Firebase/firebaseFn";
 
 export default function MyPage() {
   const email = localStorage.getItem("email");
-  const nickname = localStorage.getItem("nickname");
+  const location = useLocation();
+  const { nickname } = useParams();
   const [menu, setMenu] = useRecoilState(MenuStateAtom);
   const [inserton, setInserton] = useState(false);
   const [data, setData] = useState({});
   const [fireimage, setFireimage] = useState("");
   const navigate = useNavigate();
-
+  const searchParams = new URLSearchParams(location.search);
+  const searchValue = searchParams.get("email");
   // 마이페이지 상태 가져오기
   useEffect(() => {
     const myDataFetch = async () => {
-      const myData = await userData(nickname, email);
+      const myData = await userData(nickname, searchValue);
       setData({
         nickname: myData.nickname,
         profile: myData.profile,
@@ -138,21 +140,23 @@ export default function MyPage() {
           ) : null}
         </div>
         <div className="user-nickname">{data.nickname}</div>
-        {!inserton ? (
-          <button
-            className="info-insert-btn"
-            onClick={() => setInserton(!inserton)}
-          >
-            내 정보 수정
-          </button>
-        ) : (
-          <button
-            className="info-insert-btn info-check-btn  "
-            onClick={changeProfile}
-          >
-            수정 완료
-          </button>
-        )}
+        {email === searchValue ? (
+          !inserton ? (
+            <button
+              className="info-insert-btn"
+              onClick={() => setInserton(!inserton)}
+            >
+              내 정보 수정
+            </button>
+          ) : (
+            <button
+              className="info-insert-btn info-check-btn  "
+              onClick={changeProfile}
+            >
+              수정 완료
+            </button>
+          )
+        ) : null}
       </div>
       <div className="friend-box">
         <div className="box">
@@ -160,11 +164,18 @@ export default function MyPage() {
             <div className="item-icon">👩‍👧‍👦</div>
             <div className="item-name">친구(23)</div>
           </div>
-          <div className="item-box">
-            <div className="item-icon">📬</div>
-            <div className="item-name">친구신청(1)</div>
-            <div className="new-circle">N</div>
-          </div>
+          {email === searchValue ? (
+            <div className="item-box">
+              <div className="item-icon">📬</div>
+              <div className="item-name">신청목록(1)</div>
+              <div className="new-circle">N</div>
+            </div>
+          ) : (
+            <div className="item-box">
+              <div className="item-icon">✅</div>
+              <div className="item-name">친구추가</div>
+            </div>
+          )}
         </div>
       </div>
       <MypageSection />
