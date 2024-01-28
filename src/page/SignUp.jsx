@@ -13,7 +13,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { usersAtom } from "../Recoil/atom";
 import { useRecoilState } from "recoil";
 import { db } from "../firebase";
-import { userData } from "../Firebase/firebaseFn";
+import { userData } from "../Firebase/mypageFn";
 
 export default function SignUp() {
   const [users, setUsers] = useRecoilState(usersAtom);

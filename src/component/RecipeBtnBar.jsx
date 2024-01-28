@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { alertSweet } from "./../services/sweetalert";
 import { doc, updateDoc, collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { userData } from "../Firebase/firebaseFn";
+import { userData } from "../Firebase/mypageFn";
 
 export default function RecipeBtnBar({ next }) {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export default function RecipeBtnBar({ next }) {
 
   // 레시피 작성
   const createData = async () => {
-    const myData = await userData(nickname, email);
+    const myData = await userData(email);
     setRecipe((prev) => ({
       ...prev,
       writer: {

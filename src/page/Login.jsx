@@ -5,7 +5,7 @@ import Logo from "../asset/Logo.png";
 import { useNavigate, Link } from "react-router-dom";
 import { MenuStateAtom, usersAtom } from "../Recoil/atom";
 import { useRecoilState } from "recoil";
-import { Toast, showToast } from "../services/sweetalert";
+import { showToast } from "../services/sweetalert";
 import { FcGoogle } from "react-icons/fc";
 import { FaX } from "react-icons/fa6";
 import { collection, addDoc } from "firebase/firestore";
@@ -16,12 +16,12 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { db } from "../firebase";
-import { userData } from "../Firebase/firebaseFn";
+import { userData } from "../Firebase/mypageFn";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [menu, setMenu] = useRecoilState(MenuStateAtom);
   const [users, setUsers] = useRecoilState(usersAtom);
-  const navigate = useNavigate();
   const idRef = useRef();
   const pwRef = useRef();
 
@@ -57,7 +57,8 @@ export default function Login() {
       signInWithEmailAndPassword(auth, idValue, pwValue)
         .then(async (userCredential) => {
           const user = userCredential.user;
-          const DBUserData = await userData(user.displayName, user.email);
+          const DBUserData = await userData(user.email);
+
           localStorage.setItem("accessToken", user.accessToken);
           localStorage.setItem("nickname", DBUserData.nickname);
           localStorage.setItem("profile", DBUserData.profile);
@@ -77,7 +78,7 @@ export default function Login() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then(async (userCredential) => {
       const user = userCredential.user;
-      const DBUserData = await userData(user.displayName, user.email);
+      const DBUserData = await userData(user.email);
 
       // 나의 회원 테이블이 DB에 있다는 소리
       if (DBUserData.email === user.email) {
