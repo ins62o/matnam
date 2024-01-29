@@ -78,18 +78,19 @@ export default function Login() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then(async (userCredential) => {
       const user = userCredential.user;
-      const DBUserData = await userData(user.email);
+      const DBUserData = await userData();
+      const myData = DBUserData.filter((item) => item.email === user.email);
 
       // 나의 회원 테이블이 DB에 있다는 소리
-      if (DBUserData.email === user.email) {
+      if (DBUserData.some((item) => item.email === user.email)) {
         localStorage.setItem("accessToken", user.accessToken);
-        localStorage.setItem("nickname", DBUserData.nickname);
-        localStorage.setItem("profile", DBUserData.profile);
-        localStorage.setItem("email", DBUserData.email);
+        localStorage.setItem("nickname", myData[0].nickname);
+        localStorage.setItem("profile", myData[0].profile);
+        localStorage.setItem("email", myData[0].email);
         navigate("/");
-        showToast("success", `${DBUserData.nickname}님 환영합니다.`);
+        showToast("success", `${myData[0].nickname}님 환영합니다.`);
       } else {
-        if (user.displayName === DBUserData.nickname) {
+        if (DBUserData.some((item) => item.nickname === user.displayName)) {
           const nickname = prompt(
             "동일한 닉네임이 있습니다. 다른 닉네임을 적어주세요"
           );
