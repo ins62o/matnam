@@ -134,6 +134,11 @@ const Container = styled.div`
     padding: 10px;
     margin: 10px;
     width: 50%;
+    font-weight: 700;
+  }
+
+  .ingre-input::placeholder {
+    font-weight: 400;
   }
 
   .ingreAdd {

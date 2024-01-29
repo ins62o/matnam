@@ -261,6 +261,11 @@ const Container = styled.div`
     outline: none;
     margin-top: 10px;
     width: 100%;
+    font-weight: 700;
+  }
+
+  .recipeInput::placeholder {
+    font-weight: 400;
   }
 
   .recipe-catagroy {

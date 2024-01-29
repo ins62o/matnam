@@ -277,6 +277,8 @@ const Container = styled.div`
     height: 100%;
     outline: none;
     border: none;
+    font-weight: 700;
+    font-family: "Pretendard-Regular";
   }
 
   .tip-text {
@@ -284,6 +286,8 @@ const Container = styled.div`
     height: 100%;
     outline: none;
     border: none;
+    font-weight: 700;
+    font-family: "Pretendard-Regular";
   }
 
   .last {
