@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FaReact, FaAws } from "react-icons/fa";
-import { SiSpringboot } from "react-icons/si";
+import { SiFirebase } from "react-icons/si";
 import Logo from "../asset/Logo.png";
 
 export default function Footer() {
@@ -17,7 +17,7 @@ export default function Footer() {
             <FaReact className="icon-react" />
           </div>
           <div className="box">
-            <SiSpringboot className="icon-springboot" />
+            <SiFirebase className="icon-firebase" />
           </div>
           <div className="box">
             <FaAws className="icon-aws" />
@@ -68,9 +68,9 @@ const Container = styled.div`
     color: skyblue;
   }
 
-  .icon-springboot {
+  .icon-firebase {
     font-size: 1.5rem;
-    color: green;
+    color: orange;
   }
 
   .icon-aws {

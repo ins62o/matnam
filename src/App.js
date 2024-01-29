@@ -15,9 +15,6 @@ import RecipeEditThree from "./page/Recipe/RecipeEditThree";
 import RecipeFeed from "./page/Recipe/RecipeFeed";
 import RecipeDetail from "./page/Recipe/RecipeDetail";
 import MyPage from "./page/Mypage/MyPage";
-import ChatList from "./page/Chat/ChatList";
-import ChatRoom from "./page/Chat/ChatRoom";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -61,8 +58,6 @@ function App() {
               <Route path="/Login" element={<Login />}></Route>
               <Route path="/SignUP" element={<SignUp />}></Route>
               <Route path="/Mypage/:nickname" element={<MyPage />}></Route>
-              <Route path="/chatList" element={<ChatList />}></Route>
-              <Route path="/chatroom" element={<ChatRoom />}></Route>
             </Routes>
           </BrowserRouter>
         </RecoilRoot>

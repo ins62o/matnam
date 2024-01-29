@@ -152,6 +152,7 @@ input::placeholder {
 
 textarea::placeholder {
   font-family: "Pretendard-Regular";
+  font-weight: 400;
 }
 
 a {
