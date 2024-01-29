@@ -189,15 +189,29 @@ export default function RecipeMenu() {
         </SwiperSlide>
       </Swiper>
       <div className="event-banner">
-        <div className="event-titleBox">
-          <div className="event-title">
-            나만의 편의점 <b className="big">꿀</b> 조합
+        <Link to="/recipeWrite">
+          <div className="event-titleBox">
+            <div className="event-title">
+              나만의 편의점 <b className="big">꿀</b> 조합
+            </div>
+            <div className="event-info">
+              레시피 업로드하고 기프티콘 받아가세요!
+            </div>
           </div>
-          <div className="event-info">
-            레시피 업로드하고 기프티콘 받아가세요!
-          </div>
-        </div>
+        </Link>
       </div>
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLScVWzGTPwG4yIdGZNKxokd6mP80rwlGa5aX38uCyYqoG3yNOA/viewform"
+        target="_blank"
+      >
+        <div className="event-banner2">
+          <div className="one-box">
+            <div>맛남의 공간</div>
+            <div>👉피드백 하러가기👈</div>
+          </div>
+          <div className="two-box">📬</div>
+        </div>
+      </a>
     </MenuBox>
   );
 }
@@ -327,6 +341,34 @@ const MenuBox = styled.div`
     margin-top: 15px;
   }
 
+  .event-banner2 {
+    background-color: var(--gray-200);
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: flex;
+    font-weight: 700;
+  }
+
+  .one-box {
+    width: 70%;
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.5;
+  }
+
+  .two-box {
+    width: 30%;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .event-titleBox {
     border-radius: 10px;
     height: 100%;
@@ -348,7 +390,7 @@ const MenuBox = styled.div`
   }
 
   .event-info {
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.5;
     color: var(--sub-color);
   }
