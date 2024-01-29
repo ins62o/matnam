@@ -84,6 +84,10 @@ export default function MyPage() {
 
   // 로그아웃 함수 - logout
   const logout = () => {
+    if (!email) {
+      showToast("info", "로그인도 안하셨어요 !");
+      return;
+    }
     const auth = getAuth();
     signOut(auth)
       .then(() => {
@@ -257,6 +261,7 @@ export default function MyPage() {
                 <div className="title">친구신청 리스트</div>
                 <FaTimes className="icon-x" onClick={() => setModal(false)} />
               </div>
+              <p className="center">친구신청 온 리스트를 표시합니다.</p>
               <div className="scroll-box">
                 {data?.following.map((item, index) => (
                   <div className="friend-card-box" key={index}>
@@ -390,6 +395,10 @@ const Container = styled.div`
   .info-box2 {
     display: flex;
     width: 85%;
+  }
+
+  .center {
+    text-align: center;
   }
 
   .info-box-profile {

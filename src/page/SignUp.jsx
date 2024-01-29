@@ -59,7 +59,6 @@ export default function SignUp() {
         const auth = getAuth();
         const newNickname = nicknameRef.current.value;
         const usersdata = await userData();
-        console.log(usersdata);
         if (
           usersdata.some((item) => item.nickname === nicknameRef.current.value)
         ) {

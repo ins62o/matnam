@@ -4,12 +4,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { myRecipe, mylikeRecipe } from "../../Firebase/firebaseFn";
+import { db } from "../../firebase";
+import { collection, getDocs, query, where, addDoc } from "firebase/firestore";
+import { userData } from "../../Firebase/mypageFn";
 
 export default function MypageSection() {
   const email = localStorage.getItem("email");
+  const navigate = useNavigate();
   const location = useLocation();
   const [swiper, setSwiper] = useState();
   const searchParams = new URLSearchParams(location.search);
@@ -74,21 +78,6 @@ export default function MypageSection() {
             <div className="icon">😍</div>
             <div className="menu-name">좋아요({LikeData?.length})</div>
           </div>
-          {searchValue === email ? (
-            <Link to="/chatList" className="menu">
-              <div>
-                <div className="icon">💌</div>
-                <div className="menu-name">대화방</div>
-              </div>
-            </Link>
-          ) : (
-            <Link to="/chatList" className="menu">
-              <div>
-                <div className="icon">💬</div>
-                <div className="menu-name">대화걸기</div>
-              </div>
-            </Link>
-          )}
         </div>
         <Swiper
           slidesPerView={1}
@@ -145,7 +134,7 @@ const Container = styled.div`
   }
 
   .menu {
-    width: 33%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,7 +172,7 @@ const Container = styled.div`
 
   .card {
     width: 100%;
-    height: 130px;
+    height: 150px;
   }
 
   .recipe-image {

@@ -22,11 +22,10 @@ export default function RecipeDetail() {
   const navigate = useNavigate();
   const recipeId = useParams();
   const queryClient = useQueryClient();
-  const nickname = localStorage.getItem("nickname");
   const email = localStorage.getItem("email");
 
   useEffect(() => {
-    SeeMutation.mutate(recipeId);
+    SeeMutation.mutate({ recipeId, email });
   }, []);
 
   const { error, isLoading, data } = useQuery({
@@ -264,14 +263,14 @@ const Container = styled.div`
 
   .swiper {
     margin: 10px 10px 0px 10px;
-    height: 320px;
+    height: 450px;
     border-radius: 10px;
     box-shadow: var(--box-shadow);
   }
 
   .image-box {
     border-radius: 10px;
-    height: 70%;
+    height: 80%;
   }
 
   .recipe {

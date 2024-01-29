@@ -14,14 +14,26 @@ import {
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { MenuStateAtom } from "../Recoil/atom";
+import { useNavigate } from "react-router-dom";
+import { showToast } from "../services/sweetalert";
+
 export default function MenuBar() {
   const menuState = useRecoilValue(MenuStateAtom);
+  const navigate = useNavigate();
   const Token = localStorage.getItem("accessToken");
   const nickname = localStorage.getItem("nickname");
   const email = localStorage.getItem("email");
   // TOP 버튼
   const scrollToTop = () => {
     scroll.scrollToTop();
+  };
+
+  const gotoRecipe = () => {
+    if (Token) {
+      navigate("/RecipeWrite");
+    } else {
+      showToast("info", "맛남의 공간 회원이 아니에요 !");
+    }
   };
 
   return (
@@ -43,11 +55,9 @@ export default function MenuBar() {
         <div>피드</div>
       </Link>
       <div className="iconBox">
-        <Link to="/RecipeWrite">
-          <div className="icon-circle">
-            <FaPlus className="menuBar-icon white-icon" />
-          </div>
-        </Link>
+        <div className="icon-circle" onClick={gotoRecipe}>
+          <FaPlus className="menuBar-icon white-icon" />
+        </div>
       </div>
       <div className="iconBox">
         <FaArrowUp className="menuBar-icon" onClick={scrollToTop} />
