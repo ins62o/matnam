@@ -12,6 +12,7 @@ import { useRecoilState } from "recoil";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
 import { useParams } from "react-router-dom";
+import Resizer from "react-image-file-resizer";
 
 export default function RecipeWriteThree() {
   const [fireimage, setFireimage] = useState("");
@@ -21,6 +22,7 @@ export default function RecipeWriteThree() {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState("");
+  const email = localStorage.getItem("email");
 
   useEffect(() => {
     setImages([]);
@@ -48,27 +50,25 @@ export default function RecipeWriteThree() {
     }
   }, [url, info]);
 
-  useEffect(() => {
-    const uploadImage = async () => {
-      if (fireimage) {
-        const storagePath = "image/" + fireimage.name;
-        const storageRef = ref(storage, storagePath);
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
 
-        try {
-          // 이미지 업로드
-          const snapshot = await uploadBytes(storageRef, fireimage);
-          // 업로드된 이미지의 다운로드 URL 가져오기
-          const imageUrl = await getDownloadURL(storageRef);
-          // recipe 아톰의 imageUrl 업데이트
-          setUrl(imageUrl);
-        } catch (error) {
-          console.error("이미지 업로드 실패:", error);
-        }
-      }
-    };
+    const storagePath = "image/" + `${file.name}.${email}`;
+    const storageRef = ref(storage, storagePath);
+    const compressedFile = await resizeFile(file);
 
-    uploadImage();
-  }, [fireimage]);
+    try {
+      // 이미지 업로드
+      const snapshot = await uploadBytes(storageRef, compressedFile);
+      // 업로드된 이미지의 다운로드 URL 가져오기
+      const imageUrl = await getDownloadURL(storageRef);
+      console.log(imageUrl);
+      // recipe 아톰의 imageUrl 업데이트
+      setUrl(imageUrl);
+    } catch (error) {
+      console.error("이미지 업로드 실패:", error);
+    }
+  };
 
   const handleAdd = () => {
     setRecipe((prev) => ({
@@ -78,17 +78,39 @@ export default function RecipeWriteThree() {
     setNum((pre) => pre + 1);
   };
 
-  // 이미지 url 뽑아오는 함수(encodeFileToBase64)
-  const encodeFileToBase64 = (fileBlob) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setImages((prevImages) => [...prevImages, reader.result]);
-        resolve();
-      };
+  // 이미지 url 뽑아오는 함수
+  const resizeUrl = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        300,
+        300,
+        "WEBP",
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+          setImages((prevImages) => [...prevImages, uri]);
+        },
+        "base64"
+      );
     });
-  };
+
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        300,
+        300,
+        "WEBP",
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "file"
+      );
+    });
 
   const handleTextAreaChange = (e) => {
     const index = e.target.dataset.index;
@@ -143,8 +165,8 @@ export default function RecipeWriteThree() {
                       id={`ex_file_${index}`}
                       accept="image/*"
                       onChange={(e) => {
-                        encodeFileToBase64(e.target.files[0]);
-                        setFireimage(e.target.files[0]);
+                        resizeUrl(e.target.files[0]);
+                        uploadImage(e);
                       }}
                     />
                     <div className="step-no">STEP {index + 1}</div>

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 export default function RecipeBox({ item }) {
   // item : RecipeNew , RecipeFeed 에서 받아오는 recipe 데이터 값
@@ -19,10 +21,14 @@ export default function RecipeBox({ item }) {
       <div key={item.id}>
         <Link to={`/RecipeDetail/${item.id}`}>
           <div className="image-box">
-            <img
+            <LazyLoadImage
+              effect="blur"
               src={item.cookStep[0].imageUrl}
               alt="메인사진"
               className="main-image"
+              width="100%"
+              height="200px"
+              placeholderSrc={process.env.PUBLIC_URL + "/LogoIcon.png"}
             />
           </div>
         </Link>
@@ -51,7 +57,7 @@ export default function RecipeBox({ item }) {
             </div>
             <div className="namebox">
               <div className="userprofile">
-                <img
+                <LazyLoadImage
                   src={item.writer.profile}
                   alt="프로필 사진"
                   className="user-profile"
@@ -78,9 +84,11 @@ const Container = styled.div`
   margin-bottom: 20px;
 
   .image-box {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 10px;
-    height: 200px;
-    border: 1px solid var(--gray-400);
+    border: 1px solid var(--gray-300);
   }
 
   .content-box {
@@ -173,7 +181,7 @@ const Container = styled.div`
   .main-image {
     width: 100%;
     height: 100%;
-    border-radius: 10px;
     object-fit: cover;
+    border-radius: 10px;
   }
 `;
