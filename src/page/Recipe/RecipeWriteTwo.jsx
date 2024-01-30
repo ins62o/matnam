@@ -7,9 +7,7 @@ import { RecipeAtom } from "../../Recoil/atom";
 import { GoXCircle } from "react-icons/go";
 
 export default function RecipeWriteTwo() {
-  const [ingredients, setIngredients] = useState([]);
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
-  const [ingredientInput, setIngredientInput] = useState();
   const ingredRef = useRef("");
 
   const handleAddIngredient = () => {
@@ -18,6 +16,11 @@ export default function RecipeWriteTwo() {
       ingredients: [...prev.ingredients, ingredRef.current.value],
     }));
     ingredRef.current.value = "";
+  };
+
+  // 엔터키 Keydown 이벤트 적용
+  const handleEnter = (e) => {
+    if (e.key === "Enter") handleAddIngredient();
   };
 
   const handleRemoveIngredient = (index) => {
@@ -42,6 +45,7 @@ export default function RecipeWriteTwo() {
             placeholder="재료를 입력해주세요"
             className="ingre-input"
             ref={ingredRef}
+            onKeyDown={handleEnter}
           />
           <button className="ingreAdd" onClick={handleAddIngredient}>
             추가

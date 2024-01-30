@@ -15,16 +15,12 @@ import { useParams } from "react-router-dom";
 import { resizeUrl, resizeFile } from "../../services/imageFn";
 
 export default function RecipeEditThree() {
-  const [fireimage, setFireimage] = useState("");
   const [images, setImages] = useRecoilState(imagesAtom);
-  const [swiper, setSwiper] = useState("");
-  const [add, setAdd] = useState([{ id: 1 }]);
   const [num, setNum] = useState(1);
   const [numtwo, setNumtwo] = useState(1);
   const [recipe, setRecipe] = useRecoilState(RecipeEditAtom);
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState("");
-  const recipeId = useParams();
   const email = localStorage.getItem("email");
 
   useEffect(() => {

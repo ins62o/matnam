@@ -15,7 +15,6 @@ import { useParams } from "react-router-dom";
 import { resizeUrl, resizeFile } from "../../services/imageFn";
 
 export default function RecipeWriteThree() {
-  const [fireimage, setFireimage] = useState("");
   const [images, setImages] = useRecoilState(imagesAtom);
   const [num, setNum] = useState(1);
   const [numtwo, setNumtwo] = useState(1);

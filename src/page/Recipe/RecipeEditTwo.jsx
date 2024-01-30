@@ -18,6 +18,11 @@ export default function RecipeEditTwo() {
     ingredRef.current.value = "";
   };
 
+  // 엔터키 Keydown 이벤트 적용
+  const handleEnter = (e) => {
+    if (e.key === "Enter") handleAddIngredient();
+  };
+
   const handleRemoveIngredient = (index) => {
     setRecipe((prev) => {
       const updatedIngredients = [...prev.ingredients];
@@ -40,6 +45,7 @@ export default function RecipeEditTwo() {
             placeholder="재료를 입력해주세요"
             className="ingre-input"
             ref={ingredRef}
+            onKeyDown={handleEnter}
           />
           <button className="ingreAdd" onClick={handleAddIngredient}>
             추가
