@@ -33,7 +33,6 @@ export default function RecipeBtnBar({ next }) {
   // 레시피 작성
   const createData = async () => {
     const myData = await userData(email);
-    console.log(myData);
     setRecipe((prev) => ({
       ...prev,
       writer: {

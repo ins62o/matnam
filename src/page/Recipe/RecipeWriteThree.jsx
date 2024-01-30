@@ -24,8 +24,6 @@ export default function RecipeWriteThree() {
   const [info, setInfo] = useState("");
   const email = localStorage.getItem("email");
 
-  console.log(recipe);
-
   useEffect(() => {
     setImages([]);
   }, []);
@@ -64,7 +62,6 @@ export default function RecipeWriteThree() {
       const snapshot = await uploadBytes(storageRef, compressedFile);
       // 업로드된 이미지의 다운로드 URL 가져오기
       const imageUrl = await getDownloadURL(storageRef);
-      console.log(imageUrl);
       // recipe 아톰의 imageUrl 업데이트
       setUrl(imageUrl);
     } catch (error) {
