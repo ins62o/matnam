@@ -12,7 +12,7 @@ import { useRecoilState } from "recoil";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
 import { useParams } from "react-router-dom";
-import Resizer from "react-image-file-resizer";
+import { resizeUrl, resizeFile } from "../../services/imageFn";
 
 export default function RecipeWriteThree() {
   const [fireimage, setFireimage] = useState("");
@@ -23,6 +23,8 @@ export default function RecipeWriteThree() {
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState("");
   const email = localStorage.getItem("email");
+
+  console.log(recipe);
 
   useEffect(() => {
     setImages([]);
@@ -55,7 +57,7 @@ export default function RecipeWriteThree() {
 
     const storagePath = "image/" + `${file.name}.${email}`;
     const storageRef = ref(storage, storagePath);
-    const compressedFile = await resizeFile(file);
+    const compressedFile = await resizeFile(file, 440, 200);
 
     try {
       // 이미지 업로드
@@ -77,40 +79,6 @@ export default function RecipeWriteThree() {
     }));
     setNum((pre) => pre + 1);
   };
-
-  // 이미지 url 뽑아오는 함수
-  const resizeUrl = (file) =>
-    new Promise((resolve) => {
-      Resizer.imageFileResizer(
-        file,
-        300,
-        300,
-        "WEBP",
-        100,
-        0,
-        (uri) => {
-          resolve(uri);
-          setImages((prevImages) => [...prevImages, uri]);
-        },
-        "base64"
-      );
-    });
-
-  const resizeFile = (file) =>
-    new Promise((resolve) => {
-      Resizer.imageFileResizer(
-        file,
-        300,
-        300,
-        "WEBP",
-        100,
-        0,
-        (uri) => {
-          resolve(uri);
-        },
-        "file"
-      );
-    });
 
   const handleTextAreaChange = (e) => {
     const index = e.target.dataset.index;
@@ -164,8 +132,13 @@ export default function RecipeWriteThree() {
                       type="file"
                       id={`ex_file_${index}`}
                       accept="image/*"
-                      onChange={(e) => {
-                        resizeUrl(e.target.files[0]);
+                      onChange={async (e) => {
+                        const data = await resizeUrl(
+                          e.target.files[0],
+                          450,
+                          200
+                        );
+                        setImages((prevImages) => [...prevImages, data]);
                         uploadImage(e);
                       }}
                     />

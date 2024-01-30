@@ -21,6 +21,9 @@ import {
 } from "../../Firebase/mypageFn";
 import { FaTimes } from "react-icons/fa";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { resizeUrl, resizeFile } from "../../services/imageFn";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 export default function MyPage() {
   const email = localStorage.getItem("email");
@@ -69,18 +72,6 @@ export default function MyPage() {
       }));
     };
   }, [menu.mypage]);
-
-  // 이미지 url 뽑아오는 함수(encodeFileToBase64)
-  const encodeFileToBase64 = (fileBlob) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
-      reader.onload = async () => {
-        setImage(reader.result);
-        resolve();
-      };
-    });
-  };
 
   // 로그아웃 함수 - logout
   const logout = () => {
@@ -163,9 +154,17 @@ export default function MyPage() {
       <div className="profile-box">
         <div className="profile">
           {image === "" ? (
-            <img src={data?.profile} alt="로딩중" className="main-image" />
+            <LazyLoadImage
+              effect="blur"
+              placeholderSrc={process.env.PUBLIC_URL + "/LogoIcon.png"}
+              width={"130px"}
+              height={"130px"}
+              src={data?.profile}
+              alt="프로필"
+              className="main-image"
+            />
           ) : (
-            <img src={image} alt="로딩중" className="main-image" />
+            <LazyLoadImage src={image} alt="프로필" className="main-image" />
           )}
           {inserton ? (
             <div className="setting">
@@ -176,9 +175,15 @@ export default function MyPage() {
                 type="file"
                 id="file-input"
                 accept="image/*"
-                onChange={(e) => {
-                  encodeFileToBase64(e.target.files[0]);
-                  setFireimage(e.target.files[0]);
+                onChange={async (e) => {
+                  const url = await resizeUrl(e.target.files[0], 130, 130);
+                  setImage(url);
+                  const compressedFile = await resizeFile(
+                    e.target.files[0],
+                    130,
+                    130
+                  );
+                  setFireimage(compressedFile);
                 }}
               />
             </div>

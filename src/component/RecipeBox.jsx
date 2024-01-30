@@ -88,7 +88,6 @@ const Container = styled.div`
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
-    border: 1px solid var(--gray-300);
   }
 
   .content-box {

@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
-import event from "../../asset/event.jpg";
+import event from "../../asset/event.webp";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 export default function RecipeMenu() {

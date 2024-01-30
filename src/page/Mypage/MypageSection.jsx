@@ -7,13 +7,9 @@ import "swiper/css/navigation";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { myRecipe, mylikeRecipe } from "../../Firebase/firebaseFn";
-import { db } from "../../firebase";
-import { collection, getDocs, query, where, addDoc } from "firebase/firestore";
-import { userData } from "../../Firebase/mypageFn";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export default function MypageSection() {
-  const email = localStorage.getItem("email");
-  const navigate = useNavigate();
   const location = useLocation();
   const [swiper, setSwiper] = useState();
   const searchParams = new URLSearchParams(location.search);
@@ -89,7 +85,7 @@ export default function MypageSection() {
               {RecipeData?.map((data) => (
                 <Link to={`/RecipeDetail/${data.id}`} key={data.id}>
                   <div className="card">
-                    <img
+                    <LazyLoadImage
                       src={data.cookStep[0].imageUrl}
                       alt="이미지"
                       className="recipe-image"
@@ -104,7 +100,7 @@ export default function MypageSection() {
               {LikeData?.map((data) => (
                 <Link to={`/RecipeDetail/${data.id}`} key={data.id}>
                   <div className="card">
-                    <img
+                    <LazyLoadImage
                       src={data.cookStep[0].imageUrl}
                       alt="이미지"
                       className="recipe-image"
@@ -157,7 +153,7 @@ const Container = styled.div`
   .swiper {
     margin: 20px;
     box-shadow: var(--box-shadow);
-    height: 400px;
+    height: 300px;
   }
 
   .auto {

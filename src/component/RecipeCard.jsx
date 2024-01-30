@@ -22,7 +22,11 @@ export default function RecipeCard({ color, data }) {
       <Link to={`/RecipeDetail/${data.id}`}>
         <div className="cardBox">
           <div className="image-box">
-            <img src={data.cookStep[0].imageUrl} className="main-image" />
+            <img
+              src={data.cookStep[0].imageUrl}
+              className="main-image"
+              alt="이미지"
+            />
           </div>
 
           <div className="info-box">

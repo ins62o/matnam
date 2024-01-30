@@ -33,6 +33,7 @@ export default function RecipeBtnBar({ next }) {
   // 레시피 작성
   const createData = async () => {
     const myData = await userData(email);
+    console.log(myData);
     setRecipe((prev) => ({
       ...prev,
       writer: {
@@ -123,6 +124,10 @@ const initialRecipe = {
   cookStep: [{ info: "", imageUrl: "" }],
   date: new Date(),
   heart: [],
-  writer: {},
+  writer: {
+    nickname: localStorage.getItem("nickname"),
+    profile: localStorage.getItem("profile"),
+    email: localStorage.getItem("email"),
+  },
   see: 0,
 };
