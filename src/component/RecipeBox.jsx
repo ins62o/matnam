@@ -23,7 +23,7 @@ export default function RecipeBox({ item }) {
           <div className="image-box">
             <LazyLoadImage
               effect="blur"
-              src={item.cookStep[0].imageUrl}
+              src={item.cookStep[item.cookStep.length - 1].imageUrl}
               alt="메인사진"
               className="main-image"
               width="100%"

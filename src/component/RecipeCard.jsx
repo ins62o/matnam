@@ -23,7 +23,7 @@ export default function RecipeCard({ color, data }) {
         <div className="cardBox">
           <div className="image-box">
             <img
-              src={data.cookStep[0].imageUrl}
+              src={data.cookStep[data.cookStep.length - 1].imageUrl}
               className="main-image"
               alt="이미지"
             />
