@@ -23,53 +23,29 @@ export default function RecipeEditThree() {
   const [info, setInfo] = useState("");
   const email = localStorage.getItem("email");
 
-  useEffect(() => {
-    if (url || info) {
-      setRecipe((prev) => {
-        const updatedCookStep = [...prev.cookStep];
-        const lastIndex = updatedCookStep.length - 1;
+  const AddImage = async (e) => {
+    const files = e.target.files;
+    let updatedCookSteps = [...recipe.cookStep];
 
-        if (lastIndex >= 0 && !updatedCookStep[lastIndex].imageUrl) {
-          // 이미지를 올릴 때 가장 최근 인덱스의 imageUrl이 비어 있다면 업데이트
-          updatedCookStep[lastIndex] = {
-            ...updatedCookStep[lastIndex],
-            imageUrl: url,
-          };
-        } else {
-          // 새로운 객체 추가
-          updatedCookStep.push({ info, imageUrl: url });
-        }
+    for (let i = 0; i < files.length; i++) {
+      const storagePath = "image/" + `${files[i].name}.${email}`;
+      const storageRef = ref(storage, storagePath);
+      const compressedFile = await resizeFile(files[i], 440, 200);
+      const snapshot = await uploadBytes(storageRef, compressedFile);
+      const imageUrl = await getDownloadURL(storageRef);
 
-        return { ...prev, cookStep: updatedCookStep };
+      updatedCookSteps.push({
+        info: "",
+        imageUrl,
       });
     }
-  }, [url, info]);
 
-  const uploadImage = async (e) => {
-    const file = e.target.files[0];
+    const update = updatedCookSteps.filter((item) => item.imageUrl !== "");
 
-    const storagePath = "image/" + `${file.name}.${email}`;
-    const storageRef = ref(storage, storagePath);
-    const compressedFile = await resizeFile(file, 440, 200);
-
-    try {
-      // 이미지 업로드
-      const snapshot = await uploadBytes(storageRef, compressedFile);
-      // 업로드된 이미지의 다운로드 URL 가져오기
-      const imageUrl = await getDownloadURL(storageRef);
-      // recipe 아톰의 imageUrl 업데이트
-      setUrl(imageUrl);
-    } catch (error) {
-      console.error("이미지 업로드 실패:", error);
-    }
-  };
-
-  const handleAdd = () => {
-    setRecipe((prev) => ({
-      ...prev,
-      cookStep: [...prev.cookStep, { info: "", imageUrl: "" }],
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      cookStep: update,
     }));
-    setNum((pre) => pre + 1);
   };
 
   const handleTextAreaChange = (e) => {
@@ -80,6 +56,14 @@ export default function RecipeEditThree() {
       imageUrl: updatedCookSteps[index]?.imageUrl || "",
     };
     setRecipe((prev) => ({ ...prev, cookStep: updatedCookSteps }));
+  };
+
+  const handleAdd = () => {
+    setRecipe((prev) => ({
+      ...prev,
+      cookStep: [...prev.cookStep, { info: "", imageUrl: "" }],
+    }));
+    setNum((pre) => pre + 1);
   };
 
   return (
@@ -120,15 +104,8 @@ export default function RecipeEditThree() {
                       type="file"
                       id={`ex_file_${index}`}
                       accept="image/*"
-                      onChange={async (e) => {
-                        const data = await resizeUrl(
-                          e.target.files[0],
-                          450,
-                          200
-                        );
-                        setImages((prevImages) => [...prevImages, data]);
-                        uploadImage(e);
-                      }}
+                      multiple
+                      onChange={(e) => AddImage(e)}
                     />
                     <div className="step-no">STEP {index + 1}</div>
                   </div>
