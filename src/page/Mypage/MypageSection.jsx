@@ -86,7 +86,7 @@ export default function MypageSection() {
                 <Link to={`/RecipeDetail/${data.id}`} key={data.id}>
                   <div className="card">
                     <LazyLoadImage
-                      src={data.cookStep[0].imageUrl}
+                      src={data.cookStep[data.cookStep.length - 1].imageUrl}
                       alt="이미지"
                       className="recipe-image"
                     />
@@ -101,7 +101,7 @@ export default function MypageSection() {
                 <Link to={`/RecipeDetail/${data.id}`} key={data.id}>
                   <div className="card">
                     <LazyLoadImage
-                      src={data.cookStep[0].imageUrl}
+                      src={data.cookStep[data.cookStep.length - 1].imageUrl}
                       alt="이미지"
                       className="recipe-image"
                     />
