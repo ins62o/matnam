@@ -59,7 +59,7 @@ export const usersAtom = atom({
   default: {
     email: "",
     nickname: "",
-    profile: "https://matnam.s3.ap-northeast-2.amazonaws.com/LogoIcon.png",
+    profile: "https://s3.ap-northeast-2.amazonaws.com/matnam.me/LogoIcon.png",
     following: [],
     followers: [],
   },
