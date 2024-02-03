@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { IoHomeOutline, IoHomeSharp } from "react-icons/io5";
 import { IoNewspaperOutline, IoNewspaper } from "react-icons/io5";

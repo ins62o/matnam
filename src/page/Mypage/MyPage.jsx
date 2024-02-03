@@ -8,7 +8,7 @@ import { IoMdSettings } from "react-icons/io";
 import { useRecoilState } from "recoil";
 import { MenuStateAtom } from "../../Recoil/atom";
 import { showToast } from "../../services/sweetalert";
-import { getAuth, updateProfile, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { useNavigate, useLocation, useParams, Link } from "react-router-dom";
 import {
   userData,
@@ -27,11 +27,8 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 export default function MyPage() {
   const email = localStorage.getItem("email");
-  const mynickname = localStorage.getItem("nickname");
-  const profile = localStorage.getItem("profile");
   const location = useLocation();
   const queryClient = useQueryClient();
-  const { nickname } = useParams();
   const [menu, setMenu] = useRecoilState(MenuStateAtom);
   const [inserton, setInserton] = useState(false);
   const [check, setCheck] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import RecipeBar from "../../component/RecipeBar";
 import RecipeBtnBar from "./../../component/RecipeBtnBar";

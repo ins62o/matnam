@@ -1,12 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import RecipeBar from "../../component/RecipeBar";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { RecipeAtom, ModeAtom } from "../../Recoil/atom";
+import { RecipeAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { detailRecipe } from "../../Firebase/firebaseFn";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";

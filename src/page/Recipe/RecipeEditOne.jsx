@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import RecipeBar from "../../component/RecipeBar";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";

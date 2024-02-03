@@ -1,4 +1,4 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 
 // 하단메뉴바 상태 아톰
 export const MenuStateAtom = atom({
@@ -11,14 +11,10 @@ export const MenuStateAtom = atom({
   },
 });
 
+// 이미지 배열 상태 아톰
 export const imagesAtom = atom({
   key: "imagesAtom",
   default: [],
-});
-
-export const ModeAtom = atom({
-  key: "ModeAtom",
-  default: false,
 });
 
 // 레시피작성 - 데이터 관리 상태

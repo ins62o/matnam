@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate, useParams, Link } from "react-router-dom";
@@ -250,9 +250,10 @@ const Container = styled.div`
   .cook-tip {
     margin: 0px 10px;
     border: 1px solid var(--main-color);
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
     font-weight: 700;
+    line-height: 1.3;
   }
 
   .user-profile {

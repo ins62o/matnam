@@ -4,10 +4,8 @@ import {
   collection,
   getDocs,
   query,
-  orderBy,
   where,
   doc,
-  getDoc,
   updateDoc,
 } from "firebase/firestore";
 import { showToast } from "../services/sweetalert";
