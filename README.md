@@ -12,6 +12,6 @@
 ![image](https://github.com/inseongei/matnam/assets/87432361/52162bd8-e5ab-4309-89a3-5c65bc142830)
 
 ### 🎨 와이어 프레임
-|  [1️⃣ 와이어프레임](https://app.eraser.io/workspace/i2vl58SWRuURS9lKBteq) | [2️⃣ 완성화면](https://github.com/inseongei/matnam/files/14157046/default.pdf) |
+|  [1️⃣ 와이어프레임](https://app.eraser.io/workspace/i2vl58SWRuURS9lKBteq) |  [2️⃣ 완성화면 PDF](https://github.com/inseongei/matnam/files/14157085/default.pdf)|
 | ------ | ------ |
 
