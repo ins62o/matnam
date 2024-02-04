@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Logo from "../asset/Logo.png";
+import Logo from "../asset/Logo.webp";
 
 export default function Loading() {
   return (
@@ -8,7 +8,7 @@ export default function Loading() {
       <div className="imageBox">
         <img src={Logo} alt="로고" />
         <div className="title">
-          <div>잠시만 기다려주세요.</div>
+          <div>잠시만 기다려주세요</div>
         </div>
       </div>
     </LoadingBox>

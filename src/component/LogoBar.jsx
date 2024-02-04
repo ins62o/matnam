@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Logo from "../asset/Logo.png";
+import Logo from "../asset/Logo.webp";
 import { Link } from "react-router-dom";
 export default function LogoBar() {
   return (

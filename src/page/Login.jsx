@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import MenuBar from "../component/MenuBar";
 import styled from "styled-components";
-import Logo from "../asset/Logo.png";
+import Logo from "../asset/Logo.webp";
 import { useNavigate, Link } from "react-router-dom";
 import { MenuStateAtom, usersAtom } from "../Recoil/atom";
 import { useRecoilState } from "recoil";
