@@ -6,9 +6,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
-import event from "../../asset/event.webp";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 export default function RecipeMenu() {
   const searchRef = useRef("");
   const navigate = useNavigate();
@@ -188,18 +188,7 @@ export default function RecipeMenu() {
           </div>
         </SwiperSlide>
       </Swiper>
-      <div className="event-banner">
-        <Link to="/recipeWrite">
-          <div className="event-titleBox">
-            <div className="event-title">
-              나만의 편의점 <b className="big">꿀</b> 조합
-            </div>
-            <div className="event-info">
-              레시피 업로드하고 기프티콘 받아가세요!
-            </div>
-          </div>
-        </Link>
-      </div>
+
       <a
         href="https://docs.google.com/forms/d/e/1FAIpQLScVWzGTPwG4yIdGZNKxokd6mP80rwlGa5aX38uCyYqoG3yNOA/viewform"
         target="_blank"
@@ -207,7 +196,7 @@ export default function RecipeMenu() {
         <div className="event-banner2">
           <div className="one-box">
             <div>맛남의 공간</div>
-            <div>👉피드백 하러가기👈</div>
+            <div>피드백 하러가기</div>
           </div>
           <div className="two-box">📬</div>
         </div>
@@ -331,16 +320,6 @@ const MenuBox = styled.div`
     text-align: center;
   }
 
-  .event-banner {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-      url(${event});
-    background-position: center;
-    background-size: cover;
-    height: 100px;
-    border-radius: 10px;
-    margin-top: 15px;
-  }
-
   .event-banner2 {
     background-color: var(--gray-200);
     width: 100%;
@@ -369,29 +348,8 @@ const MenuBox = styled.div`
     justify-content: center;
   }
 
-  .event-titleBox {
-    border-radius: 10px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .event-title {
-    font-size: 1.3rem;
-    line-height: 1.5;
-    color: var(--main-color);
-  }
-
   .big {
     font-size: 1.7rem;
     color: var(--main-color);
-  }
-
-  .event-info {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    color: var(--sub-color);
   }
 `;

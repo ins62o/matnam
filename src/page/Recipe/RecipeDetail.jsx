@@ -17,6 +17,8 @@ import { detailRecipe } from "../../Firebase/firebaseFn";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { alertSweet } from "../../services/sweetalert";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 export default function RecipeDetail() {
   const navigate = useNavigate();
@@ -148,7 +150,15 @@ export default function RecipeDetail() {
           {data.cookStep.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="image-box">
-                <img src={item.imageUrl} alt="사진" className="main-image" />
+                <LazyLoadImage
+                  effect="blur"
+                  src={item.imageUrl}
+                  alt="메인사진"
+                  className="main-image"
+                  width="100%"
+                  height="400px"
+                  placeholderSrc={process.env.PUBLIC_URL + "/LogoIcon.png"}
+                />
               </div>
               <div className="recipe">
                 <div className="number">
@@ -264,19 +274,20 @@ const Container = styled.div`
 
   .swiper {
     margin: 10px 10px 0px 10px;
-    height: 450px;
+    height: 550px;
     border-radius: 10px;
     box-shadow: var(--box-shadow);
   }
 
   .image-box {
     border-radius: 10px;
-    height: 80%;
+    height: 400px;
   }
 
   .recipe {
     border-radius: 10px;
-    height: 20%;
+    width: 100%;
+    height: 100px;
     display: flex;
     background-color: var(--gray-200);
     box-shadow: var(--box-shadow);
@@ -312,7 +323,7 @@ const Container = styled.div`
   }
 
   .info {
-    width: 85%;
+    width: 100%;
     font-weight: 700;
     font-size: 0.9rem;
     overflow: auto;
@@ -320,6 +331,7 @@ const Container = styled.div`
     letter-spacing: 0.8px;
     display: flex;
     align-items: center;
+    padding: 10px;
   }
 
   .recipe-heart {
