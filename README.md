@@ -11,9 +11,13 @@
 ### 🗂️ 메뉴(기능) 구조
 ![image](https://github.com/inseongei/matnam/assets/87432361/52162bd8-e5ab-4309-89a3-5c65bc142830)
 
-### 🎨 와이어 프레임
+
+
+
+### 🎨 와이어 프레임 & 완성화면
 |  [1️⃣ 와이어프레임](https://app.eraser.io/workspace/i2vl58SWRuURS9lKBteq) |  [2️⃣ 완성화면 PDF](https://github.com/inseongei/matnam/files/14157085/default.pdf)|
 | ------ | ------ |
+| ![image](https://github.com/inseongei/matnam/assets/87432361/ff8df27c-bece-4529-937a-f2f3687b2da9) | ![image](https://github.com/inseongei/matnam/assets/87432361/98ace13c-788d-4a3e-be05-7c85e0888533)|
 
 ### 🔢 기타 세부사항
 | 종류 | README |
