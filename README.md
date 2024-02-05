@@ -15,3 +15,9 @@
 |  [1️⃣ 와이어프레임](https://app.eraser.io/workspace/i2vl58SWRuURS9lKBteq) |  [2️⃣ 완성화면 PDF](https://github.com/inseongei/matnam/files/14157085/default.pdf)|
 | ------ | ------ |
 
+### 🔢 기타 세부사항
+| 종류 | README |
+| ------ | ------ |
+| 트러블 슈팅 | [좋아요 기능 반영 시간문제](https://github.com/inseongei/matnam/wiki/%EC%A2%8B%EC%95%84%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EB%B0%98%EC%98%81-%EC%8B%9C%EA%B0%84%EB%AC%B8%EC%A0%9C) |
+| 성능 최적화 | [성능을 올리기 위해서 시도한 것들](https://github.com/inseongei/matnam/wiki/%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%98%AC%EB%A6%AC%EA%B8%B0-%EC%9C%84%ED%95%B4%EC%84%9C-%EC%8B%9C%EB%8F%84%ED%95%9C-%EA%B2%83%EB%93%A4) |
+| 유저피드백 | [유저 UI & 개선](https://github.com/inseongei/matnam/wiki/%EC%9C%A0%EC%A0%80-UI-&-UX-%EA%B0%9C%EC%84%A0)|
