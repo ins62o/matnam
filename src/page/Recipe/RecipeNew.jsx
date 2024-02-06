@@ -1,10 +1,13 @@
+// 외부 - import
 import React from "react";
 import styled from "styled-components";
 import { FaAngleRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
+// 내부 - import
 import RecipeBox from "./../../component/RecipeBox";
 import { getAllRecipes } from "../../Firebase/firebaseFn";
-import { useQuery } from "@tanstack/react-query";
 import BoxSkeleton from "../BoxSkeleton";
 
 export default function RecipeNew() {
@@ -20,7 +23,6 @@ export default function RecipeNew() {
         <BoxSkeleton />
       </Container>
     );
-  if (error) return <p>{error}</p>;
   if (error) return <p>{error}</p>;
 
   return (

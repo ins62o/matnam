@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-// 하단메뉴바 상태 아톰
+// 하단메뉴 - 상태 아톰
 export const MenuStateAtom = atom({
   key: "MenuStateAtom",
   default: {
@@ -11,13 +11,13 @@ export const MenuStateAtom = atom({
   },
 });
 
-// 이미지 배열 상태 아톰
+// 이미지 배열 - 상태 아톰
 export const imagesAtom = atom({
   key: "imagesAtom",
   default: [],
 });
 
-// 레시피작성 - 데이터 관리 상태
+// 레시피 작성 데이터 - 상태 아톰
 export const RecipeAtom = atom({
   key: "RecipeAtom",
   default: {
@@ -33,7 +33,7 @@ export const RecipeAtom = atom({
   },
 });
 
-// 레시피수정 - 데이터 관리 상태
+// 레시피 수정 데이터 - 상태 아톰
 export const RecipeEditAtom = atom({
   key: "RecipeEditAtom",
   default: {
@@ -49,7 +49,7 @@ export const RecipeEditAtom = atom({
   },
 });
 
-// users 초기 데이터
+// users 초기 데이터 - 상태 아톰
 export const usersAtom = atom({
   key: "usersAtom",
   default: {

@@ -1,7 +1,7 @@
+// 외부 - import
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { FaRegEye } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function RecipeCard({ color, data }) {

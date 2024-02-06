@@ -1,3 +1,4 @@
+// 외부 - import
 import React from "react";
 import styled from "styled-components";
 import { FaRegEye } from "react-icons/fa";

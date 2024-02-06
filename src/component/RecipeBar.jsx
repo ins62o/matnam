@@ -1,9 +1,12 @@
+// 외부 - import
 import React from "react";
 import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
-import Logo from "../asset/LogoIcon.png";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
+
+// 내부 - import
+import Logo from "../asset/LogoIcon.png";
 
 export default function RecipeBar({ level }) {
   const navigate = useNavigate();

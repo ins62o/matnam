@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+// 외부 - import
+import React, { useRef } from "react";
 import styled from "styled-components";
+import { GoXCircle } from "react-icons/go";
+import { useRecoilState } from "recoil";
+
+// 내부 - import
 import RecipeBar from "../../component/RecipeBar";
 import RecipeBtnBar from "./../../component/RecipeBtnBar";
-import { useRecoilState } from "recoil";
 import { RecipeEditAtom } from "../../Recoil/atom";
-import { GoXCircle } from "react-icons/go";
 
 export default function RecipeEditTwo() {
   const [recipe, setRecipe] = useRecoilState(RecipeEditAtom);

@@ -1,4 +1,6 @@
 import Swal from "sweetalert2";
+
+// 토스트 알림 css 옵션
 export const Toast = Swal.mixin({
   toast: true,
   position: "top",

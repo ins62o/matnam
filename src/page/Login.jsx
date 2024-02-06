@@ -1,11 +1,8 @@
+// 외부 - import
 import React, { useEffect, useRef } from "react";
-import MenuBar from "../component/MenuBar";
 import styled from "styled-components";
-import Logo from "../asset/Logo.webp";
 import { useNavigate, Link } from "react-router-dom";
-import { MenuStateAtom, usersAtom } from "../Recoil/atom";
-import { useRecoilState } from "recoil";
-import { showToast } from "../services/sweetalert";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { FcGoogle } from "react-icons/fc";
 import { FaX } from "react-icons/fa6";
 import { collection, addDoc } from "firebase/firestore";
@@ -15,13 +12,19 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+
+// 내부 - import
+import MenuBar from "../component/MenuBar";
+import Logo from "../asset/Logo.webp";
+import { MenuStateAtom, usersAtom } from "../Recoil/atom";
+import { showToast } from "../services/sweetalert";
 import { db } from "../firebase";
 import { userData } from "../Firebase/mypageFn";
 
 export default function Login() {
   const navigate = useNavigate();
   const [menu, setMenu] = useRecoilState(MenuStateAtom);
-  const [users, setUsers] = useRecoilState(usersAtom);
+  const users = useRecoilValue(usersAtom);
   const idRef = useRef();
   const pwRef = useRef();
 

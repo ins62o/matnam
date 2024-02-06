@@ -1,7 +1,11 @@
+// 외부 - import
 import React from "react";
 import styled from "styled-components";
-import Logo from "../asset/Logo.webp";
 import { Link } from "react-router-dom";
+
+// 내부 - import
+import Logo from "../asset/Logo.webp";
+
 export default function LogoBar() {
   return (
     <LogoBox>

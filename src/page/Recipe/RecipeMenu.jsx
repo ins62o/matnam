@@ -1,3 +1,4 @@
+// 외부 - import
 import React, { useRef } from "react";
 import styled from "styled-components";
 import { IoSearchOutline } from "react-icons/io5";

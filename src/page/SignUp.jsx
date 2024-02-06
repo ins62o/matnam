@@ -1,27 +1,30 @@
+// 외부 - import
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
-import MenuBar from "../component/MenuBar";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { showToast } from "../services/sweetalert";
+import { collection, addDoc } from "firebase/firestore";
+import { useRecoilState } from "recoil";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
+
+// 내부 - import
+import MenuBar from "../component/MenuBar";
+import { showToast } from "../services/sweetalert";
 import { usersAtom } from "../Recoil/atom";
-import { useRecoilState } from "recoil";
 import { db } from "../firebase";
 import { userData } from "../Firebase/mypageFn";
 
 export default function SignUp() {
-  const [users, setUsers] = useRecoilState(usersAtom);
   const navigate = useNavigate();
   const nicknameRef = useRef();
   const idRef = useRef();
   const pwRef = useRef();
   const pwcheckRef = useRef();
+  const [users, setUsers] = useRecoilState(usersAtom);
 
   useEffect(() => {
     return () => {
@@ -180,6 +183,7 @@ const Container = styled.div`
     width: 30px;
     cursor: pointer;
   }
+
   .title {
     padding: 40px;
     text-align: center;

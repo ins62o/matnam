@@ -1,24 +1,25 @@
+// 외부 - import
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { FaChevronLeft } from "react-icons/fa";
+import { FaChevronLeft, FaHeart, FaRegHeart, FaRegEye } from "react-icons/fa";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
+import { doc, deleteDoc } from "firebase/firestore";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Pagination } from "swiper/modules";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
+// 내부 - import
 import MenuBar from "./../../component/MenuBar";
-import { FaRegEye } from "react-icons/fa";
 import Loading from "../Loading";
-import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import { IncraseSee, IncreaseHeart } from "../../Firebase/actionFn";
 import { detailRecipe } from "../../Firebase/firebaseFn";
-import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { alertSweet } from "../../services/sweetalert";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 
 export default function RecipeDetail() {
   const navigate = useNavigate();

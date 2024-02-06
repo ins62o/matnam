@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+// 외부 - import
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { useRecoilState } from "recoil";
+
+// 내부 - import
+import { MenuStateAtom, RecipeAtom } from "../../Recoil/atom";
 import LogoBar from "./../../component/LogoBar";
 import MenuBar from "../../component/MenuBar";
-import { MenuStateAtom, RecipeAtom } from "../../Recoil/atom";
-import { useRecoilState } from "recoil";
 import RecipeMenu from "./RecipeMenu";
 import RecipeBest from "./RecipeBest";
-import styled from "styled-components";
 import RecipeNew from "./RecipeNew";
 import Footer from "../../component/Footer";
 

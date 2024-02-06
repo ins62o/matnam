@@ -1,6 +1,9 @@
+// 외부 - import
 import React from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
+
+// 내부 - import
 import { RecipeAtom } from "../Recoil/atom";
 
 export default function MenuItem({ icon, categoryName }) {

@@ -1,21 +1,23 @@
+// 외부 - import
 import React, { useState } from "react";
 import styled from "styled-components";
-import RecipeBar from "./../../component/RecipeBar";
-import RecipeBtnBar from "../../component/RecipeBtnBar";
+import { useRecoilState } from "recoil";
+import { Pagination } from "swiper/modules";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Pagination } from "swiper/modules";
+
+// 내부 - import
+import RecipeBar from "./../../component/RecipeBar";
+import RecipeBtnBar from "../../component/RecipeBtnBar";
 import { RecipeAtom } from "../../Recoil/atom";
-import { useRecoilState } from "recoil";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
-import { resizeFile } from "../../services/imageFn";
+import { resize } from "../../services/imageFn";
 
 export default function RecipeWriteThree() {
   const [num, setNum] = useState(1);
-  const [numtwo, setNumtwo] = useState(1);
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const email = localStorage.getItem("email");
 
@@ -26,7 +28,7 @@ export default function RecipeWriteThree() {
     for (let i = 0; i < files.length; i++) {
       const storagePath = "image/" + `${files[i].name}.${email}`;
       const storageRef = ref(storage, storagePath);
-      const compressedFile = await resizeFile(files[i], 440, 200);
+      const compressedFile = await resize(files[i], 440, 200, "file");
       const snapshot = await uploadBytes(storageRef, compressedFile);
       const imageUrl = await getDownloadURL(storageRef);
 
@@ -59,7 +61,6 @@ export default function RecipeWriteThree() {
       ...prev,
       cookStep: [...prev.cookStep, { info: "", imageUrl: "" }],
     }));
-    setNum((pre) => pre + 1);
   };
 
   return (
@@ -69,7 +70,7 @@ export default function RecipeWriteThree() {
         <div className="title-box">
           <div className="title">조리 방법</div>
           <button className="add" onClick={handleAdd}>
-            {`추가 ${numtwo} / ${recipe.cookStep.length}`}
+            {`추가 ${num} / ${recipe.cookStep.length}`}
           </button>
         </div>
 
@@ -81,7 +82,7 @@ export default function RecipeWriteThree() {
               clickable: true,
             }}
             modules={[Pagination]}
-            onSlideChange={(swiper) => setNumtwo(swiper.activeIndex + 1)}
+            onSlideChange={(swiper) => setNum(swiper.activeIndex + 1)}
           >
             {recipe.cookStep.map((data, index) => (
               <SwiperSlide key={index}>

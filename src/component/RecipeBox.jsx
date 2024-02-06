@@ -1,7 +1,7 @@
+// 외부 - import
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { FaRegEye } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";

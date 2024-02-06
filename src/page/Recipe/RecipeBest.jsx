@@ -1,7 +1,10 @@
+// 외부 - import
 import React from "react";
 import styled from "styled-components";
-import RecipeCard from "../../component/RecipeCard";
 import { useQuery } from "@tanstack/react-query";
+
+// 내부 - import
+import RecipeCard from "../../component/RecipeCard";
 import { likeRecipes } from "../../Firebase/firebaseFn";
 import CardSkeleton from "../CardSkeleton";
 

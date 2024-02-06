@@ -1,19 +1,22 @@
+// 외부 - import
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
-import LogoBar from "../../component/LogoBar";
-import MenuBar from "../../component/MenuBar";
 import { IoSearchOutline } from "react-icons/io5";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { useRecoilState } from "recoil";
+
+// 내부 - import
+import LogoBar from "../../component/LogoBar";
+import MenuBar from "../../component/MenuBar";
 import categorylist from "../../services/category";
 import RecipeBox from "./../../component/RecipeBox";
-import { useQuery } from "@tanstack/react-query";
+import { MenuStateAtom } from "../../Recoil/atom";
 import {
   getCategoryRecipes,
   getAllRecipes,
   searchRecipe,
 } from "../../Firebase/firebaseFn";
-import { useRecoilState } from "recoil";
-import { MenuStateAtom } from "../../Recoil/atom";
 
 export default function RecipeFeed() {
   const { category } = useParams();

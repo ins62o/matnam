@@ -1,8 +1,17 @@
+// 외부 - import
 import React from "react";
 import styled from "styled-components";
-import { IoHomeOutline, IoHomeSharp } from "react-icons/io5";
-import { IoNewspaperOutline, IoNewspaper } from "react-icons/io5";
 import { animateScroll as scroll } from "react-scroll";
+import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { MenuStateAtom } from "../Recoil/atom";
+import { useNavigate } from "react-router-dom";
+import {
+  IoHomeOutline,
+  IoHomeSharp,
+  IoNewspaperOutline,
+  IoNewspaper,
+} from "react-icons/io5";
 import {
   FaArrowUp,
   FaRegUser,
@@ -11,10 +20,8 @@ import {
   FaRegUserCircle,
   FaPlus,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { MenuStateAtom } from "../Recoil/atom";
-import { useNavigate } from "react-router-dom";
+
+// 내부 - import
 import { showToast } from "../services/sweetalert";
 
 export default function MenuBar() {

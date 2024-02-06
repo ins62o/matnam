@@ -72,10 +72,9 @@ export const CancelFriend = async ({ data, email }) => {
 
 // 신청목록 - 수락버튼
 export const successFriend = async ({ data, email }) => {
-  // data는 나, email은 상대방
+  // data : 나, email: 상대방
   const yourData = await userData(email);
 
-  // 상대방의 팔로워에 나 추가
   await updateDoc(doc(db, "users", yourData.id), {
     ...yourData,
     followers: [...yourData.followers, data],
@@ -105,20 +104,17 @@ export const rejectFriend = async ({ data, email }) => {
 export const deleteFriend = async ({ data, email }) => {
   const yourData = await userData(email);
 
-  // 나의 팔로워 목록에서 상대방 제거
   const myfollowers = data.followers.filter((item) => item.email !== email);
-  // 상대방의 팔로워 목록에서 나 제거
+
   const yourfollowers = yourData.followers.filter(
     (item) => item.email !== data.email
   );
 
-  // 나의 팔로워 목록 업데이트
   await updateDoc(doc(db, "users", data.id), {
     ...data,
     followers: myfollowers,
   });
 
-  // 상대방의 팔로워 목록 업데이트
   await updateDoc(doc(db, "users", yourData.id), {
     ...yourData,
     followers: yourfollowers,

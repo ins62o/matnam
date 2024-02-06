@@ -1,7 +1,10 @@
+// 외부 - import
 import React from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+
+// 내부 - import
 import MenuBar from "../component/MenuBar";
 import Note from "../component/Note";
 
@@ -10,12 +13,7 @@ export default function ReleaseNote() {
   return (
     <Container>
       <div className="HeaderBar">
-        <FaChevronLeft
-          className="goBack-icon"
-          onClick={() => {
-            navigate(-1);
-          }}
-        />
+        <FaChevronLeft className="goBack-icon" onClick={() => navigate(-1)} />
       </div>
 
       <div className="title">패치노트</div>
@@ -121,5 +119,6 @@ const Container = styled.div`
   }
 
   .scroll-box {
+    box-shadow: var(--box-shadow);
   }
 `;

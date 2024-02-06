@@ -22,6 +22,7 @@ const RecipeFeed = lazy(() => import("./page/Recipe/RecipeFeed"));
 const RecipeDetail = lazy(() => import("./page/Recipe/RecipeDetail"));
 const MyPage = lazy(() => import("./page/Mypage/MyPage"));
 
+// @tanstack 선언
 const queryClient = new QueryClient();
 
 function App() {

@@ -1,10 +1,13 @@
+// 외부 - import
 import React, { useRef } from "react";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { GoXCircle } from "react-icons/go";
+
+// 내부 - import
 import RecipeBar from "../../component/RecipeBar";
 import RecipeBtnBar from "./../../component/RecipeBtnBar";
-import { useRecoilState } from "recoil";
 import { RecipeAtom } from "../../Recoil/atom";
-import { GoXCircle } from "react-icons/go";
 
 export default function RecipeWriteTwo() {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);

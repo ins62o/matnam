@@ -1,15 +1,23 @@
+// 외부 - import
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import MenuBar from "./../../component/MenuBar";
-import MypageSection from "./MypageSection";
 import { FaChevronLeft } from "react-icons/fa6";
 import { FiLogOut } from "react-icons/fi";
 import { IoMdSettings } from "react-icons/io";
+import { FaTimes } from "react-icons/fa";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
+// 내부 - import
+import MenuBar from "./../../component/MenuBar";
+import MypageSection from "./MypageSection";
 import { MenuStateAtom } from "../../Recoil/atom";
 import { showToast } from "../../services/sweetalert";
 import { getAuth, signOut } from "firebase/auth";
-import { useNavigate, useLocation, useParams, Link } from "react-router-dom";
+import { resize } from "../../services/imageFn";
 import {
   userData,
   changeProfile,
@@ -19,11 +27,6 @@ import {
   rejectFriend,
   deleteFriend,
 } from "../../Firebase/mypageFn";
-import { FaTimes } from "react-icons/fa";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { resizeUrl, resizeFile } from "../../services/imageFn";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 
 export default function MyPage() {
   const email = localStorage.getItem("email");
@@ -173,12 +176,18 @@ export default function MyPage() {
                 id="file-input"
                 accept="image/*"
                 onChange={async (e) => {
-                  const url = await resizeUrl(e.target.files[0], 130, 130);
-                  setImage(url);
-                  const compressedFile = await resizeFile(
+                  const url = await resize(
                     e.target.files[0],
                     130,
-                    130
+                    130,
+                    "base64"
+                  );
+                  setImage(url);
+                  const compressedFile = await resize(
+                    e.target.files[0],
+                    130,
+                    130,
+                    "file"
                   );
                   setFireimage(compressedFile);
                 }}

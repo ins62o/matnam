@@ -1,13 +1,16 @@
+// 외부 - import
 import React, { useState } from "react";
 import styled from "styled-components";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link, useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Link, useLocation } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+
+// 내부 - import
 import { myRecipe, mylikeRecipe } from "../../Firebase/firebaseFn";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export default function MypageSection() {
   const location = useLocation();

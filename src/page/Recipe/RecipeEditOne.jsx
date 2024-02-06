@@ -1,30 +1,34 @@
+// 외부 - import
 import React, { useEffect } from "react";
-import RecipeBar from "../../component/RecipeBar";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { RecipeEditAtom } from "../../Recoil/atom";
 import { useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { detailRecipe } from "../../Firebase/firebaseFn";
+import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Pagination } from "swiper/modules";
+
+// 내부 - import
+import RecipeBar from "../../component/RecipeBar";
+import { RecipeEditAtom } from "../../Recoil/atom";
+import { detailRecipe } from "../../Firebase/firebaseFn";
 import RecipeBtnBar from "../../component/RecipeBtnBar";
 import Loading from "./../Loading";
 
 export default function RecipeEditOne() {
   const [recipe, setRecipe] = useRecoilState(RecipeEditAtom);
   const recipeId = useParams();
-  const { isSuccess, data, isLoading } = useQuery({
+
+  const { data, isLoading } = useQuery({
     queryKey: ["DetailRecipe", recipeId],
     queryFn: () => detailRecipe(recipeId),
   });
 
   useEffect(() => {
     if (recipeId.id) setRecipe(data);
-  }, []);
+  }, [recipeId]);
 
   if (isLoading)
     return (

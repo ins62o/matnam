@@ -1,5 +1,8 @@
+// 외부 - import
 import React from "react";
 import styled from "styled-components";
+
+// 내부 - import
 import Logo from "../asset/Logo.webp";
 
 export default function Loading() {

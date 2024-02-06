@@ -12,7 +12,7 @@ import { useRecoilState } from "recoil";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
 import { useParams } from "react-router-dom";
-import { resizeUrl, resizeFile } from "../../services/imageFn";
+import { resize } from "../../services/imageFn";
 
 export default function RecipeEditThree() {
   const [images, setImages] = useRecoilState(imagesAtom);
@@ -30,7 +30,7 @@ export default function RecipeEditThree() {
     for (let i = 0; i < files.length; i++) {
       const storagePath = "image/" + `${files[i].name}.${email}`;
       const storageRef = ref(storage, storagePath);
-      const compressedFile = await resizeFile(files[i], 440, 200);
+      const compressedFile = await resize(files[i], 440, 200, "file");
       const snapshot = await uploadBytes(storageRef, compressedFile);
       const imageUrl = await getDownloadURL(storageRef);
 

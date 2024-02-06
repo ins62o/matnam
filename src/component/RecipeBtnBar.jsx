@@ -1,11 +1,14 @@
+// 외부 - import
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { RecipeAtom, RecipeEditAtom } from "../Recoil/atom";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
-import { alertSweet } from "./../services/sweetalert";
 import { doc, updateDoc, collection, addDoc } from "firebase/firestore";
+
+// 내부 - import
+import { RecipeAtom, RecipeEditAtom } from "../Recoil/atom";
+import { alertSweet } from "./../services/sweetalert";
 import { db } from "../firebase";
 import { userData } from "../Firebase/mypageFn";
 
@@ -15,8 +18,6 @@ export default function RecipeBtnBar({ next }) {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const recipeEdit = useRecoilValue(RecipeEditAtom);
   const [page, setPage] = useState("");
-  const nickname = localStorage.getItem("nickname");
-  const profile = localStorage.getItem("profile");
   const email = localStorage.getItem("email");
 
   // 수정 & 작성 페이지 라우터 처리
