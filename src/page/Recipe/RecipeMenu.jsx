@@ -188,19 +188,26 @@ export default function RecipeMenu() {
           </div>
         </SwiperSlide>
       </Swiper>
-
-      <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLScVWzGTPwG4yIdGZNKxokd6mP80rwlGa5aX38uCyYqoG3yNOA/viewform"
-        target="_blank"
-      >
-        <div className="event-banner2">
+      <div className="event-box">
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScVWzGTPwG4yIdGZNKxokd6mP80rwlGa5aX38uCyYqoG3yNOA/viewform"
+          target="_blank"
+          className="event-banner1"
+        >
           <div className="one-box">
             <div>맛남의 공간</div>
-            <div>피드백 하러가기</div>
+            <div>피드백 </div>
           </div>
           <div className="two-box">📬</div>
-        </div>
-      </a>
+        </a>
+        <Link to="/note" className="event-banner2">
+          <div className="one-box">
+            <div>맛남의 공간</div>
+            <div>패치노트 </div>
+          </div>
+          <div className="two-box">📝</div>
+        </Link>
+      </div>
     </MenuBox>
   );
 }
@@ -240,6 +247,10 @@ const MenuBox = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 15px;
+  }
+
+  .event-box {
+    display: flex;
   }
 
   .info {
@@ -322,17 +333,29 @@ const MenuBox = styled.div`
 
   .event-banner2 {
     background-color: var(--gray-200);
-    width: 100%;
+    width: 50%;
     height: 100px;
     border-radius: 10px;
     margin-top: 10px;
     display: flex;
     font-weight: 700;
+    cursor: pointer;
+  }
+
+  .event-banner1 {
+    background-color: var(--gray-200);
+    width: 50%;
+    height: 100px;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: flex;
+    font-weight: 700;
+    margin-right: 10px;
   }
 
   .one-box {
     width: 70%;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     display: flex;
     flex-direction: column;
     align-items: center;

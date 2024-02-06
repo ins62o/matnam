@@ -8,7 +8,7 @@ import { lazy, Suspense } from "react";
 import "./App.css";
 import Loading from "./page/Loading";
 import ScrollToTop from "./services/ScrollToTop";
-const queryClient = new QueryClient();
+import ReleaseNote from "./page/ReleaseNote";
 const Login = lazy(() => import("./page/Login"));
 const SignUp = lazy(() => import("./page/SignUp"));
 const RecipeHome = lazy(() => import("./page/Recipe/RecipeHome"));
@@ -21,6 +21,8 @@ const RecipeEditThree = lazy(() => import("./page/Recipe/RecipeEditThree"));
 const RecipeFeed = lazy(() => import("./page/Recipe/RecipeFeed"));
 const RecipeDetail = lazy(() => import("./page/Recipe/RecipeDetail"));
 const MyPage = lazy(() => import("./page/Mypage/MyPage"));
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
@@ -66,6 +68,7 @@ function App() {
                 <Route path="/Login" element={<Login />}></Route>
                 <Route path="/SignUP" element={<SignUp />}></Route>
                 <Route path="/Mypage/:nickname" element={<MyPage />}></Route>
+                <Route path="/note" element={<ReleaseNote />}></Route>
               </Routes>
             </BrowserRouter>
           </RecoilRoot>
