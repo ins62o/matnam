@@ -24,4 +24,4 @@
 | ------ | ------ |
 | 트러블 슈팅 | [좋아요 기능 반영 시간문제](https://github.com/inseongei/matnam/wiki/%EC%A2%8B%EC%95%84%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EB%B0%98%EC%98%81-%EC%8B%9C%EA%B0%84%EB%AC%B8%EC%A0%9C) |
 | 성능 최적화 | [성능을 올리기 위해서 시도한 것들](https://github.com/inseongei/matnam/wiki/%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%98%AC%EB%A6%AC%EA%B8%B0-%EC%9C%84%ED%95%B4%EC%84%9C-%EC%8B%9C%EB%8F%84%ED%95%9C-%EA%B2%83%EB%93%A4) |
-| 패치노트 | [패치노트](https://github.com/inseongei/matnam/wiki/%EB%A6%B4%EB%A6%AC%EC%A6%88-%EB%85%B8%ED%8A%B8)|
+| 패치노트 | [패치노트](https://github.com/inseongei/matnam/wiki/%ED%8C%A8%EC%B9%98-%EB%85%B8%ED%8A%B8)|
