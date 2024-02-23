@@ -33,22 +33,6 @@ export const RecipeAtom = atom({
   },
 });
 
-// 레시피 수정 데이터 - 상태 아톰
-export const RecipeEditAtom = atom({
-  key: "RecipeEditAtom",
-  default: {
-    title: "",
-    categoryName: "",
-    ingredients: [],
-    cookTip: "",
-    cookStep: [],
-    date: new Date(),
-    heart: [],
-    writer: {},
-    see: 0,
-  },
-});
-
 // users 초기 데이터 - 상태 아톰
 export const usersAtom = atom({
   key: "usersAtom",
