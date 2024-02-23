@@ -56,7 +56,7 @@ export default function RecipeWriteTwo() {
         </div>
 
         <div className="ingre-box">
-          <div className="ingre-title">{recipe.title} 재료 리스트</div>
+          <div className="ingre-title">{recipe?.title} 재료 리스트</div>
           {recipe.ingredients.map((data, index) => (
             <div className="ingre-list" key={index}>
               <div className="one-box">

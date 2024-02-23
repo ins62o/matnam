@@ -21,6 +21,8 @@ export default function RecipeWriteThree() {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
   const email = localStorage.getItem("email");
 
+  console.log(recipe);
+
   const AddImage = async (e) => {
     const files = e.target.files;
     let updatedCookSteps = [...recipe.cookStep];

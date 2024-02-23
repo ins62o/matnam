@@ -128,7 +128,7 @@ export default function RecipeDetail() {
           <div className="title">꿀팁🤫</div>
           {email === data.writer.email ? (
             <div className="ins-del-box">
-              <Link to={`/RecipeEdit/${recipeId.id}`}>
+              <Link to={`/RecipeWrite/${recipeId.id}`}>
                 <div className="ins">수정</div>
               </Link>
 

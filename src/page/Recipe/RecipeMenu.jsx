@@ -201,13 +201,6 @@ export default function RecipeMenu() {
           </div>
           <div className="two-box">📬</div>
         </a>
-        <Link to="/note" className="event-banner2">
-          <div className="one-box">
-            <div>맛남의 공간</div>
-            <div>패치노트 </div>
-          </div>
-          <div className="two-box">📝</div>
-        </Link>
       </div>
     </MenuBox>
   );
@@ -344,19 +337,18 @@ const MenuBox = styled.div`
   }
 
   .event-banner1 {
-    background-color: var(--gray-200);
-    width: 50%;
+    background-image: linear-gradient(135deg, #fde5d2 0%, #f0feea 100%);
+    width: 100%;
     height: 100px;
     border-radius: 10px;
     margin-top: 10px;
     display: flex;
     font-weight: 700;
-    margin-right: 10px;
   }
 
   .one-box {
     width: 70%;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     display: flex;
     flex-direction: column;
     align-items: center;

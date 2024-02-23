@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { doc, updateDoc, collection, addDoc } from "firebase/firestore";
 
 // 내부 - import
-import { RecipeAtom, RecipeEditAtom } from "../Recoil/atom";
+import { RecipeAtom } from "../Recoil/atom";
 import { alertSweet } from "./../services/sweetalert";
 import { db } from "../firebase";
 import { userData } from "../Firebase/mypageFn";
@@ -16,16 +16,15 @@ export default function RecipeBtnBar({ next }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
-  const recipeEdit = useRecoilValue(RecipeEditAtom);
   const [page, setPage] = useState("");
   const email = localStorage.getItem("email");
 
   // 수정 & 작성 페이지 라우터 처리
   useEffect(() => {
     if (next === "1" && id) {
-      setPage(`/RecipeEditTwo/${id}`);
+      setPage(`/RecipeWriteTwo/${id}`);
     } else if (next === "2" && id) {
-      setPage(`/RecipeEditThree/${id}`);
+      setPage(`/RecipeWriteThree/${id}`);
     } else {
       setPage(next === "1" ? "/RecipeWriteTwo" : "/RecipeWriteThree");
     }
@@ -72,10 +71,7 @@ export default function RecipeBtnBar({ next }) {
       </button>
       {next === "3" ? (
         id ? (
-          <button
-            className="next Btn"
-            onClick={() => updataData(recipeEdit, id)}
-          >
+          <button className="next Btn" onClick={() => updataData(recipe, id)}>
             수정
           </button>
         ) : (

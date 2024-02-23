@@ -1,9 +1,11 @@
 // 외부 - import
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -12,9 +14,41 @@ import "swiper/css/navigation";
 import RecipeBar from "../../component/RecipeBar";
 import { RecipeAtom } from "../../Recoil/atom";
 import RecipeBtnBar from "../../component/RecipeBtnBar";
+import { detailRecipe } from "../../Firebase/firebaseFn";
 
 export default function RecipeWriteOne() {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
+  const recipeId = useParams();
+  const nickname = localStorage.getItem("nickname");
+  const email = localStorage.getItem("email");
+  const profile = localStorage.getItem("profile");
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["DetailRecipe", recipeId],
+    queryFn: () => detailRecipe(recipeId),
+  });
+
+  useEffect(() => {
+    if (recipeId.id) {
+      setRecipe(data);
+    } else {
+      setRecipe({
+        title: "",
+        categoryName: "",
+        ingredients: [],
+        cookTip: "",
+        cookStep: [{ info: "", imageUrl: "" }],
+        date: new Date(),
+        heart: [],
+        writer: {
+          email,
+          nickname,
+          profile,
+        },
+        see: 0,
+      });
+    }
+  }, [recipeId.id]);
 
   const handleMenuClick = (categoryName) => {
     setRecipe((prevRecipe) => ({
@@ -34,7 +68,7 @@ export default function RecipeWriteOne() {
               type="text"
               className="recipeInput"
               placeholder="소개 할 레시피의 이름은 무엇인가요?"
-              defaultValue={recipe.title}
+              defaultValue={data?.title}
               onChange={(e) =>
                 setRecipe((prev) => ({
                   ...prev,
