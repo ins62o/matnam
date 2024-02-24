@@ -23,4 +23,7 @@
 | 종류 | README |
 | ------ | ------ |
 | 트러블 슈팅 | [좋아요 기능 반영 시간문제](https://github.com/inseongei/matnam/wiki/%EC%A2%8B%EC%95%84%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EB%B0%98%EC%98%81-%EC%8B%9C%EA%B0%84%EB%AC%B8%EC%A0%9C) |
+| 트러블 슈팅 | [동일한 UI의 작성 & 수정 페이지 재사용](https://github.com/inseongei/matnam/wiki/%EB%8F%99%EC%9D%BC%ED%95%9C-UI%EC%9D%98-%EC%9E%91%EC%84%B1-&-%EC%88%98%EC%A0%95-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%9E%AC%EC%82%AC%EC%9A%A9) |
 | 성능 최적화 | [성능을 올리기 위해서 시도한 것들](https://github.com/inseongei/matnam/wiki/%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%98%AC%EB%A6%AC%EA%B8%B0-%EC%9C%84%ED%95%B4%EC%84%9C-%EC%8B%9C%EB%8F%84%ED%95%9C-%EA%B2%83%EB%93%A4) |
+| 발표 자료 | [발표 자료 PDF](https://github.com/inseongei/matnam/files/14385557/default.pdf)|
+| 발표 영상 | [맛남의 공간 발표 영상](https://youtu.be/AOk27Dhz72s) |
