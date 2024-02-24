@@ -15,6 +15,8 @@ import RecipeBar from "../../component/RecipeBar";
 import { RecipeAtom } from "../../Recoil/atom";
 import RecipeBtnBar from "../../component/RecipeBtnBar";
 import { detailRecipe } from "../../Firebase/firebaseFn";
+import Menu from "../../component/Menu";
+import Category from "../../component/Category";
 
 export default function RecipeWriteOne() {
   const [recipe, setRecipe] = useRecoilState(RecipeAtom);
@@ -91,180 +93,96 @@ export default function RecipeWriteOne() {
             <SwiperSlide>
               <div className="menu-Container">
                 <div className="menu-list">
-                  <div
-                    className={
-                      recipe.categoryName == "메인반찬"
-                        ? "Onmenu-box"
-                        : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("메인반찬")}
-                  >
-                    <div className="menu-icon">🥘</div>
-                    <div className="menu-name">메인반찬</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "밑반찬"
-                        ? "Onmenu-box"
-                        : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("밑반찬")}
-                  >
-                    <div className="menu-icon">🍳</div>
-                    <div className="menu-name">밑반찬</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "국·탕" ? "Onmenu-box" : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("국·탕")}
-                  >
-                    <div className="menu-icon">🍲</div>
-                    <div className="menu-name">국·탕</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "밥·죽" ? "Onmenu-box" : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("밥·죽")}
-                  >
-                    <div className="menu-icon">🍚</div>
-                    <div className="menu-name">밥·죽</div>
-                  </div>
+                  <Category
+                    title={"메인반찬"}
+                    icon={"🥘"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"밑반찬"}
+                    icon={"🍳"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"국·탕"}
+                    icon={"🍲"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"밥·죽"}
+                    icon={"🍚"}
+                    categoryName={recipe.categoryName}
+                  />
                 </div>
                 <div className="menu-list">
-                  <div
-                    className={
-                      recipe.categoryName == "튀김" ? "Onmenu-box" : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("튀김")}
-                  >
-                    <div className="menu-icon">🍤</div>
-                    <div className="menu-name">튀김</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "면요리"
-                        ? "Onmenu-box"
-                        : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("면요리")}
-                  >
-                    <div className="menu-icon">🍜</div>
-                    <div className="menu-name">면요리</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "양념·소스"
-                        ? "Onmenu-box"
-                        : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("양념·소스")}
-                  >
-                    <div className="menu-icon">🧉</div>
-                    <div className="menu-name">양념·소스</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "김치·젓갈"
-                        ? "Onmenu-box"
-                        : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("김치·젓갈")}
-                  >
-                    <div className="menu-icon">🌶️</div>
-                    <div className="menu-name">김치·젓갈</div>
-                  </div>
+                  <Category
+                    title={"튀김"}
+                    icon={"🍤"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"면요리"}
+                    icon={"🍜"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"양념·소스"}
+                    icon={"🧉"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"김치·젓갈"}
+                    icon={"🌶️"}
+                    categoryName={recipe.categoryName}
+                  />
                 </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="menu-Container">
                 <div className="menu-list">
-                  <div
-                    className={
-                      recipe.categoryName == "셀러드"
-                        ? "Onmenu-box"
-                        : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("셀러드")}
-                  >
-                    <div className="menu-icon">🥗</div>
-                    <div className="menu-name">셀러드</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "빵" ? "Onmenu-box" : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("빵")}
-                  >
-                    <div className="menu-icon">🥖</div>
-                    <div className="menu-name">빵</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "디저트"
-                        ? "Onmenu-box"
-                        : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("디저트")}
-                  >
-                    <div className="menu-icon">🍨</div>
-                    <div className="menu-name">디저트</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "차·음료"
-                        ? "Onmenu-box"
-                        : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("차·음료")}
-                  >
-                    <div className="menu-icon">🍵</div>
-                    <div className="menu-name">차·음료</div>
-                  </div>
+                  <Category
+                    title={"셀러드"}
+                    icon={"🥗"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"빵"}
+                    icon={"🥖"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"디저트"}
+                    icon={"🍨"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"차·음료"}
+                    icon={"🍵"}
+                    categoryName={recipe.categoryName}
+                  />
                 </div>
                 <div className="menu-list">
-                  <div
-                    className={
-                      recipe.categoryName == "편의점요리"
-                        ? "Onmenu-box"
-                        : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("편의점요리")}
-                  >
-                    <div className="menu-icon">🍙</div>
-                    <div className="menu-name">편의점요리</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "술" ? "Onmenu-box" : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("술")}
-                  >
-                    <div className="menu-icon">🍺</div>
-                    <div className="menu-name">술</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "도시락"
-                        ? "Onmenu-box"
-                        : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("도시락")}
-                  >
-                    <div className="menu-icon">🍱</div>
-                    <div className="menu-name">도시락</div>
-                  </div>
-                  <div
-                    className={
-                      recipe.categoryName == "기타" ? "Onmenu-box" : "menu-box"
-                    }
-                    onClick={() => handleMenuClick("기타")}
-                  >
-                    <div className="menu-icon">🍽️</div>
-                    <div className="menu-name">기타</div>
-                  </div>
+                  <Category
+                    title={"편의점요리"}
+                    icon={"🍙"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"술"}
+                    icon={"🍺"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"도시락"}
+                    icon={"🍱"}
+                    categoryName={recipe.categoryName}
+                  />
+                  <Category
+                    title={"기타"}
+                    icon={"🍽️"}
+                    categoryName={recipe.categoryName}
+                  />
                 </div>
               </div>
             </SwiperSlide>

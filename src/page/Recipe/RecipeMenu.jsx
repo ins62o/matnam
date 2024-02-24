@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Menu from "../../component/Menu";
 
 export default function RecipeMenu() {
   const searchRef = useRef("");
@@ -75,116 +76,32 @@ export default function RecipeMenu() {
         <SwiperSlide>
           <div className="menu-Container">
             <div className="menu-list">
-              <Link to="/recipeFeed/2" className="menu-box">
-                <div>
-                  <div className="menu-icon">🥘</div>
-                  <div className="menu-name">메인반찬</div>
-                </div>
-              </Link>
-              <Link to="/recipeFeed/3" className="menu-box">
-                <div>
-                  <div className="menu-icon">🍳</div>
-                  <div className="menu-name">밑반찬</div>
-                </div>
-              </Link>
-              <Link to="/recipeFeed/4" className="menu-box">
-                <div>
-                  <div className="menu-icon">🍲</div>
-                  <div className="menu-name">국·탕</div>
-                </div>
-              </Link>
-              <Link to="/recipeFeed/5" className="menu-box">
-                <div>
-                  <div className="menu-icon">🍚</div>
-                  <div className="menu-name">밥·죽</div>
-                </div>
-              </Link>
+              <Menu page={"/recipeFeed/2"} icon={"🥘"} title={"메인반찬"} />
+              <Menu page={"/recipeFeed/3"} icon={"🍳"} title={"밑반찬"} />
+              <Menu page={"/recipeFeed/4"} icon={"🍲"} title={"국·탕"} />
+              <Menu page={"/recipeFeed/5"} icon={"🍚"} title={"밥·죽"} />
             </div>
             <div className="menu-list">
-              <Link to="/recipeFeed/6" className="menu-box">
-                <div>
-                  <div className="menu-icon">🍤</div>
-                  <div className="menu-name">튀김</div>
-                </div>
-              </Link>
-              <Link to="/recipeFeed/7" className="menu-box">
-                <div>
-                  <div className="menu-icon">🍜</div>
-                  <div className="menu-name">면요리</div>
-                </div>
-              </Link>
-              <Link to="/recipeFeed/8" className="menu-box">
-                <div>
-                  <div className="menu-icon">🧉</div>
-                  <div className="menu-name">양념·소스</div>
-                </div>
-              </Link>
-              <Link to="/recipeFeed/9" className="menu-box">
-                <div>
-                  <div className="menu-icon">🌶️</div>
-                  <div className="menu-name">김치·젓갈</div>
-                </div>
-              </Link>
+              <Menu page={"/recipeFeed/6"} icon={"🍤"} title={"튀김"} />
+              <Menu page={"/recipeFeed/7"} icon={"🍜"} title={"면요리"} />
+              <Menu page={"/recipeFeed/8"} icon={"🧉"} title={"양념·소스"} />
+              <Menu page={"/recipeFeed/9"} icon={"🌶️"} title={"김치·젓갈"} />
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="menu-Container">
             <div className="menu-list">
-              <Link to="/recipeFeed/10" className="menu-box">
-                <div>
-                  <div className="menu-icon">🥗</div>
-                  <div className="menu-name">셀러드</div>
-                </div>
-              </Link>
-              <Link to="/recipeFeed/11" className="menu-box">
-                <div>
-                  <div className="menu-icon">🥖</div>
-                  <div className="menu-name">빵</div>
-                </div>
-              </Link>
-              <Link to="/recipeFeed/12" className="menu-box">
-                <div>
-                  <div className="menu-icon">🍨</div>
-                  <div className="menu-name">디저트</div>
-                </div>
-              </Link>
-
-              <Link to="/recipeFeed/13" className="menu-box">
-                <div>
-                  <div className="menu-icon">🍵</div>
-                  <div className="menu-name">차·음료</div>
-                </div>
-              </Link>
+              <Menu page={"/recipeFeed/10"} icon={"🥗"} title={"셀러드"} />
+              <Menu page={"/recipeFeed/11"} icon={"🥖"} title={"빵"} />
+              <Menu page={"/recipeFeed/12"} icon={"🍨"} title={"디저트"} />
+              <Menu page={"/recipeFeed/13"} icon={"🍵"} title={"차·음료"} />
             </div>
             <div className="menu-list">
-              <Link to="/recipeFeed/14" className="menu-box">
-                <div>
-                  <div className="menu-icon">🍙</div>
-                  <div className="menu-name">편의점요리</div>
-                </div>
-              </Link>
-
-              <Link to="/recipeFeed/15" className="menu-box">
-                <div>
-                  <div className="menu-icon">🍺</div>
-                  <div className="menu-name">술</div>
-                </div>
-              </Link>
-
-              <Link to="/recipeFeed/16" className="menu-box">
-                <div>
-                  <div className="menu-icon">🍱</div>
-                  <div className="menu-name">도시락</div>
-                </div>
-              </Link>
-
-              <Link to="/recipeFeed/17" className="menu-box">
-                <div>
-                  <div className="menu-icon">🍽️</div>
-                  <div className="menu-name">기타</div>
-                </div>
-              </Link>
+              <Menu page={"/recipeFeed/14"} icon={"🍙"} title={"편의점요리"} />
+              <Menu page={"/recipeFeed/15"} icon={"🍺"} title={"술"} />
+              <Menu page={"/recipeFeed/16"} icon={"🍱"} title={"도시락"} />
+              <Menu page={"/recipeFeed/17"} icon={"🍽️"} title={"기타"} />
             </div>
           </div>
         </SwiperSlide>
