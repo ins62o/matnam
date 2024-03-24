@@ -6,12 +6,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { FcGoogle } from "react-icons/fc";
 import { FaX } from "react-icons/fa6";
 import { collection, addDoc } from "firebase/firestore";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
 
 // 내부 - import
 import MenuBar from "../component/MenuBar";
@@ -20,6 +14,8 @@ import { MenuStateAtom, usersAtom } from "../Recoil/atom";
 import { showToast } from "../services/sweetalert";
 import { db } from "../firebase";
 import { userData } from "../Firebase/mypageFn";
+import { changeMenu } from "./../hooks/action/changeMenu";
+import { localLogin } from "../hooks/action/login";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -33,99 +29,69 @@ export default function Login() {
     if (e.key === "Enter") loginhandle();
   };
 
-  // 하단 메뉴바 상태 관리 - useEffect
+  // 메뉴바 상태 관리
   useEffect(() => {
-    setMenu((prev) => ({
-      ...prev,
-      Login: true,
-    }));
+    changeMenu("Login", true, setMenu);
     return () => {
-      setMenu((prev) => ({
-        ...prev,
-        Login: false,
-      }));
+      changeMenu("Login", false, setMenu);
     };
   }, [menu.Login]);
 
-  // 로그인 처리 함수 - loginhandle
+  // 로컬 로그인
   const loginhandle = () => {
-    const idValue = idRef.current.value;
-    const pwValue = pwRef.current.value;
-    if (idValue.length === 0) {
-      showToast("error", "아이디를 입력하세요", idRef);
-    } else if (pwValue.length === 0) {
-      showToast("error", "패스워드를 입력하세요", pwRef);
-    } else {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, idValue, pwValue)
-        .then(async (userCredential) => {
-          const user = userCredential.user;
-          const DBUserData = await userData(user.email);
-
-          localStorage.setItem("accessToken", user.accessToken);
-          localStorage.setItem("nickname", DBUserData.nickname);
-          localStorage.setItem("profile", DBUserData.profile);
-          localStorage.setItem("email", DBUserData.email);
-          showToast("success", `${DBUserData.nickname} 님 환영합니다.`);
-          navigate("/");
-        })
-        .catch((err) => {
-          showToast("error", "맛남의 공간 회원이 아닙니다.", idRef);
-        });
-    }
+    localLogin(idRef, pwRef, navigate, userData);
   };
 
   // 구글 로그인 처리 함수 - googleLogin
   const googleLogin = async () => {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then(async (userCredential) => {
-      const user = userCredential.user;
-      const DBUserData = await userData();
-      const myData = DBUserData.filter((item) => item.email === user.email);
-
-      // 나의 회원 테이블이 DB에 있다는 소리
-      if (DBUserData.some((item) => item.email === user.email)) {
-        localStorage.setItem("accessToken", user.accessToken);
-        localStorage.setItem("nickname", myData[0].nickname);
-        localStorage.setItem("profile", myData[0].profile);
-        localStorage.setItem("email", myData[0].email);
-        navigate("/");
-        showToast("success", `${myData[0].nickname}님 환영합니다.`);
-      } else {
-        if (DBUserData.some((item) => item.nickname === user.displayName)) {
-          const nickname = prompt(
-            "동일한 닉네임이 있습니다. 다른 닉네임을 적어주세요"
-          );
-          if (nickname === null) return false;
-          await addDoc(collection(db, "users"), {
-            ...users,
-            email: user.email,
-            nickname,
-            profile: user.photoURL,
-          });
-          localStorage.setItem("accessToken", user.accessToken);
-          localStorage.setItem("nickname", nickname);
-          localStorage.setItem("profile", user.photoURL);
-          localStorage.setItem("email", user.email);
-          navigate("/");
-          showToast("success", `${nickname}님 환영합니다.`);
-        } else {
-          await addDoc(collection(db, "users"), {
-            ...users,
-            email: user.email,
-            nickname: user.displayName,
-            profile: user.photoURL,
-          });
-          localStorage.setItem("accessToken", user.accessToken);
-          localStorage.setItem("nickname", user.displayName);
-          localStorage.setItem("profile", user.photoURL);
-          localStorage.setItem("email", user.email);
-          navigate("/");
-          showToast("success", `${user.displayName}님 환영합니다.`);
-        }
-      }
-    });
+    //   const auth = getAuth();
+    //   const provider = new GoogleAuthProvider();
+    //   signInWithPopup(auth, provider).then(async (userCredential) => {
+    //     const user = userCredential.user;
+    //     const DBUserData = await userData();
+    //     const myData = DBUserData.filter((item) => item.email === user.email);
+    //     // 나의 회원 테이블이 DB에 있다는 소리
+    //     if (DBUserData.some((item) => item.email === user.email)) {
+    //       localStorage.setItem("accessToken", user.accessToken);
+    //       localStorage.setItem("nickname", myData[0].nickname);
+    //       localStorage.setItem("profile", myData[0].profile);
+    //       localStorage.setItem("email", myData[0].email);
+    //       navigate("/");
+    //       showToast("success", `${myData[0].nickname}님 환영합니다.`);
+    //     } else {
+    //       if (DBUserData.some((item) => item.nickname === user.displayName)) {
+    //         const nickname = prompt(
+    //           "동일한 닉네임이 있습니다. 다른 닉네임을 적어주세요"
+    //         );
+    //         if (nickname === null) return false;
+    //         await addDoc(collection(db, "users"), {
+    //           ...users,
+    //           email: user.email,
+    //           nickname,
+    //           profile: user.photoURL,
+    //         });
+    //         localStorage.setItem("accessToken", user.accessToken);
+    //         localStorage.setItem("nickname", nickname);
+    //         localStorage.setItem("profile", user.photoURL);
+    //         localStorage.setItem("email", user.email);
+    //         navigate("/");
+    //         showToast("success", `${nickname}님 환영합니다.`);
+    //       } else {
+    //         await addDoc(collection(db, "users"), {
+    //           ...users,
+    //           email: user.email,
+    //           nickname: user.displayName,
+    //           profile: user.photoURL,
+    //         });
+    //         localStorage.setItem("accessToken", user.accessToken);
+    //         localStorage.setItem("nickname", user.displayName);
+    //         localStorage.setItem("profile", user.photoURL);
+    //         localStorage.setItem("email", user.email);
+    //         navigate("/");
+    //         showToast("success", `${user.displayName}님 환영합니다.`);
+    //       }
+    //     }
+    //   });
   };
 
   return (
