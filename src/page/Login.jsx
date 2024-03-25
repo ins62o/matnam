@@ -12,8 +12,8 @@ import Logo from "../asset/Logo.webp";
 import { MenuStateAtom, usersAtom } from "../Recoil/atom";
 import { userData } from "../Firebase/mypageFn";
 import { changeMenu } from "./../hooks/action/changeMenu";
-import { localLogin } from "../hooks/action/localLogin";
-import { googleLogin } from "../hooks/action/googleLogin";
+import { localLogin } from "../hooks/action/loginLocal";
+import { googleLogin } from "../hooks/action/loginGoogle";
 import { showToast } from "../services/sweetalert";
 
 export default function Login() {
@@ -43,7 +43,7 @@ export default function Login() {
 
   // 구글 로그인
   const googleLoginhandle = async () => {
-    googleLogin(showToast, navigate, users);
+    googleLogin(navigate, users);
   };
 
   return (
