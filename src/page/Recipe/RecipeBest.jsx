@@ -1,28 +1,16 @@
 // 외부 - import
 import React from "react";
 import styled from "styled-components";
-import { useQuery } from "@tanstack/react-query";
 
 // 내부 - import
 import RecipeCard from "../../component/RecipeCard";
-import { likeRecipes } from "../../Firebase/firebaseFn";
+import { useLikeQuery } from "../../hooks/api/useLikeQuery";
 import CardSkeleton from "../CardSkeleton";
 
 export default function RecipeBest() {
-  const { error, isLoading, data } = useQuery({
-    queryKey: ["likeRecipe"],
-    queryFn: likeRecipes,
-  });
+  const { data, isLoading, error } = useLikeQuery();
 
-  if (isLoading)
-    return (
-      <Container>
-        <div className="best-title"> 인기 레시피 TOP 3🏆</div>
-        <CardSkeleton />
-        <CardSkeleton />
-        <CardSkeleton />
-      </Container>
-    );
+  if (isLoading) return <CardSkeleton />;
   if (error) return <p>{error}</p>;
 
   return (
