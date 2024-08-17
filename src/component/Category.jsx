@@ -15,7 +15,7 @@ export default function Category({ title, icon, categoryName }) {
   };
   return (
     <Container
-      className={categoryName == `${title}` ? "Onmenu-box" : "menu-box"}
+      className={categoryName === `${title}` ? "Onmenu-box" : "menu-box"}
       onClick={() => handleMenuClick(title)}
     >
       <div className="menu-icon">{icon}</div>

@@ -171,7 +171,7 @@ export default function RecipeDetail() {
           ))}
         </Swiper>
         <div>
-          <div className="ingredient">재료🪹</div>
+          <div className="ingredient">재료💫</div>
           <div className="ing-info">
             {data.ingredients.map((item, index) => (
               <div className="info-box" key={index}>
