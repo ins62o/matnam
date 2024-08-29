@@ -23,6 +23,14 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          REACT_APP_APP_KEY: ${{ secrets.REACT_APP_APP_KEY }}
+          REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
+          REACT_APP_PROJECTID: ${{ secrets.REACT_APP_PROJECTID }}
+          REACT_APP_STORAGEBUCKET: ${{ secrets.REACT_APP_STORAGEBUCKET }}
+          REACT_APP_MESSAGINGSENDERID: ${{ secrets.REACT_APP_MESSAGINGSENDERID }}
+          REACT_APP_APP_ID: ${{ secrets.REACT_APP_APP_ID }}
+          REACT_APP_MEASUREMENTID: ${{ secrets.REACT_APP_MEASUREMENTID }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
