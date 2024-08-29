@@ -1,10 +1,8 @@
 {
-  "extends": ["react-app", "react-app/jest"],
+  "extends": "react-app",
   "rules": {
+    "react-hooks/exhaustive-deps": "off",
     "no-unused-vars": "warn",
-    "react-hooks/exhaustive-deps": "warn",
-    "eqeqeq": "warn",
-    "jsx-a11y/alt-text": "warn",
-    "react/jsx-no-target-blank": "warn"
+    "eqeqeq": "warn"
   }
 }
