@@ -1,5 +1,5 @@
 // 외부 - import
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";

@@ -8,9 +8,9 @@ export default function RecipeCard({ color, data }) {
   // color : 1등 , 2등 ,3등 border 색상 , data : RecipeNew 에서 받아온 레시피 데이터값
   const [heart, setHeart] = useState(false);
   const email = localStorage.getItem("email");
-  if (color == 1) color = "var(--main-color)";
-  if (color == 2) color = "var(--gray-400)";
-  if (color == 3) color = "#826a5d;";
+  if (color === 1) color = "var(--main-color)";
+  if (color === 2) color = "var(--gray-400)";
+  if (color === 3) color = "#826a5d;";
 
   // 카드박스 - 좋아요 처리
   useEffect(() => {

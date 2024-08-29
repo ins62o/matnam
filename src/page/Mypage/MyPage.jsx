@@ -43,7 +43,7 @@ export default function MyPage() {
   const searchParams = new URLSearchParams(location.search);
   const UrlEmail = searchParams.get("email");
 
-  const { error, isLoading, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ["userData", UrlEmail],
     queryFn: () => userData(UrlEmail),
   });
@@ -57,7 +57,7 @@ export default function MyPage() {
       setModal(false);
       setModalTwo(false);
     };
-  }, [data]);
+  }, [data, email]);
 
   // 하단 메뉴바 상태 관리 - useEffect
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function MyPage() {
         mypage: false,
       }));
     };
-  }, [menu.mypage]);
+  }, [menu.mypage, setMenu]);
 
   // 로그아웃 함수 - logout
   const logout = () => {

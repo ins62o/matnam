@@ -1,7 +1,7 @@
 // 외부 - import
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { doc, updateDoc, collection, addDoc } from "firebase/firestore";
@@ -28,7 +28,7 @@ export default function RecipeBtnBar({ next }) {
     } else {
       setPage(next === "1" ? "/RecipeWriteTwo" : "/RecipeWriteThree");
     }
-  }, [next]);
+  }, [next, id]);
 
   // 레시피 작성
   const createData = async () => {

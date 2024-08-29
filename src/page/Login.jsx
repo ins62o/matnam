@@ -14,7 +14,6 @@ import { userData } from "../Firebase/mypageFn";
 import { changeMenu } from "./../hooks/action/changeMenu";
 import { localLogin } from "../hooks/action/loginLocal";
 import { googleLogin } from "../hooks/action/loginGoogle";
-import { showToast } from "../services/sweetalert";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -29,7 +28,7 @@ export default function Login() {
     return () => {
       changeMenu("Login", false, setMenu);
     };
-  }, [menu.Login]);
+  }, [menu.Login, setMenu]);
 
   // 엔터키 Keydown 이벤트 적용
   const handleEnter = (e) => {

@@ -1,11 +1,11 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 import styled from "styled-components";
 import { RecipeAtom } from "../Recoil/atom";
 
 export default function Category({ title, icon, categoryName }) {
-  const [recipe, setRecipe] = useRecoilState(RecipeAtom);
+  const setRecipe = useSetRecoilState(RecipeAtom);
 
   const handleMenuClick = (categoryName) => {
     setRecipe((prevRecipe) => ({

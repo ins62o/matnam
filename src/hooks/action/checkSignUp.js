@@ -52,12 +52,7 @@ export const checkSignup = async (
         }));
 
         // 파이어베이스 회원가입
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          idValue,
-          pwValue
-        );
-        const user = userCredential.user;
+        await createUserWithEmailAndPassword(auth, idValue, pwValue);
         updateProfile(auth.currentUser, {
           displayName: nicknameRef.current.value,
         });
