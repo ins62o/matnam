@@ -16,7 +16,7 @@ export default function RecipeBest() {
   return (
     <>
       <Container>
-        <div className="best-title"> CD 테스트 TOP 3🏆</div>
+        <div className="best-title"> 좋아요 레시피 TOP 3🏆</div>
         {data.slice(0, 3).map((data, index) => (
           <div className="card-container" key={data.id}>
             <div className={`rank-${index + 1} rank`}>{index + 1}</div>
