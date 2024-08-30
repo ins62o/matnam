@@ -11,6 +11,10 @@
 ### 🗂️ 메뉴(기능) 구조
 ![image](https://github.com/inseongei/matnam/assets/87432361/52162bd8-e5ab-4309-89a3-5c65bc142830)
 
+### ⚙ 상태 관리 구조
+![image](https://github.com/user-attachments/assets/e6bffe2b-1c1c-482c-bd59-e0b5f1d44e53)
+
+
 
 
 
