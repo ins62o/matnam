@@ -10,19 +10,21 @@ import { FaX } from "react-icons/fa6";
 import MenuBar from "../component/MenuBar";
 import Logo from "../asset/Logo.webp";
 import { MenuStateAtom, usersAtom } from "../Recoil/atom";
-import { userData } from "../Firebase/mypageFn";
 import { changeMenu } from "./../hooks/action/changeMenu";
-import { localLogin } from "../hooks/action/loginLocal";
-import { googleLogin } from "../hooks/action/loginGoogle";
+import { localLogin, SaveLocalData } from "../hooks/action/loginLocal";
+import { DBUserCheck, googleLogin } from "../hooks/action/loginGoogle";
+import { CheckValidate } from "../hooks/action/checkSignUp";
+import { showToast } from "../services/sweetalert";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Login() {
   const navigate = useNavigate();
   const [menu, setMenu] = useRecoilState(MenuStateAtom);
   const users = useRecoilValue(usersAtom);
-  const idRef = useRef();
-  const pwRef = useRef();
+  const id = useRef();
+  const pw = useRef();
 
-  // 메뉴바 상태 관리
   useEffect(() => {
     changeMenu("Login", true, setMenu);
     return () => {
@@ -30,19 +32,50 @@ export default function Login() {
     };
   }, [menu.Login, setMenu]);
 
-  // 엔터키 Keydown 이벤트 적용
   const handleEnter = (e) => {
     if (e.key === "Enter") localLoginHandle();
   };
 
-  // 로컬 로그인
-  const localLoginHandle = () => {
-    localLogin(idRef, pwRef, navigate, userData);
+  const localLoginHandle = async () => {
+    // 1. 로그인 유효성 검사
+    CheckValidate(id, pw);
+
+    // 2. 사용자 로그인
+    const user = await localLogin(id, pw);
+
+    // 3. 페이지 전환 및 토스트 알림
+    if (user) {
+      navigate("/");
+      showToast("success", `${user.displayName} 님 환영합니다.`);
+    }
   };
 
-  // 구글 로그인
   const googleLoginhandle = async () => {
-    googleLogin(navigate, users);
+    try {
+      // 1. 구글 로그인 시도
+      const user = await googleLogin();
+
+      // 2. DB 유저 정보 확인
+      const IsExisting = await DBUserCheck(user);
+      let nickname = user.displayName;
+
+      // 3. 기존 유저가 아니라면 새로운 유저 정보 추가
+      if (!IsExisting) {
+        await addDoc(collection(db, "users"), {
+          ...users,
+          email: user.email,
+          nickname: user.displayName,
+          profile: user.photoURL,
+        });
+      }
+
+      // 4. 로컬 스토리지 저장, 페이지 이동, 토스트 알림
+      await SaveLocalData(user);
+      navigate("/");
+      showToast("success", `${nickname}님 환영합니다.`);
+    } catch (error) {
+      console.error("로그인 처리 중 에러 발생:", error);
+    }
   };
 
   return (
@@ -65,14 +98,14 @@ export default function Login() {
               type="text"
               className="inputStyle"
               placeholder="아이디"
-              ref={idRef}
+              ref={id}
               onKeyDown={handleEnter}
             />
             <input
               type="password"
               className="inputStyle"
               placeholder="비밀번호"
-              ref={pwRef}
+              ref={pw}
               onKeyDown={handleEnter}
             />
             <button className="Login Btn" onClick={localLoginHandle}>
